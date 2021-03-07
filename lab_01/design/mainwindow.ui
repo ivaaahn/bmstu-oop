@@ -64,7 +64,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="dx_box"/>
+             <widget class="QDoubleSpinBox" name="dx_box"/>
             </item>
            </layout>
           </item>
@@ -78,7 +78,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="dy_box"/>
+             <widget class="QDoubleSpinBox" name="dy_box"/>
             </item>
            </layout>
           </item>
@@ -92,7 +92,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="dz_box"/>
+             <widget class="QDoubleSpinBox" name="dz_box"/>
             </item>
            </layout>
           </item>
@@ -144,7 +144,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="k_box"/>
+             <widget class="QDoubleSpinBox" name="kx_box"/>
             </item>
            </layout>
           </item>
@@ -158,7 +158,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="ky_box"/>
+             <widget class="QDoubleSpinBox" name="ky_box"/>
             </item>
            </layout>
           </item>
@@ -172,7 +172,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="kz_box"/>
+             <widget class="QDoubleSpinBox" name="kz_box"/>
             </item>
            </layout>
           </item>
@@ -224,7 +224,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="ax_box"/>
+             <widget class="QDoubleSpinBox" name="ax_box"/>
             </item>
            </layout>
           </item>
@@ -238,7 +238,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="at_box"/>
+             <widget class="QDoubleSpinBox" name="ay_box"/>
             </item>
            </layout>
           </item>
@@ -252,7 +252,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="az_box"/>
+             <widget class="QDoubleSpinBox" name="az_box"/>
             </item>
            </layout>
           </item>
