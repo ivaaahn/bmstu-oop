@@ -21,6 +21,8 @@ SOURCES += \
     sources/errors.cpp \
     sources/point.cpp \
     sources/line.cpp \
+    sources/drawer.cpp \
+    sources/model.cpp \
     sources/action.cpp
 
 
@@ -29,7 +31,9 @@ HEADERS += \
     includes/errors.h \
     includes/point.h \
     includes/line.h \
-    includes/action.h
+    includes/drawer.h \
+    includes/action.h \
+    includes/model.h
 
 FORMS += \
     design/mainwindow.ui

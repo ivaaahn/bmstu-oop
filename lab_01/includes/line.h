@@ -2,7 +2,7 @@
 #define _LINE_H_
 
 #include <cstdio>
-#include <stdlib.h>
+#include <cstdlib>
 
 #include "ui_mainwindow.h"
 #include "errors.h"
@@ -22,7 +22,7 @@ typedef struct
 } lines_t;
 
 
-err_t lines_handler(lines_t links, FILE *f);
+err_t lines_handler(lines_t &lines, FILE *datafile);
 void free_lines(const lines_t &lines);
 
 

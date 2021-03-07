@@ -12,7 +12,7 @@ typedef enum
     LCOUNT_ERR,
     PCOUNT_ERR,
     MEM_ERR,
-    UNKNOW_ERR
+    UNKNOWN_ERR
 } err_t;
 
 void err_handler(const err_t &code);

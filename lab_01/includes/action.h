@@ -1,9 +1,9 @@
 #ifndef _ACTION_H_
 #define _ACTION_H_
 
-
-// #include "figure.h"
+#include "model.h"
 #include "errors.h"
+
 
 enum actions
 {
@@ -15,20 +15,19 @@ enum actions
     QUIT
 };
 
-// typedef struct
-// {
-//     int task;
-//     union
-//     {
-//         fname_t file_name;
-//         scale_t scale;
-//         turn_t turn;
-//         move_t move;
-//         plane_t plane;
-//     };
-// } action_t;
+typedef struct
+{
+    int action;
+    union
+    {
+        filename_t fname;
+        scale_data_t scale;
+        rotate_data_t turn;
+        translate_data_t move;
+        canvas_t canvas;
+    };
+} request_t;
 
-
-// err_t action_handler(const action_t &request);
+err_t request_handler(const request_t &request);
 
 #endif // _ACTION_H_

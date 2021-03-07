@@ -1,9 +1,11 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef _MAINWINDOW_H_
+#define _MAINWINDOW_H_
 
 
 #include <QMainWindow>
 #include "ui_mainwindow.h"
+#include "action.h"
+#include "errors.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,7 +18,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
 private slots:
     void on_load_btn_clicked();
 
@@ -26,7 +27,12 @@ private slots:
 
     void on_translate_btn_clicked();
 
+    err_t draw_actions(void);
+
+
 private:
     Ui::MainWindow *ui;
 };
-#endif // MAINWINDOW_H
+
+
+#endif // _MAINWINDOW_H_

@@ -3,7 +3,7 @@
 
 
 #include "ui_mainwindow.h"
-// #include "draw.h"
+#include "drawer.h"
 #include "point.h"
 #include "line.h"
 #include "errors.h"
@@ -23,14 +23,14 @@ model_t &init_model(void);
 
 err_t load_model(model_t &figure, filename_t name);
 
-err_t draw_model(const model_t &figure,  const plane_t &plane);
+err_t draw_model(const model_t &figure,  const canvas_t &canvas);
 
-err_t move_model(model_t &figure, const move_t &coeffs);
+err_t translate_model(model_t &figure, const translate_data_t &coeffs);
 
-err_t scale_model(model_t &figure, const scale_t &coeffs);
+err_t scale_model(model_t &figure, const scale_data_t &coeffs);
 
-err_t turn_model(model_t &figure, const turn &coeffs);
+err_t rotate_model(model_t &figure, const rotate_data_t &coeffs);
 
-void free_model(const figure_t &figure);
+void free_model(const model_t &model);
 
 #endif

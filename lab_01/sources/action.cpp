@@ -1,38 +1,40 @@
 #include "action.h"
 
 
-// err_t action_handler(const action_t &request)
-// {
-//     err_t error_code = OK;
+err_t request_handler(const request_t &request)
+{
+    static model_t model = init_model();
 
-//     // switch (request.task)
-//     // {
-//     //     case LOAD:
-//     //         error_code = load_figure(figure, request.file_name);
-//     //         break;
+    err_t error_code = OK;
+
+    switch (request.action)
+    {
+        case LOAD:
+            error_code = load_model(model, request.fname);
+            break;
             
-//     //     case SCALE:
-//     //         error_code = scale_figure(figure, request.scale);
-//     //         break;
+        case SCALE:
+            error_code = scale_model(model, request.scale);
+            break;
         
-//     //     case ROTATE:
-//     //         error_code = turn_figure(figure, request.turn);
-//     //         break;
+        case ROTATE:
+            error_code = rotate_model(model, request.turn);
+            break;
         
-//     //     case TRANSLATE:
-//     //         error_code = move_figure(figure, request.move);
-//     //         break;
+        case TRANSLATE:
+            error_code = translate_model(model, request.move);
+            break;
         
-//     //     case DRAW:
-//     //         error_code = draw_figure(figure, request.plane);
-//     //         break;
+        case DRAW:
+            error_code = draw_model(model, request.canvas);
+            break;
         
-//     //     case QUIT:
-//     //         free_figure(figure);
-//     //         break;
-//     //     default:
-//     //         error_code = UNKNOWN_COMMAND;
-//     // }
+        case QUIT:
+            free_model(model);
+            break;
+        default:
+            error_code = UNKNOWN_ERR;
+    }
 
-//     return error_code;
-// }
+    return error_code;
+}

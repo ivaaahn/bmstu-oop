@@ -6,77 +6,78 @@ double to_rad(const double angle)
 }
 
 
-// static err_t read_amount(pdata_t &points, FILE *f)
-// {
-//     if ((fscanf(f, "%d", &points.size)) != 1)
-//     {
-//         return READ_ERR;
-//     }
+static err_t read_amount(points_t &points, FILE *f)
+{
+    if ((fscanf(f, "%zu", &points.count)) != 1)
+    {
+        return READ_ERR;
+    }
 
-//     if (points.size < 2)
-//     {
-//         return PCOUNT_ERR;
-//     }
+    if (points.count < 2)
+    {
+        return PCOUNT_ERR;
+    }
 
-//     return OK;
-// }
+    return OK;
+}
 
-// static err_t read_points(point_t *const array, const int size, FILE *f)
-// {
-//     for (int i = 0; i < size; i++)
-//     {
-//         if ((fscanf(f, "%lf %lf %lf", &array[i].x, &array[i].y, &array[i].z)) != 3)
-//         {
-//             return READ_ERR;
-//         }
-//     }
+static err_t read_points(point_t *const array, const size_t size, FILE *f)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        if ((fscanf(f, "%lf %lf %lf", &array[i].x, &array[i].y, &array[i].z)) != 3)
+        {
+            return READ_ERR;
+        }
+    }
 
-//     return OK;
-// }
+    return OK;
+}
 
-// static err_t allocate_links(pdata_t &points)
-// {
-//     point_t *temp_array = (point_t *)malloc(points.size * sizeof(point_t));
+static err_t allocate_links(points_t &points)
+{
+    point_t *temp_array = (point_t *)malloc(points.count * sizeof(point_t));
 
-//     if (temp_array == NULL)
-//     {
-//         return ALLOC_ERR;
-//     }
+    if (temp_array == NULL)
+    {
+        return ALLOC_ERR;
+    }
 
-//     points.array = temp_array;
+    points.data = temp_array;
 
-//     return OK;
-// }
+    return OK;
+}
 
-// void free_points(const pdata_t &points)
-// {
-//     if (points.array != NULL)
-//     {
-//         free(points.array);
-//     }
-// }
+void free_points(const points_t &points)
+{
+    // TODO: WHY SHOULD WE CHECK ???
+    if (points.data != NULL)
+    {
+        free(points.data);
+    }
+}
 
-// err_t handle_points(pdata_t &points, FILE *f)
-// {
-//     err_t error_code = OK;
+err_t points_handler(points_t &points, FILE *datafile)
+{
+    err_t error_code = OK;
 
-//     if ((error_code = read_amount(points, f)))
-//     {
-//         return error_code;
-//     }
+    if ((error_code = read_amount(points, datafile)))
+    {
+        return error_code;
+    }
 
-//     if ((error_code = allocate_links(points)))
-//     {
-//         return error_code;
-//     }
+    if ((error_code = allocate_links(points)))
+    {
+        return error_code;
+    }
 
-//     if ((error_code = read_points(points.array, points.size, f)))
-//     {
-//         free_points(points);
-//     }
+    if ((error_code = read_points(points.data, points.count, datafile)))
+    {
+        free_points(points);
+    }
 
-//     return error_code;
-// }
+    return error_code;
+}
 
 void translate_point(point_t &point, const translate_data_t &values)
 {
@@ -92,7 +93,7 @@ void scale_point(point_t &point, const scale_data_t &values)
     point.z *= values.kz;
 }
 
-void turn_x(point_t &point, const double theta)
+void rotate_x(point_t &point, const double theta)
 {
     double cos_theta = cos(to_rad(theta));
     double sin_theta = sin(to_rad(theta));
@@ -102,7 +103,7 @@ void turn_x(point_t &point, const double theta)
     point.z = temp_y * sin_theta + point.z * cos_theta;
 }
 
-void turn_y(point_t &point, const double theta)
+void rotate_y(point_t &point, const double theta)
 {
     double cos_theta = cos(to_rad(theta));
     double sin_theta = sin(to_rad(theta));
@@ -112,7 +113,7 @@ void turn_y(point_t &point, const double theta)
     point.z = -temp_x * sin_theta + point.z * cos_theta;
 }
 
-void turn_z(point_t &point, const double theta)
+void rotate_z(point_t &point, const double theta)
 {
     double cos_theta = cos(to_rad(theta));
     double sin_theta = sin(to_rad(theta));
