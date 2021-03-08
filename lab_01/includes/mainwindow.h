@@ -1,14 +1,21 @@
 #ifndef _MAINWINDOW_H_
 #define _MAINWINDOW_H_
 
-
 #include <QMainWindow>
 #include "ui_mainwindow.h"
-#include "action.h"
+#include "request.h"
 #include "errors.h"
 
+#define W 981
+#define H 710
+
+#define PATH_TO_DATAFILE "../../data/datafile"
+
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui
+{
+    class MainWindow;
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -29,10 +36,8 @@ private slots:
 
     err_t draw_actions(void);
 
-
 private:
     Ui::MainWindow *ui;
 };
-
 
 #endif // _MAINWINDOW_H_

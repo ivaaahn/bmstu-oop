@@ -23,7 +23,7 @@ SOURCES += \
     sources/line.cpp \
     sources/drawer.cpp \
     sources/model.cpp \
-    sources/action.cpp
+    sources/request.cpp
 
 
 HEADERS += \
@@ -32,7 +32,7 @@ HEADERS += \
     includes/point.h \
     includes/line.h \
     includes/drawer.h \
-    includes/action.h \
+    includes/request.h \
     includes/model.h
 
 FORMS += \

@@ -6,9 +6,9 @@
 typedef enum 
 {
     OK,
-    FILE_ERR,
+    FOPEN_ERR,
     ALLOC_ERR,
-    READ_ERR,
+    FREAD_ERR,
     LCOUNT_ERR,
     PCOUNT_ERR,
     MEM_ERR,

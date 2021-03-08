@@ -1,13 +1,13 @@
 #include "mainwindow.h"
 #include <stdio.h>
 
+
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     QGraphicsScene *scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
-    ui->graphicsView->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-    scene->setSceneRect(0, 0, 640, 480);
+    scene->setSceneRect(5, 5, W, H);
 }
 
 MainWindow::~MainWindow(void)
@@ -30,30 +30,30 @@ err_t MainWindow::draw_actions(void)
     request.action = DRAW;
     request.canvas = canvas;
 
-    err_t error_code = request_handler(request);
+    err_t rc = request_handler(request);
 
-    return error_code;
+    return rc;
 }
 
 void MainWindow::on_load_btn_clicked(void)
 {
-    filename_t name = "../../data/data.csv";
+    filename_t name = PATH_TO_DATAFILE;
     request_t request;
 
     request.action = LOAD;
     request.fname = name;
 
-    err_t error_code = request_handler(request);
-    if (error_code)
+    err_t rc = OK;
+    
+    if ((rc = request_handler(request)) != OK)
     {
-        err_handler(error_code);
+        err_handler(rc);
         return;
     }
 
-    error_code = draw_actions();
-    if (error_code)
+    if ((rc = draw_actions()) != OK)
     {
-        err_handler(error_code);
+        err_handler(rc);
     }
 }
 
@@ -66,19 +66,19 @@ void MainWindow::on_translate_btn_clicked(void)
 
     request_t request;
     request.action = TRANSLATE;
-    request.move = coeffs;
+    request.translate_data = coeffs;
 
-    err_t error_code = request_handler(request);
-    if (error_code)
+    err_t rc = OK;
+    
+    if ((rc = request_handler(request)) != OK)
     {
-        err_handler(error_code);
+        err_handler(rc);
         return;
     }
 
-    error_code = draw_actions();
-    if (error_code)
+    if ((rc = draw_actions()) != OK)
     {
-        err_handler(error_code);
+        err_handler(rc);
     }
 }
 
@@ -91,19 +91,19 @@ void MainWindow::on_scale_btn_clicked(void)
 
     request_t request;
     request.action = SCALE;
-    request.scale = coeffs;
+    request.scale_data = coeffs;
 
-    err_t error_code = request_handler(request);
-    if (error_code)
+    err_t rc = OK;
+
+    if ((rc = request_handler(request)))
     {
-        err_handler(error_code);
+        err_handler(rc);
         return;
     }
 
-    error_code = draw_actions();
-    if (error_code)
+    if ((rc = draw_actions()) != OK)
     {
-        err_handler(error_code);
+        err_handler(rc);
     }
 }
 
@@ -116,19 +116,29 @@ void MainWindow::on_rotate_btn_clicked(void)
 
     request_t request;
     request.action = ROTATE;
-    request.turn = coeffs;
+    request.rotate_data = coeffs;
 
-    err_t error_code = request_handler(request);
-    if (error_code)
+    err_t rc = OK;
+    
+    if ((rc = request_handler(request)) != OK)
     {
-        err_handler(error_code);
+        err_handler(rc);
         return;
     }
 
-    error_code = draw_actions();
-    if (error_code)
+    if ((rc = draw_actions()) != OK)
     {
-        err_handler(error_code);
+        err_handler(rc);
     }
 }
 
+
+
+// void MainWindow::resizeEvent(QResizeEvent *event)
+// {
+//     int width = ui->graphicsView->width();
+//     int height = ui->graphicsView->height();
+
+//     ui->graphicsView->scene()->setSceneRect(0, 0, width, height);
+
+//  }

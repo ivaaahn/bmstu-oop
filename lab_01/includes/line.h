@@ -10,8 +10,8 @@
 
 typedef struct 
 {
-    int point_1;
-    int point_2;
+    int point_ref_1;
+    int point_ref_2;
 } line_t;
 
 
@@ -22,7 +22,7 @@ typedef struct
 } lines_t;
 
 
-err_t lines_handler(lines_t &lines, FILE *datafile);
+err_t lines_reader(lines_t &lines, FILE *datafile);
 void free_lines(const lines_t &lines);
 
 

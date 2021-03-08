@@ -4,31 +4,31 @@ void err_handler(const err_t &code)
 {
     switch (code)
     {
-    case FILE_ERR:
-        QMessageBox::critical(NULL, "Ошибка", "При открытии файла произошла ошибка.");
+    case FOPEN_ERR:
+        QMessageBox::critical(NULL, "Ошибка", "При открытии файла произошла ошибка!");
         break;
 
     case ALLOC_ERR:
-        QMessageBox::critical(NULL, "Ошибка", "При выделении памяти произошла ошибка.");
+        QMessageBox::critical(NULL, "Ошибка", "При выделении памяти произошла ошибка!");
         break;
 
-    case READ_ERR:
-        QMessageBox::critical(NULL, "Ошибка", "При чтении файла произошла ошибка.");
+    case FREAD_ERR:
+        QMessageBox::critical(NULL, "Ошибка", "При чтении файла произошла ошибка!");
         break;
 
     case PCOUNT_ERR:
-        QMessageBox::critical(NULL, "Ошибка", "Некорретный размер количества точек.");
+        QMessageBox::critical(NULL, "Ошибка", "Некорретное кол-во точек!");
         break;
 
     case LCOUNT_ERR:
-        QMessageBox::critical(NULL, "Ошибка", "Некорректный размер количества линий.");
+        QMessageBox::critical(NULL, "Ошибка", "Некорректное кол-во линий!");
         break;
 
     case MEM_ERR:
-        QMessageBox::critical(NULL, "Ошибка", "Ошибка при обращении к данным.");
+        QMessageBox::critical(NULL, "Ошибка", "Ошибка при обращении к данным!");
         break;
 
     default:
-        QMessageBox::critical(NULL, "Ошибка", "Неизвестная команда.");
+        QMessageBox::critical(NULL, "Ошибка", "Неизвестная команда!");
     }
 }

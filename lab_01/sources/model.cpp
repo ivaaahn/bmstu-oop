@@ -1,9 +1,10 @@
 #include "model.h"
 #include "point.h"
 
-model_t &init_model(void)
+model_t &create_model(void)
 {
     static model_t model;
+    
     model.lines.data = NULL;
     model.lines.count = 0;
 
@@ -13,60 +14,60 @@ model_t &init_model(void)
     return model;
 }
 
-static err_t load_temp_model(model_t &temp_model, FILE *datafile)
+static err_t load_model(model_t &new_model, FILE *datafile)
 {
-    err_t error_code = OK;
-    if ((error_code = points_handler(temp_model.points, datafile)))
+    err_t rc = OK;
+
+    if ((rc = points_reader(new_model.points, datafile)) != OK)
     {
-        return error_code;
+        return rc;
     }
 
-    if ((error_code = lines_handler(temp_model.lines, datafile)))
+    if ((rc = lines_reader(new_model.lines, datafile)) != OK)
     {
-        free_points(temp_model.points);
+        free_model(new_model);
+        // free_points(new_model.points);
     }
 
-    return error_code;
+    return rc;
 }
 
-
-err_t load_model(model_t &model, filename_t fname)
+err_t init_model(model_t &model, filename_t fname)
 {
     FILE *datafile = NULL;
-    printf("%s", fname);
-
     if ((datafile = fopen(fname, "r")) == NULL)
     {
-        return FILE_ERR;
+        return FOPEN_ERR;
     }
-    
-    err_t error_code = OK;
-    model_t temp_model = init_model();
-    error_code = load_temp_model(temp_model, datafile);
+
+    err_t rc = OK;
+    model_t new_model = create_model();
+    rc = load_model(new_model, datafile);
     fclose(datafile);
 
-    if (!error_code)
-    {   
-        free_model(model);
-        model = temp_model;
+    if (rc != OK)
+    {
+        return rc;
     }
 
-    return error_code;
+    free_model(model);
+    model = new_model;
+
+    return OK;
 }
 
-err_t draw_model(const model_t &model,  const canvas_t &canvas)
+err_t draw_model(const model_t &model, const canvas_t &canvas)
 {
-    if (model.lines.data == NULL || model.points.data == NULL)
+    if (!(model.lines.data && model.points.data))
     {
         return MEM_ERR;
     }
 
     canvas.scene->clear();
-    draw_lines(model.lines, model.points, canvas);
+    drawer(model.lines, model.points, canvas);
 
     return OK;
 }
-
 
 static void translate_points(points_t &points, const translate_data_t &coeffs)
 {
@@ -78,7 +79,7 @@ static void translate_points(points_t &points, const translate_data_t &coeffs)
 
 err_t translate_model(model_t &model, const translate_data_t &coeffs)
 {
-    if (model.points.data == NULL || model.lines.data == NULL)
+    if (!(model.points.data && model.lines.data))
     {
         return MEM_ERR;
     }
@@ -98,7 +99,7 @@ static void scale_points(points_t &points, const scale_data_t &coeffs)
 
 err_t scale_model(model_t &model, const scale_data_t &coeffs)
 {
-    if (model.points.data == NULL || model.lines.data == NULL)
+    if (!(model.points.data && model.lines.data))
     {
         return MEM_ERR;
     }
@@ -112,19 +113,19 @@ static void rotate_points(points_t &points, const rotate_data_t &coeffs)
 {
     for (size_t i = 0; i < points.count; i++)
     {
-        rotate_x(points.data[i], coeffs.ax);
-        rotate_y(points.data[i], coeffs.ay);
-        rotate_z(points.data[i], coeffs.az);
+        rotate_x_axis(points.data[i], coeffs.ax);
+        rotate_y_axis(points.data[i], coeffs.ay);
+        rotate_z_axis(points.data[i], coeffs.az);
     }
 }
 
 err_t rotate_model(model_t &model, const rotate_data_t &coeffs)
 {
-    if (model.points.data == NULL || model.lines.data == NULL)
+    if (!(model.points.data && model.lines.data))
     {
         return MEM_ERR;
     }
-
+    
     rotate_points(model.points, coeffs);
 
     return OK;

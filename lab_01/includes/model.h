@@ -19,9 +19,9 @@ typedef struct
 
 
 
-model_t &init_model(void);
+model_t &create_model(void);
 
-err_t load_model(model_t &figure, filename_t name);
+err_t init_model(model_t &figure, filename_t name);
 
 err_t draw_model(const model_t &figure,  const canvas_t &canvas);
 

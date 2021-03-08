@@ -41,21 +41,18 @@ typedef struct
     double az;
 } rotate_data_t;
 
-
-err_t points_handler(points_t &points, FILE *datafile);
+err_t points_reader(points_t &points, FILE *datafile);
 
 void translate_point(point_t &point, const translate_data_t &coeffs);
 
 void scale_point(point_t &point, const scale_data_t &coeffs);
 
-void rotate_x(point_t &point, const double theta);
+void rotate_x_axis(point_t &point, const double theta);
 
-void rotate_y(point_t &point, const double theta);
+void rotate_y_axis(point_t &point, const double theta);
 
-void rotate_z(point_t &point, const double theta);
+void rotate_z_axis(point_t &point, const double theta);
 
 void free_points(const points_t &points);
-
-
 
 #endif // _POINT_H_

@@ -1,9 +1,8 @@
-#ifndef _ACTION_H_
-#define _ACTION_H_
+#ifndef _REQUEST_H_
+#define _REQUEST_H_
 
 #include "model.h"
 #include "errors.h"
-
 
 enum actions
 {
@@ -21,9 +20,9 @@ typedef struct
     union
     {
         filename_t fname;
-        scale_data_t scale;
-        rotate_data_t turn;
-        translate_data_t move;
+        scale_data_t scale_data;
+        rotate_data_t rotate_data;
+        translate_data_t translate_data;
         canvas_t canvas;
     };
 } request_t;

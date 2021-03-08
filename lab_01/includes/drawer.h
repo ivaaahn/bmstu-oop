@@ -8,11 +8,11 @@
 typedef struct
 {
     QGraphicsScene *scene;
-    double width;
-    double height;
+    int width;
+    int height;
 } canvas_t;
 
 
-void draw_lines(const lines_t &lines, const points_t &points, const canvas_t &canvas);
+void drawer(const lines_t &lines, const points_t &points, const canvas_t &canvas);
 
 #endif  // _DRAWER_H_
