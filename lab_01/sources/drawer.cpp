@@ -1,14 +1,11 @@
 #include "drawer.h"
 #include "point.h"
-#include "line.h"
-
 
 static void to_canvas_cs(point_t &point, const canvas_t &canvas)
 {
     point.x += canvas->width() / 2;
     point.y += canvas->height() / 2;
 }
-
 
 static void draw_line(const line_t &line, const point_t *const points, const canvas_t &canvas)
 {
