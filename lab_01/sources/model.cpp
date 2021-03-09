@@ -1,7 +1,8 @@
 #include "model.h"
-#include "point.h"
+#include "points.h"
+#include "lines.h"
 
-model_t &create_model(void)
+model_t &creator(void)
 {
     static model_t model;
 
@@ -14,32 +15,32 @@ model_t &create_model(void)
     return model;
 }
 
-static err_t load_model(model_t &new_model, FILE *datafile)
+static err_t load(model_t &new_model, FILE *datafile)
 {
     err_t rc = OK;
 
-    if ((rc = points_reader(new_model.points, datafile)) != OK)
+    if ((rc = loader(new_model.points, datafile)) != OK)
         return rc;
 
-    if ((rc = lines_reader(new_model.lines, datafile)) != OK)
-        free_model(new_model);
+    if ((rc = loader(new_model.lines, datafile)) != OK)
+        destructor(new_model);
 
     return rc;
 }
 
-err_t init_model(model_t &model, filename_t fname)
+err_t init(model_t &model, filename_t fname)
 {
     FILE *datafile = NULL;
     if ((datafile = fopen(fname, "r")) == NULL)
         return FOPEN_ERR;
 
-    err_t rc = load_model(model, datafile);
+    err_t rc = load(model, datafile);
     fclose(datafile);
 
     return rc;
 }
 
-err_t update_model(const model_t &model, const canvas_t &canvas)
+err_t update(const model_t &model, const canvas_t &canvas)
 {
     if (!(model.lines.data && model.points.data))
         return MEM_ERR;
@@ -50,60 +51,38 @@ err_t update_model(const model_t &model, const canvas_t &canvas)
     return OK;
 }
 
-static void translate_points(points_t &points, const translate_data_t &coeffs)
-{
-    for (size_t i = 0; i < points.count; i++)
-        translate_point(points.data[i], coeffs);
-}
-
-err_t translate_model(model_t &model, const translate_data_t &coeffs)
+err_t translate(model_t &model, const translate_t &tr_data)
 {
     if (!(model.points.data && model.lines.data))
         return MEM_ERR;
 
-    translate_points(model.points, coeffs);
+    translate(model.points, tr_data);
 
     return OK;
 }
 
-static void scale_points(points_t &points, const scale_data_t &coeffs)
-{
-    for (size_t i = 0; i < points.count; i++)
-        scale_point(points.data[i], coeffs);
-}
-
-err_t scale_model(model_t &model, const scale_data_t &coeffs)
+err_t scale(model_t &model, const scale_t &sc_data)
 {
     if (!(model.points.data && model.lines.data))
         return MEM_ERR;
 
-    scale_points(model.points, coeffs);
+    scale(model.points, sc_data);
 
     return OK;
 }
 
-static void rotate_points(points_t &points, const rotate_data_t &coeffs)
-{
-    for (size_t i = 0; i < points.count; i++)
-    {
-        rotate_x_axis(points.data[i], coeffs.ax);
-        rotate_y_axis(points.data[i], coeffs.ay);
-        rotate_z_axis(points.data[i], coeffs.az);
-    }
-}
-
-err_t rotate_model(model_t &model, const rotate_data_t &coeffs)
+err_t rotate(model_t &model, const rotate_t &rot_data)
 {
     if (!(model.points.data && model.lines.data))
         return MEM_ERR;
 
-    rotate_points(model.points, coeffs);
+    rotate(model.points, rot_data);
 
     return OK;
 }
 
-void free_model(const model_t &model)
+void destructor(const model_t &model)
 {
-    free_points(model.points);
-    free_lines(model.lines);
+    destructor(model.points);
+    destructor(model.lines);
 }

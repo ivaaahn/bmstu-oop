@@ -1,13 +1,10 @@
 #ifndef _MODEL_H_
 #define _MODEL_H_
 
-
-#include "ui_mainwindow.h"
-#include "drawer.h"
-#include "point.h"
-#include "line.h"
+#include "points.h"
+#include "lines.h"
 #include "errors.h"
-
+#include "drawer.h"
 
 typedef const char *filename_t;
 
@@ -17,20 +14,13 @@ typedef struct
     lines_t lines;
 } model_t;
 
+model_t &creator(void);
+void destructor(const model_t &model);
 
-
-model_t &create_model(void);
-
-err_t init_model(model_t &figure, filename_t name);
-
-err_t update_model(const model_t &figure,  const canvas_t &canvas);
-
-err_t translate_model(model_t &figure, const translate_data_t &coeffs);
-
-err_t scale_model(model_t &figure, const scale_data_t &coeffs);
-
-err_t rotate_model(model_t &figure, const rotate_data_t &coeffs);
-
-void free_model(const model_t &model);
+err_t init(model_t &model, filename_t fname);
+err_t update(const model_t &model, const canvas_t &canvas);
+err_t translate(model_t &model, const translate_t &tr_data);
+err_t scale(model_t &model, const scale_t &sc_data);
+err_t rotate(model_t &model, const rotate_t &rot_data);
 
 #endif
