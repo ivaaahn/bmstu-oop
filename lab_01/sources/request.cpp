@@ -2,34 +2,34 @@
 
 err_t request_handler(const request_t &request)
 {
-    static model_t model = create_model();
+    static model_t model = creator();
 
     err_t rc = OK;
 
     switch (request.action)
     {
     case LOAD:
-        rc = init_model(model, request.fname);
+        rc = init(model, request.fname);
         break;
 
     case SCALE:
-        rc = scale_model(model, request.scale_data);
+        rc = scale(model, request.scale_data);
         break;
 
     case ROTATE:
-        rc = rotate_model(model, request.rotate_data);
+        rc = rotate(model, request.rotate_data);
         break;
 
     case TRANSLATE:
-        rc = translate_model(model, request.translate_data);
+        rc = translate(model, request.translate_data);
         break;
 
     case UPDATE:
-        rc = update_model(model, request.canvas);
+        rc = update(model, request.canvas);
         break;
 
     case QUIT:
-        free_model(model);
+        destructor(model);
         break;
 
     default:
