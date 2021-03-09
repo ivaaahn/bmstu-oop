@@ -6,7 +6,6 @@
 #include "request.h"
 #include "errors.h"
 
-
 #define CANVAS_OFFSET 5
 #define CANVAS_W 981
 #define CANVAS_H 710

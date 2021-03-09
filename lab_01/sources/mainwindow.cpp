@@ -35,17 +35,17 @@ void MainWindow::on_load_btn_clicked(void)
     err_t rc = OK;
     if ((rc = request_handler(load)) != OK)
     {
-        err_handler(rc);
+        handler(rc);
         return;
     }
 
     if ((rc = apply_actions()) != OK)
-        err_handler(rc);
+        handler(rc);
 }
 
 void MainWindow::on_translate_btn_clicked(void)
 {
-    translate_data_t tr_data;
+    translate_t tr_data;
     tr_data.dx = ui->dx_box->value();
     tr_data.dy = ui->dy_box->value();
     tr_data.dz = ui->dz_box->value();
@@ -55,17 +55,17 @@ void MainWindow::on_translate_btn_clicked(void)
     err_t rc = OK;
     if ((rc = request_handler(translate)) != OK)
     {
-        err_handler(rc);
+        handler(rc);
         return;
     }
 
     if ((rc = apply_actions()) != OK)
-        err_handler(rc);
+        handler(rc);
 }
 
 void MainWindow::on_scale_btn_clicked(void)
 {
-    scale_data_t sc_data;
+    scale_t sc_data;
     sc_data.kx = ui->kx_box->value();
     sc_data.ky = ui->ky_box->value();
     sc_data.kz = ui->kz_box->value();
@@ -75,17 +75,17 @@ void MainWindow::on_scale_btn_clicked(void)
     err_t rc = OK;
     if ((rc = request_handler(scale)) != OK)
     {
-        err_handler(rc);
+        handler(rc);
         return;
     }
 
     if ((rc = apply_actions()) != OK)
-        err_handler(rc);
+        handler(rc);
 }
 
 void MainWindow::on_rotate_btn_clicked(void)
 {
-    rotate_data_t rot_data;
+    rotate_t rot_data;
     rot_data.ax = ui->ax_box->value();
     rot_data.ay = ui->ay_box->value();
     rot_data.az = ui->az_box->value();
@@ -94,10 +94,10 @@ void MainWindow::on_rotate_btn_clicked(void)
     err_t rc = OK;
     if ((rc = request_handler(rotate)) != OK)
     {
-        err_handler(rc);
+        handler(rc);
         return;
     }
 
     if ((rc = apply_actions()) != OK)
-        err_handler(rc);
+        handler(rc);
 }
