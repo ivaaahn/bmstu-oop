@@ -24,8 +24,8 @@ err_t request_handler(const request_t &request)
         rc = translate(model, request.translate_data);
         break;
 
-    case UPDATE:
-        rc = update(model, request.canvas);
+    case RENDER:
+        rc = render(model, request.canvas);
         break;
 
     case QUIT:

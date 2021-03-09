@@ -36,7 +36,7 @@ private slots:
 
     void on_translate_btn_clicked();
 
-    err_t apply_actions(void);
+    err_t render_actions(void);
 
 private:
     Ui::MainWindow *ui;

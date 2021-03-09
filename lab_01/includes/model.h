@@ -18,7 +18,7 @@ model_t &creator(void);
 void destructor(const model_t &model);
 
 err_t init(model_t &model, filename_t fname);
-err_t update(const model_t &model, const canvas_t &canvas);
+err_t render(const model_t &model, const canvas_t &canvas);
 err_t translate(model_t &model, const translate_t &tr_data);
 err_t scale(model_t &model, const scale_t &sc_data);
 err_t rotate(model_t &model, const rotate_t &rot_data);

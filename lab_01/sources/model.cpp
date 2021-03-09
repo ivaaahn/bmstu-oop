@@ -40,7 +40,7 @@ err_t init(model_t &model, filename_t fname)
     return rc;
 }
 
-err_t update(const model_t &model, const canvas_t &canvas)
+err_t render(const model_t &model, const canvas_t &canvas)
 {
     if (!(model.lines.data && model.points.data))
         return MEM_ERR;

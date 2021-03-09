@@ -18,11 +18,11 @@ MainWindow::~MainWindow(void)
     delete ui;
 }
 
-err_t MainWindow::apply_actions(void)
+err_t MainWindow::render_actions(void)
 {
     canvas_t canvas = ui->graphicsView->scene();
-    request_t update = {.action = UPDATE, .canvas = canvas};
-    err_t rc = request_handler(update);
+    request_t render = {.action = RENDER, .canvas = canvas};
+    err_t rc = request_handler(render);
 
     return rc;
 }
@@ -39,7 +39,7 @@ void MainWindow::on_load_btn_clicked(void)
         return;
     }
 
-    if ((rc = apply_actions()) != OK)
+    if ((rc = render_actions()) != OK)
         handler(rc);
 }
 
@@ -59,7 +59,7 @@ void MainWindow::on_translate_btn_clicked(void)
         return;
     }
 
-    if ((rc = apply_actions()) != OK)
+    if ((rc = render_actions()) != OK)
         handler(rc);
 }
 
@@ -79,7 +79,7 @@ void MainWindow::on_scale_btn_clicked(void)
         return;
     }
 
-    if ((rc = apply_actions()) != OK)
+    if ((rc = render_actions()) != OK)
         handler(rc);
 }
 
@@ -98,6 +98,6 @@ void MainWindow::on_rotate_btn_clicked(void)
         return;
     }
 
-    if ((rc = apply_actions()) != OK)
+    if ((rc = render_actions()) != OK)
         handler(rc);
 }
