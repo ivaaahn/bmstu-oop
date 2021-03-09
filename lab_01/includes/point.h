@@ -1,12 +1,6 @@
 #ifndef _POINT_H_
 #define _POINT_H_
 
-#include <cstdio>
-#include <cstdlib>
-#include <cmath>
-
-#include "errors.h"
-
 typedef struct
 {
     double x;
@@ -16,43 +10,29 @@ typedef struct
 
 typedef struct
 {
-    size_t count = 0;
-    point_t *data = NULL;
-} points_t;
-
-typedef struct
-{
     double dx;
     double dy;
     double dz;
-} translate_data_t;
+} translate_t;
 
 typedef struct
 {
     double kx;
     double ky;
     double kz;
-} scale_data_t;
+} scale_t;
 
 typedef struct
 {
     double ax;
     double ay;
     double az;
-} rotate_data_t;
+} rotate_t;
 
-err_t points_reader(points_t &points, FILE *datafile);
+void translate(point_t &point, const translate_t &tr_data);
 
-void translate_point(point_t &point, const translate_data_t &coeffs);
+void scale(point_t &point, const scale_t &sc_data);
 
-void scale_point(point_t &point, const scale_data_t &coeffs);
-
-void rotate_x_axis(point_t &point, const double theta);
-
-void rotate_y_axis(point_t &point, const double theta);
-
-void rotate_z_axis(point_t &point, const double theta);
-
-void free_points(const points_t &points);
+void rotate(point_t &point, const rotate_t &rot_data);
 
 #endif // _POINT_H_
