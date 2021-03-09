@@ -6,12 +6,15 @@
 #include "request.h"
 #include "errors.h"
 
-#define W 981
-#define H 710
+
+#define CANVAS_OFFSET 5
+#define CANVAS_W 981
+#define CANVAS_H 710
 
 #define PATH_TO_DATAFILE "../../data/datafile"
 
 QT_BEGIN_NAMESPACE
+
 namespace Ui
 {
     class MainWindow;
@@ -34,7 +37,7 @@ private slots:
 
     void on_translate_btn_clicked();
 
-    err_t draw_actions(void);
+    err_t apply_actions(void);
 
 private:
     Ui::MainWindow *ui;

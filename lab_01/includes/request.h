@@ -10,7 +10,7 @@ enum actions
     TRANSLATE,
     SCALE,
     ROTATE,
-    DRAW,
+    UPDATE,
     QUIT
 };
 

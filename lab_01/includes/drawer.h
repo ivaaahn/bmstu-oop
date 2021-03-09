@@ -5,12 +5,16 @@
 #include "point.h"
 #include "line.h"
 
-typedef struct
-{
-    QGraphicsScene *scene;
-    int width;
-    int height;
-} canvas_t;
+
+typedef QGraphicsScene *canvas_t;
+
+
+// typedef struct
+// {
+//     QGraphicsScene *scene;
+//     int width;
+//     int height;
+// } canvas_t;
 
 
 void drawer(const lines_t &lines, const points_t &points, const canvas_t &canvas);

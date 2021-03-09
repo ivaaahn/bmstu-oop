@@ -24,13 +24,14 @@ err_t request_handler(const request_t &request)
         rc = translate_model(model, request.translate_data);
         break;
 
-    case DRAW:
-        rc = draw_model(model, request.canvas);
+    case UPDATE:
+        rc = update_model(model, request.canvas);
         break;
 
     case QUIT:
         free_model(model);
         break;
+
     default:
         rc = UNKNOWN_ERR;
     }

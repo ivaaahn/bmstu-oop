@@ -23,7 +23,7 @@ model_t &create_model(void);
 
 err_t init_model(model_t &figure, filename_t name);
 
-err_t draw_model(const model_t &figure,  const canvas_t &canvas);
+err_t update_model(const model_t &figure,  const canvas_t &canvas);
 
 err_t translate_model(model_t &figure, const translate_data_t &coeffs);
 

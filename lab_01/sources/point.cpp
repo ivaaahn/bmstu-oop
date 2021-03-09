@@ -5,19 +5,15 @@ double to_rad(const double angle)
     return angle * M_PI / 180.0;
 }
 
-static err_t read_amount(points_t &points, FILE *datafile)
+static err_t read_count(points_t &points, FILE *datafile)
 {
     size_t tmp_count = 0;
 
     if ((fscanf(datafile, "%zu", &tmp_count)) != 1)
-    {
         return FREAD_ERR;
-    }
 
     if (tmp_count < 2)
-    {
         return PCOUNT_ERR;
-    }
 
     points.count = tmp_count;
 
@@ -27,12 +23,8 @@ static err_t read_amount(points_t &points, FILE *datafile)
 static err_t read_points(point_t *const points, const size_t size, FILE *datafile)
 {
     for (size_t i = 0; i < size; i++)
-    {
         if ((fscanf(datafile, "%lf %lf %lf", &points[i].x, &points[i].y, &points[i].z)) != 3)
-        {
             return FREAD_ERR;
-        }
-    }
 
     return OK;
 }
@@ -40,10 +32,8 @@ static err_t read_points(point_t *const points, const size_t size, FILE *datafil
 static err_t allocate_points(points_t &points)
 {
     point_t *temp_data = (point_t *)malloc(points.count * sizeof(point_t));
-    if (!temp_data)
-    {
+    if (temp_data == NULL)
         return ALLOC_ERR;
-    }
 
     points.data = temp_data;
 
@@ -59,20 +49,14 @@ err_t points_reader(points_t &points, FILE *datafile)
 {
     err_t rc = OK;
 
-    if ((rc = read_amount(points, datafile)) != OK)
-    {
+    if ((rc = read_count(points, datafile)) != OK)
         return rc;
-    }
 
     if ((rc = allocate_points(points)) != OK)
-    {
         return rc;
-    }
 
     if ((rc = read_points(points.data, points.count, datafile)) != OK)
-    {
         free_points(points);
-    }
 
     return rc;
 }
