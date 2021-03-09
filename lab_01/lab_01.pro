@@ -20,7 +20,8 @@ SOURCES += \
     sources/mainwindow.cpp \
     sources/errors.cpp \
     sources/point.cpp \
-    sources/line.cpp \
+    sources/points.cpp \
+    sources/lines.cpp \
     sources/drawer.cpp \
     sources/model.cpp \
     sources/request.cpp
@@ -30,7 +31,8 @@ HEADERS += \
     includes/mainwindow.h \
     includes/errors.h \
     includes/point.h \
-    includes/line.h \
+    includes/points.h \
+    includes/lines.h \
     includes/drawer.h \
     includes/request.h \
     includes/model.h
