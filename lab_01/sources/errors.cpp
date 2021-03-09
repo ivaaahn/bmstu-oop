@@ -1,6 +1,6 @@
 #include "errors.h"
 
-void err_handler(const err_t &code)
+void handler(const err_t &code)
 {
     switch (code)
     {

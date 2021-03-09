@@ -3,7 +3,7 @@
 
 #include <QMessageBox>
 
-typedef enum 
+typedef enum
 {
     OK,
     FOPEN_ERR,
@@ -15,8 +15,6 @@ typedef enum
     UNKNOWN_ERR
 } err_t;
 
-void err_handler(const err_t &code);
+void handler(const err_t &code);
 
-
-
-#endif  // _ERRORS_H_
+#endif // _ERRORS_H_
