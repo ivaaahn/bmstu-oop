@@ -1,4 +1,6 @@
-#include "line.h"
+#include "lines.h"
+#include "errors.h"
+#include <cstdio>
 
 static err_t read_count(lines_t &lines, FILE *datafile)
 {
@@ -14,16 +16,7 @@ static err_t read_count(lines_t &lines, FILE *datafile)
     return OK;
 }
 
-static err_t read_lines(line_t *const lines, const size_t &count, FILE *datafile)
-{
-    for (size_t i = 0; i < count; i++)
-        if ((fscanf(datafile, "%d %d", &lines[i].point_ref_1, &lines[i].point_ref_2)) != 2)
-            return FREAD_ERR;
-
-    return OK;
-}
-
-static err_t allocate_lines(lines_t &lines)
+static err_t allocate(lines_t &lines)
 {
     line_t *temp_data = (line_t *)malloc(lines.count * sizeof(line_t));
     if (temp_data == NULL)
@@ -34,23 +27,32 @@ static err_t allocate_lines(lines_t &lines)
     return OK;
 }
 
-void free_lines(const lines_t &lines)
+static err_t read_lines(line_t *const lines, const size_t &count, FILE *datafile)
+{
+    for (size_t i = 0; i < count; i++)
+        if ((fscanf(datafile, "%d %d", &lines[i].point_ref_1, &lines[i].point_ref_2)) != 2)
+            return FREAD_ERR;
+
+    return OK;
+}
+
+void destructor(const lines_t &lines)
 {
     free(lines.data);
 }
 
-err_t lines_reader(lines_t &lines, FILE *datafile)
+err_t loader(lines_t &lines, FILE *datafile)
 {
     err_t rc = OK;
 
     if ((rc = read_count(lines, datafile)))
         return rc;
 
-    if ((rc = allocate_lines(lines)))
+    if ((rc = allocate(lines)))
         return rc;
 
     if ((rc = read_lines(lines.data, lines.count, datafile)))
-        free_lines(lines);
+        destructor(lines);
 
     return rc;
 }
