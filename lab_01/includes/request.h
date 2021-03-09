@@ -20,9 +20,9 @@ typedef struct
     union
     {
         filename_t fname;
-        scale_data_t scale_data;
-        rotate_data_t rotate_data;
-        translate_data_t translate_data;
+        scale_t scale_data;
+        rotate_t rotate_data;
+        translate_t translate_data;
         canvas_t canvas;
     };
 } request_t;
