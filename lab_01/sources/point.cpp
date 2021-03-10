@@ -25,8 +25,8 @@ static void rotate_x_axis(point_t &point, const double angle)
 {
     double cos_theta = cos(to_rad(angle));
     double sin_theta = sin(to_rad(angle));
+    
     double temp_y = point.y;
-
     point.y = point.y * cos_theta - point.z * sin_theta;
     point.z = temp_y * sin_theta + point.z * cos_theta;
 }
@@ -35,8 +35,8 @@ static void rotate_y_axis(point_t &point, const double angle)
 {
     double cos_theta = cos(to_rad(angle));
     double sin_theta = sin(to_rad(angle));
-    double temp_x = point.x;
 
+    double temp_x = point.x;
     point.x = point.x * cos_theta + point.z * sin_theta;
     point.z = -temp_x * sin_theta + point.z * cos_theta;
 }
@@ -45,8 +45,8 @@ static void rotate_z_axis(point_t &point, const double angle)
 {
     double cos_theta = cos(to_rad(angle));
     double sin_theta = sin(to_rad(angle));
-    double temp_x = point.x;
 
+    double temp_x = point.x;
     point.x = point.x * cos_theta - point.y * sin_theta;
     point.y = temp_x * sin_theta + point.y * cos_theta;
 }
