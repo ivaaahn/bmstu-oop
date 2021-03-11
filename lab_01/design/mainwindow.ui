@@ -567,6 +567,9 @@
                 <stylestrategy>PreferAntialias</stylestrategy>
                </font>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::NoButtons</enum>
               </property>
@@ -617,6 +620,9 @@
                 <stylestrategy>PreferAntialias</stylestrategy>
                </font>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::NoButtons</enum>
               </property>
@@ -666,6 +672,9 @@
                 <bold>true</bold>
                 <stylestrategy>PreferAntialias</stylestrategy>
                </font>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
               </property>
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::NoButtons</enum>
@@ -1206,8 +1215,20 @@
                 <stylestrategy>PreferAntialias</stylestrategy>
                </font>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::NoButtons</enum>
+              </property>
+              <property name="accelerated">
+               <bool>false</bool>
+              </property>
+              <property name="showGroupSeparator" stdset="0">
+               <bool>false</bool>
+              </property>
+              <property name="decimals">
+               <number>2</number>
               </property>
               <property name="minimum">
                <double>-9999.000000000000000</double>
@@ -1255,6 +1276,9 @@
                 <bold>true</bold>
                 <stylestrategy>PreferAntialias</stylestrategy>
                </font>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
               </property>
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::NoButtons</enum>
@@ -1305,6 +1329,9 @@
                 <bold>true</bold>
                 <stylestrategy>PreferAntialias</stylestrategy>
                </font>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
               </property>
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::NoButtons</enum>
@@ -1845,6 +1872,9 @@
                 <stylestrategy>PreferAntialias</stylestrategy>
                </font>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::NoButtons</enum>
               </property>
@@ -1895,6 +1925,9 @@
                 <stylestrategy>PreferAntialias</stylestrategy>
                </font>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::NoButtons</enum>
               </property>
@@ -1944,6 +1977,9 @@
                 <bold>true</bold>
                 <stylestrategy>PreferAntialias</stylestrategy>
                </font>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
               </property>
               <property name="buttonSymbols">
                <enum>QAbstractSpinBox::NoButtons</enum>
