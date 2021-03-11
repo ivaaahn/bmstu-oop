@@ -22,20 +22,22 @@ SOURCES += \
     sources/point.cpp \
     sources/points.cpp \
     sources/lines.cpp \
+    sources/line.cpp \
     sources/drawer.cpp \
     sources/model.cpp \
     sources/request.cpp
 
 
 HEADERS += \
-    includes/mainwindow.h \
-    includes/errors.h \
-    includes/point.h \
-    includes/points.h \
-    includes/lines.h \
-    includes/drawer.h \
-    includes/request.h \
-    includes/model.h
+    includes/mainwindow.hpp \
+    includes/errors.hpp \
+    includes/point.hpp \
+    includes/points.hpp \
+    includes/lines.hpp \
+    includes/line.hpp \
+    includes/drawer.hpp \
+    includes/request.hpp \
+    includes/model.hpp
 
 FORMS += \
     design/mainwindow.ui
