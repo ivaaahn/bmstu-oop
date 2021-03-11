@@ -1,5 +1,5 @@
-#include "drawer.h"
-#include "point.h"
+#include "drawer.hpp"
+#include "point.hpp"
 
 static void to_canvas_cs(point_t &point, const canvas_t &canvas)
 {

@@ -1,20 +1,30 @@
-#include "cmath"
+#include <cmath>
+#include "errors.hpp"
 
-#include "point.h"
+#include "point.hpp"
+
+
+err_t read_point(point_t &p, FILE *datafile)
+{
+    if (fscanf(datafile, "%lf %lf %lf", &p.x, &p.y, &p.z) != 3)
+        return ERR_FREAD;
+
+    return SUCCESS;
+}
 
 double to_rad(const double angle)
 {
     return angle * M_PI / 180.0;
 }
 
-void translate(point_t &point, const translate_t &tr_data)
+void translate_point(point_t &point, const translate_t &tr_data)
 {
     point.x += tr_data.dx;
     point.y += tr_data.dy;
     point.z += tr_data.dz;
 }
 
-void scale(point_t &point, const scale_t &sc_data)
+void scale_point(point_t &point, const scale_t &sc_data)
 {
     point.x *= sc_data.kx;
     point.y *= sc_data.ky;
@@ -51,7 +61,7 @@ static void rotate_z_axis(point_t &point, const double angle)
     point.y = temp_x * sin_theta + point.y * cos_theta;
 }
 
-void rotate(point_t &point, const rotate_t &rot_data)
+void rotate_point(point_t &point, const rotate_t &rot_data)
 {
     rotate_x_axis(point, rot_data.ax);
     rotate_y_axis(point, rot_data.ay);

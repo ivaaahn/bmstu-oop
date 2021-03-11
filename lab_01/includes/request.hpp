@@ -1,8 +1,8 @@
-#ifndef _REQUEST_H_
-#define _REQUEST_H_
+#ifndef _REQUEST_HPP_
+#define _REQUEST_HPP_
 
-#include "model.h"
-#include "errors.h"
+#include "model.hpp"
+#include "errors.hpp"
 
 enum actions
 {
@@ -10,7 +10,7 @@ enum actions
     TRANSLATE,
     SCALE,
     ROTATE,
-    RENDER,
+    REDRAW,
     QUIT
 };
 
@@ -29,4 +29,4 @@ typedef struct
 
 err_t request_handler(const request_t &request);
 
-#endif // _ACTION_H_
+#endif // _ACTION_HPP_

@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "mainwindow.hpp"
 #include <stdio.h>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 MainWindow::~MainWindow(void)
 {
-    request_t quit = {.action = QUIT};
+    request_t quit = {.action = actions::QUIT};
     request_handler(quit);
 
     delete ui;
@@ -21,8 +21,9 @@ MainWindow::~MainWindow(void)
 err_t MainWindow::render_actions(void)
 {
     canvas_t canvas = ui->graphicsView->scene();
-    request_t render = {.action = RENDER, .canvas = canvas};
-    err_t rc = request_handler(render);
+    request_t redraw = {.action = actions::REDRAW, .canvas = canvas};
+
+    err_t rc = request_handler(redraw);
 
     return rc;
 }
@@ -30,74 +31,74 @@ err_t MainWindow::render_actions(void)
 void MainWindow::on_load_btn_clicked(void)
 {
     filename_t name = PATH_TO_DATAFILE;
-    request_t load = {.action = LOAD, .fname = name};
+    request_t load = {.action = actions::LOAD, .fname = name};
 
-    err_t rc = OK;
-    if ((rc = request_handler(load)) != OK)
+    err_t rc = SUCCESS;
+    if ((rc = request_handler(load)) != SUCCESS)
     {
-        handler(rc);
+        err_handler(rc);
         return;
     }
 
-    if ((rc = render_actions()) != OK)
-        handler(rc);
+    if ((rc = render_actions()) != SUCCESS)
+        err_handler(rc);
 }
 
 void MainWindow::on_translate_btn_clicked(void)
 {
-    translate_t tr_data;
-    tr_data.dx = ui->dx_box->value();
-    tr_data.dy = ui->dy_box->value();
-    tr_data.dz = ui->dz_box->value();
+    translate_t trans_data;
+    trans_data.dx = ui->dx_box->value();
+    trans_data.dy = ui->dy_box->value();
+    trans_data.dz = ui->dz_box->value();
 
-    request_t translate = {.action = TRANSLATE, .translate_data = tr_data};
+    request_t translate = {.action = actions::TRANSLATE, .translate_data = trans_data};
 
-    err_t rc = OK;
-    if ((rc = request_handler(translate)) != OK)
+    err_t rc = SUCCESS;
+    if ((rc = request_handler(translate)) != SUCCESS)
     {
-        handler(rc);
+        err_handler(rc);
         return;
     }
 
-    if ((rc = render_actions()) != OK)
-        handler(rc);
+    if ((rc = render_actions()) != SUCCESS)
+        err_handler(rc);
 }
 
 void MainWindow::on_scale_btn_clicked(void)
 {
-    scale_t sc_data;
-    sc_data.kx = ui->kx_box->value();
-    sc_data.ky = ui->ky_box->value();
-    sc_data.kz = ui->kz_box->value();
+    scale_t scale_data;
+    scale_data.kx = ui->kx_box->value();
+    scale_data.ky = ui->ky_box->value();
+    scale_data.kz = ui->kz_box->value();
 
-    request_t scale = {.action = SCALE, .scale_data = sc_data};
+    request_t scale = {.action = actions::SCALE, .scale_data = scale_data};
 
-    err_t rc = OK;
-    if ((rc = request_handler(scale)) != OK)
+    err_t rc = SUCCESS;
+    if ((rc = request_handler(scale)) != SUCCESS)
     {
-        handler(rc);
+        err_handler(rc);
         return;
     }
 
-    if ((rc = render_actions()) != OK)
-        handler(rc);
+    if ((rc = render_actions()) != SUCCESS)
+        err_handler(rc);
 }
 
 void MainWindow::on_rotate_btn_clicked(void)
 {
-    rotate_t rot_data;
-    rot_data.ax = ui->ax_box->value();
-    rot_data.ay = ui->ay_box->value();
-    rot_data.az = ui->az_box->value();
+    rotate_t rotate_data;
+    rotate_data.ax = ui->ax_box->value();
+    rotate_data.ay = ui->ay_box->value();
+    rotate_data.az = ui->az_box->value();
 
-    request_t rotate = {.action = ROTATE, .rotate_data = rot_data};
-    err_t rc = OK;
-    if ((rc = request_handler(rotate)) != OK)
+    request_t rotate = {.action = actions::ROTATE, .rotate_data = rotate_data};
+    err_t rc = SUCCESS;
+    if ((rc = request_handler(rotate)) != SUCCESS)
     {
-        handler(rc);
+        err_handler(rc);
         return;
     }
 
-    if ((rc = render_actions()) != OK)
-        handler(rc);
+    if ((rc = render_actions()) != SUCCESS)
+        err_handler(rc);
 }

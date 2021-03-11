@@ -1,88 +1,87 @@
-#include "model.h"
-#include "points.h"
-#include "lines.h"
+#include "model.hpp"
+#include "points.hpp"
+#include "lines.hpp"
 
-model_t &creator(void)
+void init_model(model_t &model)
 {
-    static model_t model;
-
-    model.lines.data = NULL;
-    model.lines.count = 0;
-
-    model.points.data = NULL;
-    model.points.count = 0;
-
-    return model;
+    printf("[DBG] I'm into init_model()\n");
+    init_points(model.points);
+    init_lines(model.lines);
 }
 
-static err_t load(model_t &new_model, FILE *datafile)
-{
-    err_t rc = OK;
-
-    if ((rc = loader(new_model.points, datafile)) != OK)
-        return rc;
-
-    if ((rc = loader(new_model.lines, datafile)) != OK)
-        destructor(new_model);
-
-    return rc;
-}
-
-err_t init(model_t &model, filename_t fname)
+err_t load_model(model_t &model, filename_t fname)
 {
     FILE *datafile = NULL;
     if ((datafile = fopen(fname, "r")) == NULL)
-        return FOPEN_ERR;
+        return ERR_FOPEN;
 
-    err_t rc = load(model, datafile);
+    err_t rc = SUCCESS;
+
+    model_t temp_model;
+    if ((rc = load_points(temp_model.points, datafile)) != SUCCESS)
+    {
+        fclose(datafile);
+        return rc;
+    }
+
+    if ((rc = load_lines(temp_model.lines, datafile)) != SUCCESS)
+    {
+        fclose(datafile);
+        destruct_model(temp_model);
+        return rc;
+    }
+
     fclose(datafile);
 
-    return rc;
+    destruct_model(model);
+    model = temp_model;
+
+    return SUCCESS;
 }
 
-err_t render(const model_t &model, const canvas_t &canvas)
+err_t redraw_model(const model_t &model, const canvas_t &canvas)
 {
-    if (!(model.lines.data && model.points.data))
-        return MEM_ERR;
+    if (!(points_are_defined(model.points) && lines_are_defined(model.lines)))
+        return ERR_MEMORY;
 
     canvas->clear();
     drawer(model.lines, model.points, canvas);
 
-    return OK;
+    return SUCCESS;
 }
 
-err_t translate(model_t &model, const translate_t &tr_data)
+err_t translate_model(model_t &model, const translate_t &tr_data)
 {
-    if (!(model.points.data && model.lines.data))
-        return MEM_ERR;
+    if (!(points_are_defined(model.points) && lines_are_defined(model.lines)))
+        return ERR_MEMORY;
 
-    translate(model.points, tr_data);
+    translate_points(model.points, tr_data);
 
-    return OK;
+    return SUCCESS;
 }
 
-err_t scale(model_t &model, const scale_t &sc_data)
+err_t scale_model(model_t &model, const scale_t &sc_data)
 {
-    if (!(model.points.data && model.lines.data))
-        return MEM_ERR;
+    if (!(points_are_defined(model.points) && lines_are_defined(model.lines)))
+        return ERR_MEMORY;
 
-    scale(model.points, sc_data);
+    scale_points(model.points, sc_data);
 
-    return OK;
+    return SUCCESS;
 }
 
-err_t rotate(model_t &model, const rotate_t &rot_data)
+err_t rotate_model(model_t &model, const rotate_t &rot_data)
 {
-    if (!(model.points.data && model.lines.data))
-        return MEM_ERR;
+    if (!(points_are_defined(model.points) && lines_are_defined(model.lines)))
+        return ERR_MEMORY;
 
-    rotate(model.points, rot_data);
+    rotate_points(model.points, rot_data);
 
-    return OK;
+    return SUCCESS;
 }
 
-void destructor(const model_t &model)
+void destruct_model(model_t &model)
 {
-    destructor(model.points);
-    destructor(model.lines);
+    destruct_points(model.points);
+    destruct_lines(model.lines);
 }

@@ -1,39 +1,38 @@
-#include "request.h"
+#include "request.hpp"
 
 err_t request_handler(const request_t &request)
 {
-    static model_t model = creator();
-
-    err_t rc = OK;
+    static model_t model;
+    err_t rc = SUCCESS;
 
     switch (request.action)
     {
     case LOAD:
-        rc = init(model, request.fname);
+        rc = load_model(model, request.fname);
         break;
 
     case SCALE:
-        rc = scale(model, request.scale_data);
+        rc = scale_model(model, request.scale_data);
         break;
 
     case ROTATE:
-        rc = rotate(model, request.rotate_data);
+        rc = rotate_model(model, request.rotate_data);
         break;
 
     case TRANSLATE:
-        rc = translate(model, request.translate_data);
+        rc = translate_model(model, request.translate_data);
         break;
 
-    case RENDER:
-        rc = render(model, request.canvas);
+    case REDRAW:
+        rc = redraw_model(model, request.canvas);
         break;
 
     case QUIT:
-        destructor(model);
+        destruct_model(model);
         break;
 
     default:
-        rc = UNKNOWN_ERR;
+        rc = ERR_OTHER;
     }
 
     return rc;

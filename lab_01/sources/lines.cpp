@@ -1,58 +1,76 @@
-#include "lines.h"
-#include "errors.h"
 #include <cstdio>
+#include "line.hpp"
+#include "lines.hpp"
+#include "errors.hpp"
 
-static err_t read_count(lines_t &lines, FILE *datafile)
+
+static err_t read_lines_count(lines_t &lines, FILE *datafile)
 {
     size_t tmp_count = 0;
     if ((fscanf(datafile, "%zu", &tmp_count)) != 1)
-        return FREAD_ERR;
+        return ERR_FREAD;
 
     if (tmp_count < 1)
-        return LCOUNT_ERR;
+        return ERR_LCOUNT;
 
     lines.count = tmp_count;
 
-    return OK;
+    return SUCCESS;
 }
 
-static err_t allocate(lines_t &lines)
+static err_t allocate_lines(lines_t &lines)
 {
     line_t *temp_data = (line_t *)malloc(lines.count * sizeof(line_t));
     if (temp_data == NULL)
-        return ALLOC_ERR;
+        return ERR_ALLOC;
 
     lines.data = temp_data;
 
-    return OK;
+    return SUCCESS;
 }
+
 
 static err_t read_lines(line_t *const lines, const size_t &count, FILE *datafile)
 {
-    for (size_t i = 0; i < count; i++)
-        if ((fscanf(datafile, "%d %d", &lines[i].point_ref_1, &lines[i].point_ref_2)) != 2)
-            return FREAD_ERR;
+    err_t rc = SUCCESS;
+    for (size_t i = 0; rc == SUCCESS && i < count; i++)
+        rc = read_line(lines[i], datafile);
 
-    return OK;
+    return rc;
 }
 
-void destructor(const lines_t &lines)
+void destruct_lines(lines_t &lines)
 {
-    free(lines.data);
+    if (lines.data != NULL)
+    {
+        free(lines.data);
+        init_lines(lines);
+    }
 }
 
-err_t loader(lines_t &lines, FILE *datafile)
+err_t load_lines(lines_t &lines, FILE *datafile)
 {
-    err_t rc = OK;
+    err_t rc = SUCCESS;
 
-    if ((rc = read_count(lines, datafile)))
+    if ((rc = read_lines_count(lines, datafile)))
         return rc;
 
-    if ((rc = allocate(lines)))
+    if ((rc = allocate_lines(lines)))
         return rc;
 
     if ((rc = read_lines(lines.data, lines.count, datafile)))
-        destructor(lines);
+        destruct_lines(lines);
 
     return rc;
+}
+
+bool lines_are_defined(const lines_t &lines)
+{
+    return lines.data != NULL;
+}
+
+void init_lines(lines_t &lines)
+{
+    lines.count = 0;
+    lines.data = NULL;
 }

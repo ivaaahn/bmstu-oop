@@ -1,10 +1,10 @@
-#ifndef _MAINWINDOW_H_
-#define _MAINWINDOW_H_
+#ifndef _MAINWINDOW_HPP_
+#define _MAINWINDOW_HPP_
 
 #include <QMainWindow>
 #include "ui_mainwindow.h"
-#include "request.h"
-#include "errors.h"
+#include "request.hpp"
+#include "errors.hpp"
 
 #define CANVAS_OFFSET 5
 #define CANVAS_W 981
@@ -42,4 +42,4 @@ private:
     Ui::MainWindow *ui;
 };
 
-#endif // _MAINWINDOW_H_
+#endif // _MAINWINDOW_HPP_
