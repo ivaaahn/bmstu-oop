@@ -21,7 +21,11 @@ MainWindow::~MainWindow(void)
 
 err_t MainWindow::redraw_actions(void)
 {
-    canvas_t canvas = ui->graphicsView->scene();
+    canvas_t canvas;
+    canvas.scene = ui->graphicsView->scene();
+    canvas.width = canvas.scene->width();
+    canvas.height = canvas.scene->height();
+ 
     request_t redraw = {.action = actions::REDRAW, .canvas = canvas};
 
     err_t rc = request_handler(redraw);
