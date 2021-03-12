@@ -2,6 +2,7 @@
 #define _LINES_HPP_
 
 #include <cstdlib>
+
 #include "line.hpp"
 #include "errors.hpp"
 

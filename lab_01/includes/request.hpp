@@ -4,6 +4,7 @@
 #include "model.hpp"
 #include "errors.hpp"
 
+
 enum actions
 {
     LOAD,
@@ -26,6 +27,7 @@ typedef struct
         canvas_t canvas;
     };
 } request_t;
+
 
 err_t request_handler(const request_t &request);
 

@@ -2,6 +2,7 @@
 #include "points.hpp"
 #include "lines.hpp"
 
+
 void init_model(model_t &model)
 {
     init_points(model.points);

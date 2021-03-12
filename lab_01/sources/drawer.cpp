@@ -16,22 +16,6 @@ static void to_canvas_cs(projection_t &p_proj, const point_t &p, const canvas_t 
 static void draw_handler(const line_t &line, const point_t *const points, const canvas_t &canvas)
 {
     projection_t p1, p2;
-    12
--1,  1.62, 0
-1,  1.62, 0
--1, -1.62, 0
-1, -1.62, 0
-0, -1, 1.62
-0,  1, 1.62
-0, -1, -1.62
-0,  1, -1.62
-1.62, 0, -1
-1.62, 0,  1
--1.62, 0, -1
--1.62, 0,  1
-0 0 0
-
-0 1
 
     to_canvas_cs(p1, points[line.point_ref_1], canvas);
     to_canvas_cs(p2, points[line.point_ref_2], canvas);

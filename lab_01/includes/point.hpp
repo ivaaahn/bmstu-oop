@@ -2,6 +2,7 @@
 #define _POINT_HPP_
 
 #include <cstdio>
+
 #include "errors.hpp"
 
 typedef struct
