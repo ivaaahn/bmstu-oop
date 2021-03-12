@@ -17,53 +17,59 @@ err_t read_point(point_t &p, FILE *datafile)
     return SUCCESS;
 }
 
-void translate_point(point_t &p, const translate_t &tr_data)
+err_t translate_point(point_t &p, const translate_t &tr_data)
 {
     p.x += tr_data.x;
     p.y += tr_data.y;
     p.z += tr_data.z;
+
+    return SUCCESS;
 }
 
-void scale_point(point_t &p, point_t &c, const scale_t &sc_data)
+err_t scale_point(point_t &p, const scale_t &sc_data)
 {
-    p.x = c.x + sc_data.x * (-c.x + p.x);
-    p.y = c.y + sc_data.y * (-c.y + p.y);
-    p.z = c.y + sc_data.z * (-c.z + p.z);
+    p.x *= sc_data.x;
+    p.y *= sc_data.y;
+    p.z *= sc_data.z;
+
+    return SUCCESS;
 }
 
-static void rotate_x_axis(point_t &p, point_t &c, const double angle)
+static void rotate_x_axis(point_t &p, const double angle)
 {
     double cos_theta = cos(to_rad(angle));
     double sin_theta = sin(to_rad(angle));
 
     double temp_y = p.y;
-    p.y = c.y + (-c.y + p.y) * cos_theta - (-c.z + p.z) * sin_theta;
-    p.z = c.z + (-c.z + temp_y) * sin_theta + (-c.z + p.z) * cos_theta;
+    p.y = p.y * cos_theta - p.z * sin_theta;
+    p.z = temp_y * sin_theta + p.z * cos_theta;
 }
 
-static void rotate_y_axis(point_t &p, point_t &c, const double angle)
+static void rotate_y_axis(point_t &p, const double angle)
 {
     double cos_theta = cos(to_rad(angle));
     double sin_theta = sin(to_rad(angle));
 
     double temp_x = p.x;
-    p.x = c.x + (-c.x + p.x) * cos_theta - (-c.z + p.z) * sin_theta;
-    p.z = c.z + (-c.x + temp_x) * sin_theta + (-c.z + p.z) * cos_theta;
+    p.x = p.x * cos_theta - p.z * sin_theta;
+    p.z = temp_x * sin_theta + p.z * cos_theta;
 }
 
-static void rotate_z_axis(point_t &p, point_t &c, const double angle)
+static void rotate_z_axis(point_t &p, const double angle)
 {
     double cos_theta = cos(to_rad(angle));
     double sin_theta = sin(to_rad(angle));
 
     double temp_x = p.x;
-    p.x = c.x + (-c.x + p.x) * cos_theta - (-c.y + p.y) * sin_theta;
-    p.y = c.y + (-c.x + temp_x) * sin_theta + (-c.y + p.y) * cos_theta;
+    p.x = p.x * cos_theta - p.y * sin_theta;
+    p.y = temp_x * sin_theta + p.y * cos_theta;
 }
 
-void rotate_point(point_t &point, point_t &center, const rotate_t &rot_data)
+err_t rotate_point(point_t &point, const rotate_t &rot_data)
 {
-    rotate_x_axis(point, center, rot_data.x);
-    rotate_y_axis(point, center, rot_data.y);
-    rotate_z_axis(point, center, rot_data.z);
+    rotate_x_axis(point, rot_data.x);
+    rotate_y_axis(point, rot_data.y);
+    rotate_z_axis(point, rot_data.z);
+
+    return SUCCESS;
 }
