@@ -21,11 +21,11 @@ typedef coord_t scale_t;
 
 err_t read_point(point_t &point, FILE *datafile);
 
-void translate_point(point_t &point, const translate_t &translate_data);
+err_t translate_point(point_t &point, const translate_t &translate_data);
 
-void scale_point(point_t &point, point_t &center, const scale_t &scale_data);
+err_t scale_point(point_t &point, const scale_t &scale_data);
 
-void rotate_point(point_t &point, point_t &center, const rotate_t &rotate_data);
+err_t rotate_point(point_t &point, const rotate_t &rotate_data);
 
 
 #endif // _POINT_HPP_
