@@ -6,14 +6,18 @@
 #include "points.hpp"
 #include "lines.hpp"
 
-typedef QGraphicsScene *canvas_t;
+struct canvas_t
+{
+    QGraphicsScene *scene;
+    int width;
+    int height;
+};
 
-typedef struct
+struct projection_t
 {
     double x;
     double y;
-} projection_t;
-
+};
 
 void drawer(const lines_t &lines, const points_t &points, const canvas_t &canvas);
 
