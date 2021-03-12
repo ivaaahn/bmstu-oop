@@ -15,7 +15,7 @@ typedef struct
 } model_t;
 
 
-void init_model(model_t &model);
+model_t create_model();
 
 err_t load_model(model_t &model, filename_t fname);
 
