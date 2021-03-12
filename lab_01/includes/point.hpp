@@ -9,36 +9,22 @@ typedef struct
     double x;
     double y;
     double z;
-} point_t;
-
-typedef struct
-{
-    double dx;
-    double dy;
-    double dz;
-} translate_t;
-
-typedef struct
-{
-    double kx;
-    double ky;
-    double kz;
-} scale_t;
-
-typedef struct
-{
-    double ax;
-    double ay;
-    double az;
-} rotate_t;
+} coord_t;
 
 
-err_t read_point(point_t &p, FILE *datafile);
+typedef coord_t point_t;
+typedef coord_t translate_t;
+typedef coord_t rotate_t;
+typedef coord_t scale_t;
+
+
+err_t read_point(point_t &point, FILE *datafile);
 
 void translate_point(point_t &point, const translate_t &translate_data);
 
-void scale_point(point_t &point, const scale_t &scale_data);
+void scale_point(point_t &point, point_t &center, const scale_t &scale_data);
 
-void rotate_point(point_t &point, const rotate_t &rotate_data);
+void rotate_point(point_t &point, point_t &center, const rotate_t &rotate_data);
+
 
 #endif // _POINT_HPP_

@@ -3,6 +3,7 @@
 
 #include <QMessageBox>
 
+
 #define SUCCESS 0
 
 #define ERR_FOPEN   1 // file open
@@ -13,7 +14,9 @@
 #define ERR_LCOUNT  5 // num of lines
 #define ERR_MEMORY  6
 
-#define ERR_OTHER   7
+#define ERR_LAUNCH_ARGS  7
+#define ERR_OTHER   8
+
 
 typedef int err_t;
 

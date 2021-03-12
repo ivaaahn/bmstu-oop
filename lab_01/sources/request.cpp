@@ -1,10 +1,18 @@
 #include "request.hpp"
 
-err_t request_handler(const request_t &request)
-{
-    static model_t model;
-    err_t rc = SUCCESS;
 
+err_t request_handler(const request_t &request)
+{   
+    static model_t model;
+    static bool model_is_init = false;
+    
+    if (!model_is_init)
+    {
+        init_model(model);
+        model_is_init = true;
+    } 
+
+    err_t rc = SUCCESS;
     switch (request.action)
     {
     case LOAD:

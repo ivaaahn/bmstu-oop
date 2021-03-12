@@ -4,7 +4,6 @@
 
 void init_model(model_t &model)
 {
-    printf("[DBG] I'm into init_model()\n");
     init_points(model.points);
     init_lines(model.lines);
 }
@@ -15,9 +14,10 @@ err_t load_model(model_t &model, filename_t fname)
     if ((datafile = fopen(fname, "r")) == NULL)
         return ERR_FOPEN;
 
-    err_t rc = SUCCESS;
-
     model_t temp_model;
+    init_model(temp_model);
+
+    err_t rc = SUCCESS;
     if ((rc = load_points(temp_model.points, datafile)) != SUCCESS)
     {
         fclose(datafile);

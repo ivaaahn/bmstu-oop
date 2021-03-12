@@ -2,32 +2,37 @@
 
 #include "errors.hpp"
 
+
 void err_handler(const err_t code)
 {
     switch (code)
     {
     case ERR_FOPEN:
-        QMessageBox::critical(NULL, "Ошибка", "При открытии файла произошла ошибка!");
+        QMessageBox::critical(NULL, "Ошибка", "Не удалось открыть файл!");
         break;
 
     case ERR_FREAD:
-        QMessageBox::critical(NULL, "Ошибка", "При чтении файла произошла ошибка!");
+        QMessageBox::critical(NULL, "Ошибка", "Не удалось считать файл!");
         break;
 
     case ERR_PCOUNT:
-        QMessageBox::critical(NULL, "Ошибка", "Некорректное кол-во линий!");
+        QMessageBox::critical(NULL, "Ошибка", "Некорректное количество линий!");
         break;
 
     case ERR_LCOUNT:
-        QMessageBox::critical(NULL, "Ошибка", "Некорректное кол-во точек!");
+        QMessageBox::critical(NULL, "Ошибка", "Некорректное количество точек!");
         break;
 
     case ERR_MEMORY:
-        QMessageBox::critical(NULL, "Ошибка", "Ошибка при обращении к данным!");
+        QMessageBox::critical(NULL, "Ошибка", "Произошла ошибка при обращении к данным!");
         break;
 
     case ERR_ALLOC:
-        QMessageBox::critical(NULL, "Ошибка", "При выделении памяти произошла ошибка!");
+        QMessageBox::critical(NULL, "Ошибка", "Произошла ошибка при выделении памяти");
+        break;
+
+    case ERR_LAUNCH_ARGS:
+        QMessageBox::critical(NULL, "Ошибка", "Не указано имя файла, содержащего модель!");
         break;
 
     default:

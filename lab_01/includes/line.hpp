@@ -2,6 +2,7 @@
 #define _LINE_HPP_
 
 #include <cstdlib>
+#include <cstdio>
 #include "errors.hpp"
 
 typedef struct
