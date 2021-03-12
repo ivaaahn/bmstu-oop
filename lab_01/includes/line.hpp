@@ -6,11 +6,11 @@
 
 #include "errors.hpp"
 
-typedef struct
+struct line_t
 {
     size_t point_ref_1;
     size_t point_ref_2;
-} line_t;
+};
 
 
 err_t read_line(line_t &line, FILE *datafile);

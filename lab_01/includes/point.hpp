@@ -5,12 +5,12 @@
 
 #include "errors.hpp"
 
-typedef struct
+struct coord_t
 {
     double x;
     double y;
     double z;
-} coord_t;
+};
 
 
 typedef coord_t point_t;

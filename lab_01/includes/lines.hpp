@@ -6,11 +6,11 @@
 #include "line.hpp"
 #include "errors.hpp"
 
-typedef struct
+struct lines_t
 {
     size_t count;
     line_t *data;
-} lines_t;
+};
 
 
 err_t load_lines(lines_t &lines, FILE *datafile);

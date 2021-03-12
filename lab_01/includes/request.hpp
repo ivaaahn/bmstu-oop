@@ -15,7 +15,7 @@ enum actions
     QUIT
 };
 
-typedef struct
+struct request_t
 {
     int action;
     union
@@ -26,7 +26,7 @@ typedef struct
         translate_t translate_data;
         canvas_t canvas;
     };
-} request_t;
+};
 
 
 err_t request_handler(const request_t &request);

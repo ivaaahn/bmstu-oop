@@ -8,11 +8,11 @@
 
 typedef const char *filename_t;
 
-typedef struct
+struct model_t
 {
     points_t points;
     lines_t lines;
-} model_t;
+};
 
 
 model_t create_model();

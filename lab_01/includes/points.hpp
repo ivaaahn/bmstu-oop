@@ -8,12 +8,12 @@
 #include "errors.hpp"
 
 
-typedef struct
+struct points_t
 {
     size_t count;
     point_t *data;
     point_t center;
-} points_t;
+};
 
 
 err_t load_points(points_t &points, FILE *datafile);
