@@ -19,14 +19,15 @@ typedef struct
 err_t load_points(points_t &points, FILE *datafile);
 
 void init_points(points_t &points);
-
-void translate_points(points_t &points, const translate_t &tr_data);
-
-void scale_points(points_t &points, const scale_t &sc_data);
-
-void rotate_points(points_t &points, const rotate_t &rot_data);
-
 void destruct_points(points_t &points);
+
+err_t translate_points(points_t &points, const translate_t &tr_data);
+
+err_t scale_points(points_t &points, const scale_t &sc_data);
+
+err_t rotate_points(points_t &points, const rotate_t &rot_data);
+
+point_t& get_center(points_t &points);
 
 bool points_are_defined(const points_t &points);
 
