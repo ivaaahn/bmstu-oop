@@ -41,26 +41,35 @@ static err_t read_points(points_t &points, FILE *datafile)
     return rc;
 }
 
-void translate_points(points_t &points, const translate_t &tr_data)
+err_t translate_points(points_t &points, const translate_t &tr_data)
 {
     for (size_t i = 0; i < points.count; i++)
         translate_point(points.data[i], tr_data);
 
     translate_point(points.center, tr_data);
+
+    return SUCCESS;
 }
 
-void scale_points(points_t &points, const scale_t &sc_data)
+point_t& get_center(points_t &points)
 {
-    for (size_t i = 0; i < points.count; i++)
-        scale_point(points.data[i], points.center, sc_data);
+    return points.center;
 }
 
-void rotate_points(points_t &points, const rotate_t &rot_data)
+err_t scale_points(points_t &points, const scale_t &sc_data)
 {
     for (size_t i = 0; i < points.count; i++)
-        rotate_point(points.data[i], points.center, rot_data);
+        scale_point(points.data[i], sc_data);
 
-    rotate_point(points.center, points.center, rot_data);
+    return SUCCESS;
+}
+
+err_t rotate_points(points_t &points, const rotate_t &rot_data)
+{
+    for (size_t i = 0; i < points.count; i++)
+        rotate_point(points.data[i], rot_data);
+
+    return SUCCESS;
 }
 
 err_t load_points(points_t &points, FILE *datafile)
