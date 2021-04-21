@@ -8,7 +8,7 @@ using SharedPtrOnRow = std::shared_ptr<typename Matrix<T>::MatrixRow[]>;
 
 
 template <typename T>
-const ConstIterator<T>& ConstIterator<T>::operator++() const 
+const ConstIterator<T>& ConstIterator<T>::operator++()
 {
     if (this->index < this->cols * this->rows)
         ++this->index;
@@ -16,7 +16,7 @@ const ConstIterator<T>& ConstIterator<T>::operator++() const
 }
 
 template <typename T>
-ConstIterator<T> ConstIterator<T>::operator++(int) const 
+ConstIterator<T> ConstIterator<T>::operator++(int)
 {
     ConstIterator<T> it(*this);
     ++(*this);
@@ -24,14 +24,15 @@ ConstIterator<T> ConstIterator<T>::operator++(int) const
 }
 
 template <typename T>
-ConstIterator<T>& ConstIterator<T>::next() const 
+ConstIterator<T> ConstIterator<T>::next() const 
 {
-    return this->operator++();
+    auto it(*this);
+    return ++it;
 }
 
 
 template <typename T>
-const ConstIterator<T>& ConstIterator<T>::operator--() const 
+const ConstIterator<T>& ConstIterator<T>::operator--()
 {
     if (this->index > 0)
         --this->index;
@@ -39,7 +40,7 @@ const ConstIterator<T>& ConstIterator<T>::operator--() const
 }
 
 template <typename T>
-ConstIterator<T> ConstIterator<T>::operator--(int) const 
+ConstIterator<T> ConstIterator<T>::operator--(int)
 {
     ConstIterator<T> it(*this);
     --(*this);
@@ -47,9 +48,11 @@ ConstIterator<T> ConstIterator<T>::operator--(int) const
 }
 
 template <typename T>
-ConstIterator<T>& ConstIterator<T>::prev() const 
+ConstIterator<T> ConstIterator<T>::prev() const 
 {
-    return this->operator--();
+    auto it(*this);
+    return --it;
+
 }
 
 
@@ -68,7 +71,7 @@ bool ConstIterator<T>::operator==(ConstIterator const &other) const
 
 template <typename T>
 const T& ConstIterator<T>::operator*() const {
-    checkValid("Iterator points on nullptr");
+    _checkValid("Iterator points on nullptr");
     _checkIndex("ConstIterator doens't in data bounds, while executing const operator*");
 
     SharedPtrOnRow<T> dataPtr = this->data.lock();
@@ -84,7 +87,7 @@ const T& ConstIterator<T>::current() const
 template <typename T>
 const T* ConstIterator<T>::operator->() const 
 {
-    checkValid("Iterator points on nullptr");
+    _checkValid("Iterator points on nullptr");
     _checkIndex("ConstIterator doens't in data bounds, while executing const operator->");
     std::shared_ptr<typename Matrix<T>::MatrixRow[]> dataPtr = this->data.lock();
     return dataPtr[this->index / this->cols].getAddr() + (this->index % this->cols);
@@ -103,7 +106,7 @@ void ConstIterator<T>::_checkIndex(const string hint) const
 }
 
 template <typename T>
-void ConstIterator<T>::checkValid(const string hint) const
+void ConstIterator<T>::_checkValid(const string hint) const
 {
     if (!isValid()) 
     {
@@ -139,7 +142,7 @@ bool ConstIterator<T>::isValid() const
 }
 
 template <typename T>
-ConstIterator<T> ConstIterator<T>::operator+(const int value) const 
+ConstIterator<T> ConstIterator<T>::operator+(const int value) const
 {
     ConstIterator<T> it(*this);
     if (value < 0 && it.index < static_cast<size_t>(-value))
@@ -154,13 +157,13 @@ ConstIterator<T> ConstIterator<T>::operator+(const int value) const
 }
 
 template <typename T>
-ConstIterator<T> ConstIterator<T>::operator-(const int value) const 
+ConstIterator<T> ConstIterator<T>::operator-(const int value) const
 {
     return operator+(-value);
 }
 
 template <typename T>
-ConstIterator<T> &ConstIterator<T>::operator+=(const int value) const 
+ConstIterator<T> &ConstIterator<T>::operator+=(const int value)
 {
     this->index += value;
     return *this;
