@@ -31,19 +31,42 @@ void Matrix<T>::resizeCols(const size_t newCols, const T &filler)
     this->resize(this->rows, newCols, filler);
 }
 
-// TODO: WATAHELL IS GOIN ON HERE
 template <typename T>
-void Matrix<T>::insertRow(size_t pos, const T &filler) {
-    this->_checkIndexOutOfBound(pos, this->rows);
+void Matrix<T>::insertRow(const size_t pos, const T &filler) 
+{
+    if (pos > this->rows)
+        throw IndexError(__FILE__, __LINE__, "Index out of bound matrix dimension during row insertion");
+
     resizeRows(this->rows + 1);
 
-    this->fill(this->end() - static_cast<int>(this->cols), end(), filler);
+    for (size_t j = 0; j < this->cols; ++j)
+        this->data[this->rows - 1][j] = filler;
+
     this->_moveRow(this->rows - 1, pos);
 }
 
+
 template <typename T>
-void Matrix<T>::insertCol(size_t pos, const T &filler) {
-    this->_checkIndexOutOfBound(pos, this->cols);
+void Matrix<T>::insertRow(const size_t pos, std::initializer_list<T> lst) 
+{
+    if (pos > this->rows)
+        throw IndexError(__FILE__, __LINE__, "Index out of bound matrix dimension during row insertion");
+
+    resizeRows(this->rows + 1);
+
+    size_t k = 0;
+    for (const auto &item : lst)
+        this->data[this->rows - 1][k++] = item; 
+
+    this->_moveRow(this->rows - 1, pos);
+}
+
+
+template <typename T>
+void Matrix<T>::insertCol(const size_t pos, const T &filler) {
+    if (pos > this->cols)
+        throw IndexError(__FILE__, __LINE__, "Index out of bound matrix dimension during column insertion");
+
     resizeCols(this->cols + 1);
 
     for (size_t i = 0; i < this->rows; i++)
@@ -53,62 +76,64 @@ void Matrix<T>::insertCol(size_t pos, const T &filler) {
 }
 
 template <typename T>
-void Matrix<T>::deleteRow(size_t pos) {
-    this->_checkIndexOutOfBound(pos, this->rows - 1);
+void Matrix<T>::insertCol(const size_t pos, std::initializer_list<T> lst) 
+{
+    if (pos > this->cols)
+        throw IndexError(__FILE__, __LINE__, "Index out of bound matrix dimension during row insertion");
 
-    auto tmp = allocMem(this->rows - 1, this->cols);
-    
-    size_t src = 0, dest = 0;
-    while (src < this->rows) 
-    {
-        if (src != pos) 
+    resizeCols(this->cols + 1);
+
+    size_t k = 0;
+    for (const auto &item : lst)
+        this->data[k++][this->cols - 1] = item; 
+
+    this->_moveCol(this->cols - 1, pos);
+}
+
+
+template <typename T>
+void Matrix<T>::deleteRow(const size_t pos) 
+{
+    if (pos >= this->rows)
+        throw IndexError(__FILE__, __LINE__, "Index out of bound matrix dimension during row removing");
+
+    auto tmpData = allocMem(this->rows - 1, this->cols);
+
+    size_t i_dst = 0;
+    for (size_t i_src = 0; i_src < this->rows; ++i_src)
+        if (i_src != pos) 
         {
-            for (size_t i = 0; i < this->cols; ++i)
-                tmp[dest++][i] = this->data[src][i];
+            for (size_t j_curr = 0; j_curr < this->cols; ++j_curr)
+                tmpData[i_dst][j_curr] = this->data[i_src][j_curr];            
+            ++i_dst;
         }
-        
-        ++src;
-    }
 
-    this->data = tmp;
-    this->rows--;
+    this->data = tmpData;
+    --this->rows;
 }
 
 template <typename T>
-void Matrix<T>::deleteCol(size_t pos) 
+void Matrix<T>::deleteCol(const size_t pos) 
 {
-    this->_checkIndexOutOfBound(pos, this->cols - 1);
+    if (pos >= this->cols)
+        throw IndexError(__FILE__, __LINE__, "Index out of bound matrix dimension during column removing");
+
     auto tmp = allocMem(this->rows, this->cols - 1);
 
-
-    size_t src = 0, dest = 0;
-    while (src < this->cols)
+    size_t j_dst = 0;
+    for (size_t j_src = 0; j_src < this->cols; ++j_src)
     {
-        if (src != pos) 
+        if (j_src != pos) 
         {
-            for (size_t i = 0; i < this->rows; ++i)
-                tmp[i][dest++] = this->data[i][src];
+            for (size_t i_curr = 0; i_curr < this->rows; ++i_curr)
+                tmp[i_curr][j_dst] = this->data[i_curr][j_src];
+            ++j_dst;
         }
-
-        ++src;
     }
 
     this->data = tmp;
     this->cols--;
 }
-
-// template <typename T>
-// void Matrix<T>::reverse(Iterator<T> start, Iterator<T> end) 
-// {
-//     for ()
-//     end = end - 1;
-//     for (; start < end; start++, end--)
-//     {
-//         auto tmp = *start;
-//         *start = *end;
-//         *end = tmp;
-//     }
-// }
 
 template <typename T>
 bool Matrix<T>::isSquare() const 

@@ -7,7 +7,7 @@
 template <typename T>
 Matrix<T> &Matrix<T>::operator=(const Matrix &anotherM)
 {
-    std::cout << "operator=(const Matrix &anotherM)" << std::endl;
+    // std::cout << "operator=(const Matrix &anotherM)" << std::endl;
 
     if (this == &anotherM)
         return *this;
@@ -24,7 +24,7 @@ Matrix<T> &Matrix<T>::operator=(const Matrix &anotherM)
 template <typename T>
 Matrix<T> &Matrix<T>::operator=(Matrix &&anotherM)
 {
-    std::cout << "operator=(const Matrix &&anotherM)" << std::endl;
+    // std::cout << "operator=(const Matrix &&anotherM)" << std::endl;
 
     if (this == &anotherM)
         return *this;
@@ -37,20 +37,11 @@ Matrix<T> &Matrix<T>::operator=(Matrix &&anotherM)
 template <typename T>
 Matrix<T> &Matrix<T>::operator=(std::initializer_list<std::initializer_list<T>> initList)
 {
-    std::cout << "operator=(std::initializer_list<std::initializer_list<T>> initList)" << std::endl;
-
     size_t rows = initList.size();
     size_t cols = initList.size() ? initList.begin()->size() : 0;
     
-    for (const auto &row : initList)
-    {
-        if (row.size() != cols)
-        {
-            time_t currT = time(NULL);
-            auto localT = localtime(&currT);
-            throw InvalidArgument(asctime(localT), __FILE__, __LINE__, "Bad initializer list");
-        }
-    }
+    if (!this->_validInitList(initList, cols))
+        throw InvalidArgument(__FILE__, __LINE__, "Receive bad initializer list for matrix assignment"); 
 
     this->resize(rows, cols);
     size_t i = 0;
