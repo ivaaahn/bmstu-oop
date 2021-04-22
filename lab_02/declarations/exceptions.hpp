@@ -1,4 +1,4 @@
-    #ifndef __EXCEPTIONS_HPP__
+#ifndef __EXCEPTIONS_HPP__
 #define __EXCEPTIONS_HPP__
 
 #include <exception>
@@ -9,72 +9,76 @@ using string = std::string;
 class MatrixException : public std::exception
 {
 protected:
-    string errorMessage;
+    string errMsg;
 
 public:
-    MatrixException(const string timeInfo, const string fileInfo, const int lineInfo,
-                    const string errorMessage = "No error message");
+    MatrixException(const string file, const int line, const string errMsg = "No error message")
+    {
+        time_t currTime = time(NULL);
+        auto localTime = localtime(&currTime);
+        this->errMsg = errMsg + "\nFile: " + file + "\nLine: " + std::to_string(line) + "\nTime: " + asctime(localTime);
+    }
 
     virtual ~MatrixException(){};
 
-    virtual const char* what() const noexcept override
+    virtual const char *what() const noexcept override
     {
-        return this->errorMessage.c_str();
+        return this->errMsg.c_str();
     }
 };
 
 class IndexError : public MatrixException
 {
 public:
-    IndexError(const string timeInfo, const string fileInfo, const int lineInfo,
-               const string errorMessage = "No error message") : MatrixException(timeInfo, fileInfo, lineInfo, errorMessage)
+    IndexError(const string file, const int line, const string msg = "No error message") : MatrixException(file, line, msg)
     {
-        this->errorMessage += " (error type: IndexError)";
+        this->errMsg = "IndexError: " + this->errMsg;
     }
 };
 
 class MemoryError : public MatrixException
 {
 public:
-    MemoryError(const string timeInfo, const string fileInfo, const int lineInfo,
-                const string errorMessage = "No error message") : MatrixException(timeInfo, fileInfo, lineInfo, errorMessage)
+    MemoryError(const string file, const int line, const string msg = "No error message") : MatrixException(file, line, msg)
     {
-        this->errorMessage += " (error type: MemoryError)";
+        this->errMsg = "MemoryError: " + this->errMsg;
     }
 };
 
 class InvalidArgument : public MatrixException
 {
 public:
-    InvalidArgument(const string timeInfo, const string fileInfo, const int lineInfo,
-                    const string errorMessage = "No error message") : MatrixException(timeInfo, fileInfo, lineInfo, errorMessage)
+    InvalidArgument(const string file, const int line, const string msg = "No error message") : MatrixException(file, line, msg)
     {
-        this->errorMessage += " (error type: InvalidArgument)";
+        this->errMsg = "InvalidArgument: " + this->errMsg;
     }
 };
 
 class IncompatibleElements : public MatrixException
 {
 public:
-    IncompatibleElements(const string timeInfo, const string fileInfo, const int lineInfo,
-                         const string errorMessage = "No error message") : MatrixException(timeInfo, fileInfo, lineInfo, errorMessage)
+    IncompatibleElements(const string file, const int line, const string msg = "No error message") : MatrixException(file, line, msg)
     {
-        this->errorMessage += " (error type: IncompatibleElements)";
+        this->errMsg = "IncompatibleElements: " + this->errMsg;
     }
 };
 
-class InvalidState : public MatrixException
+class InvalidDimensions : public MatrixException
 {
 public:
-    InvalidState(const string timeInfo, const string fileInfo, const int lineInfo,
-                 const string errorMessage = "No error message") : MatrixException(timeInfo, fileInfo, lineInfo, errorMessage)
+    InvalidDimensions(const string file, const int line, const string msg = "No error message") : MatrixException(file, line, msg)
     {
-        this->errorMessage += " (error type: IncompatibleElements)";
+        this->errMsg = "InvalidDimensions: " + this->errMsg;
     }
 };
 
-
-#include "exceptions.inl"
-
+class SingularMatrix : public MatrixException
+{
+public:
+    SingularMatrix(const string file, const int line, const string msg = "No error message") : MatrixException(file, line, msg)
+    {
+        this->errMsg = "SingularMatrix: " + this->errMsg;
+    }
+};
 
 #endif // __EXCEPTIONS_HPP__
