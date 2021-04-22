@@ -3,16 +3,13 @@
 
 #include "matrix.hpp"
 
-
 template <typename T>
 Matrix<T> &Matrix<T>::operator=(const Matrix &anotherM)
 {
-    // std::cout << "operator=(const Matrix &anotherM)" << std::endl;
-
     if (this == &anotherM)
         return *this;
 
-    this->data = allocMem(anotherM.rows, anotherM.cols);
+    this->data = _allocateMemory(anotherM.rows, anotherM.cols);
     this->rows = anotherM.rows, this->cols = anotherM.cols;
 
     for (size_t i = 0; i < this->rows; ++i)
@@ -24,8 +21,6 @@ Matrix<T> &Matrix<T>::operator=(const Matrix &anotherM)
 template <typename T>
 Matrix<T> &Matrix<T>::operator=(Matrix &&anotherM)
 {
-    // std::cout << "operator=(const Matrix &&anotherM)" << std::endl;
-
     if (this == &anotherM)
         return *this;
 
@@ -39,9 +34,9 @@ Matrix<T> &Matrix<T>::operator=(std::initializer_list<std::initializer_list<T>> 
 {
     size_t rows = initList.size();
     size_t cols = initList.size() ? initList.begin()->size() : 0;
-    
+
     if (!this->_validInitList(initList, cols))
-        throw InvalidArgument(__FILE__, __LINE__, "Receive bad initializer list for matrix assignment"); 
+        throw InvalidArgument(__FILE__, __LINE__, "Receive bad initializer list for matrix assignment");
 
     this->resize(rows, cols);
     size_t i = 0;
@@ -57,5 +52,4 @@ Matrix<T> &Matrix<T>::operator=(std::initializer_list<std::initializer_list<T>> 
     return *this;
 }
 
-
-#endif  // __MATRIX_ASSIGN_OPERATORS_INL__
+#endif // __MATRIX_ASSIGN_OPERATORS_INL__
