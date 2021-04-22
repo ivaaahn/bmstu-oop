@@ -3,7 +3,6 @@
 
 #include "matrix.hpp"
 
-
 template <typename T>
 Iterator<T> Matrix<T>::begin()
 {
@@ -15,7 +14,6 @@ Iterator<T> Matrix<T>::end()
 {
     return Iterator<T>(this->data, this->rows, this->cols, this->cols * this->rows);
 }
-
 
 template <typename T>
 ConstIterator<T> Matrix<T>::begin() const

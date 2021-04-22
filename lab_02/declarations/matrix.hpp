@@ -161,7 +161,7 @@ public:
 
 #include "matrix_access_operators.inl"
 #include "matrix_assign_operators.inl"
-#include "matrix_checkers.inl"
+#include "matrix_private_methods.inl"
 #include "matrix_construct.inl"
 #include "matrix_fill.inl"
 #include "matrix_iter.inl"

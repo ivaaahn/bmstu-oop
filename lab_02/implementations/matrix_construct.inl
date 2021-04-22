@@ -6,10 +6,9 @@
 
 #include "matrix.hpp"
 
-
 template <typename T>
 Matrix<T>::Matrix(const size_t rows, const size_t cols) : MatrixBase(rows, cols)
-{   
+{
     this->data = _allocateMemory(rows, cols);
 }
 
@@ -23,15 +22,13 @@ Matrix<T>::Matrix(const size_t rows, const size_t cols, const T &filler) : Matri
 }
 
 template <typename T>
-Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> initList) :
-MatrixBase(initList.size(), initList.size() ? initList.begin()->size() : 0)
+Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> initList) : MatrixBase(initList.size(), initList.size() ? initList.begin()->size() : 0)
 {
 
     if (!this->_validInitList(initList, this->cols))
-        throw InvalidArgument(__FILE__, __LINE__, "Receive bad initializer list for create matrix"); 
+        throw InvalidArgument(__FILE__, __LINE__, "Receive bad initializer list for create matrix");
 
     this->data = _allocateMemory(rows, cols);
-
 
     size_t i = 0;
     for (const auto &row : initList)
@@ -41,7 +38,6 @@ MatrixBase(initList.size(), initList.size() ? initList.begin()->size() : 0)
             ++i;
         }
 }
-
 
 template <typename T>
 Matrix<T>::Matrix(const Matrix &anotherM) : Matrix(anotherM.rows, anotherM.cols)
@@ -56,27 +52,5 @@ Matrix<T>::Matrix(Matrix &&anotherM) : MatrixBase(anotherM.rows, anotherM.cols)
 {
     this->data = anotherM.data;
 }
-
-
-template <typename T>
-std::shared_ptr<typename Matrix<T>::MatrixRow[]> Matrix<T>::_allocateMemory(const size_t rows, const size_t cols) 
-{
-    std::shared_ptr<MatrixRow[]> data = nullptr;
-
-    try 
-    {
-        data.reset(new MatrixRow[rows]);
-        for (size_t i = 0; i < rows; i++)
-            data[i].reset(new T[cols], cols);
-    }
-    catch (std::bad_alloc &err) 
-    {
-        throw MemoryError(__FILE__, __LINE__, "Memory allocation error");
-    }
-
-    return data;
-}
-
-
 
 #endif // __MATRIX_CONSTRUCT_INL__

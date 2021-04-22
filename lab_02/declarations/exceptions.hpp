@@ -81,7 +81,6 @@ public:
     }
 };
 
-
 class ZeroDivision : public MatrixException
 {
 public:
@@ -90,6 +89,5 @@ public:
         this->errMsg = "ZeroDivision: " + this->errMsg;
     }
 };
-
 
 #endif // __EXCEPTIONS_HPP__

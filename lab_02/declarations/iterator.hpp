@@ -43,21 +43,20 @@ public:
     Iterator<T> operator-(const int value) const;
     int operator-(const Iterator<T> &it) const;
 
-
-    T& current() const;
-    T& operator*() const;
-    T* operator->() const;
+    T &current() const;
+    T &operator*() const;
+    T *operator->() const;
 
     Iterator<T> operator++(int);
-    Iterator<T>& operator++();
+    Iterator<T> &operator++();
 
     Iterator<T> operator--(int);
-    Iterator<T>& operator--();
+    Iterator<T> &operator--();
 
-    Iterator<T>& operator+=(const int value);
-    Iterator<T>& operator-=(const int value);
+    Iterator<T> &operator+=(const int value);
+    Iterator<T> &operator-=(const int value);
 
-    T& operator[](const int value) const; 
+    T &operator[](const int value) const;
 
     void swapWith(Iterator<T> &it);
 };
