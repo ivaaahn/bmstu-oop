@@ -81,4 +81,15 @@ public:
     }
 };
 
+
+class ZeroDivision : public MatrixException
+{
+public:
+    ZeroDivision(const string file, const int line, const string msg = "No error message") : MatrixException(file, line, msg)
+    {
+        this->errMsg = "ZeroDivision: " + this->errMsg;
+    }
+};
+
+
 #endif // __EXCEPTIONS_HPP__
