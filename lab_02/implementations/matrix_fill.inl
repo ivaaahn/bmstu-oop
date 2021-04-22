@@ -28,30 +28,26 @@ void Matrix<T>::fill(Iterator<T> start, ConstIterator<T> source_start, const Con
 {
     auto source_it = source_start;
     auto it = start;
-    
+
     while (!it.isEnd() && source_it != source_end)
         *it++ = *source_it++;
 }
 
 template <typename T>
-Matrix<T>& Matrix<T>::zeros()
+Matrix<T> &Matrix<T>::zeros()
 {
     this->fill(this->begin(), this->end());
     return *this;
 }
 
 template <typename T>
-Matrix<T>& Matrix<T>::eye()
+Matrix<T> &Matrix<T>::eye()
 {
-    
     for (size_t i = 0; i < this->rows; ++i)
         for (size_t j = 0; j < this->cols; ++j)
             this->data[i][j] = (i == j) ? 1 : 0;
 
     return *this;
 }
-
-
-
 
 #endif // __MATRIX_FILL_INL__
