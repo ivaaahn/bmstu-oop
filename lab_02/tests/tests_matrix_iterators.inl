@@ -1,5 +1,5 @@
-#ifndef __MATRIX_ITERATOR_TESTS_HPP__
-#define __MATRIX_ITERATOR_TESTS_HPP__
+#ifndef __TESTS_MATRIX_ITERATORS_INL__
+#define __TESTS_MATRIX_ITERATORS_INL__
 
 #include <gtest/gtest.h>
 
@@ -112,8 +112,8 @@ TEST(MatrixIterTests, IteratorIsBegin)
     auto it = a.begin();
     auto itConst = a.cbegin();
 
-    EXPECT_EQ(it.isBegin(), true);
-    EXPECT_EQ(itConst.isBegin(), true);
+    EXPECT_TRUE(it.isBegin());
+    EXPECT_TRUE(itConst.isBegin());
 }
 
 
@@ -123,8 +123,8 @@ TEST(MatrixIterTests, IteratorIsEnd)
     auto it = a.end();
     auto itConst = a.cend();
 
-    EXPECT_EQ(it.isEnd(), true);
-    EXPECT_EQ(itConst.isEnd(), true);
+    EXPECT_TRUE(it.isEnd());
+    EXPECT_TRUE(itConst.isEnd());
 }
 
 TEST(MatrixIterTests, BoolAndIsValid)
@@ -133,21 +133,102 @@ TEST(MatrixIterTests, BoolAndIsValid)
     auto it = a.begin();
     auto itConst = a.cbegin();
 
-    EXPECT_EQ(bool(it), true);
-    EXPECT_EQ(it.isValid(), true);
+    EXPECT_TRUE(bool(it));
+    EXPECT_TRUE(it.isValid());
 
-    EXPECT_EQ(bool(itConst), true);
-    EXPECT_EQ(itConst.isValid(), true);
+    EXPECT_TRUE(bool(itConst));
+    EXPECT_TRUE(itConst.isValid());
 
 
     a = Matrix<int>(1, 2);
 
-    EXPECT_EQ(bool(it), false);
-    EXPECT_EQ(it.isValid(), false);    
+    EXPECT_FALSE(bool(it));
+    EXPECT_FALSE(it.isValid());    
 
-    EXPECT_EQ(bool(itConst), false);
-    EXPECT_EQ(itConst.isValid(), false);    
+    EXPECT_FALSE(bool(itConst));
+    EXPECT_FALSE(itConst.isValid());    
 }
+
+
+TEST(MatrixIterTests, PtrIterator)
+{
+    Matrix<int> a = { {1, 2}, {3, 4} };
+
+    auto it = a.begin();
+    auto *itPtr = &it;
+
+    while(!it.isEnd())
+    {
+        EXPECT_EQ(itPtr->current(), *it);
+        ++it;
+    }
+}
+
+
+TEST(MatrixIterTests, PtrIteratorConst)
+{
+    Matrix<int> a = { {1, 2}, {3, 4} };
+
+    auto itConst = a.cbegin();
+    auto *itConstPtr = &itConst;
+
+    while(!itConst.isEnd())
+    {
+        EXPECT_EQ(itConstPtr->current(), *itConst);
+        ++itConst;
+    }
+}
+
+TEST(MatrixIterTests, PrevNextMethods)
+{
+    Matrix<int> a = { {1, 2}, {3, 4} };
+
+    auto it = a.begin();
+    auto it2 = a.begin();
+
+    EXPECT_EQ(*it2, *it);
+
+    ++it;
+
+    EXPECT_EQ(*it2.next(), *it);
+
+    ++it2;
+    --it;
+
+    EXPECT_EQ(*it2.prev(), *it);
+}
+
+
+TEST(MatrixIterTests, PrevNextMethodsConst)
+{
+    Matrix<int> a = { {1, 2}, {3, 4} };
+
+    auto it = a.cbegin();
+    auto it2 = a.cbegin();
+
+    EXPECT_EQ(*it2, *it);
+
+    ++it;
+
+    EXPECT_EQ(*it2.next(), *it);
+
+    ++it2;
+    --it;
+
+    EXPECT_EQ(*it2.prev(), *it);
+}
+
+TEST(MatrixIterTests, PostPreIncDec)
+{
+    Matrix<int> a = { {1, 2}, {3, 4} };
+
+    auto it1 = a.begin();
+    auto it2 = it1.next();
+
+    EXPECT_EQ(*++it1, *it2++);
+    EXPECT_EQ(*it1--, *--it2);
+}
+
 
 TEST(MatrixIterTests, CopyIterator)
 {
@@ -163,4 +244,4 @@ TEST(MatrixIterTests, CopyIterator)
 }
 
 
-#endif // __MATRIX_ITERATOR_TESTS_HPP__
+#endif // __TESTS_MATRIX_ITERATORS_INL__

@@ -1,5 +1,5 @@
-#ifndef __ASSIGN_OPERATOR_TESTS_HPP__
-#define __ASSIGN_OPERATOR_TESTS_HPP__
+#ifndef __TESTS__MATRIX_ASSIGN_OPERATOR_INL__
+#define __TESTS__MATRIX_ASSIGN_OPERATOR_INL__
 
 #include <iostream>
 #include <gtest/gtest.h>
@@ -34,5 +34,12 @@ TEST(AssignOperatorTests, InitList)
 }
 
 
+TEST(AssignOperatorTests, BadInitList)
+{
+    Matrix<int> a;
+    EXPECT_THROW((a = { {1, 2}, {3, 4, 5} }), InvalidArgument);
+}
 
-#endif  // __ASSIGN_OPERATOR_TESTS_HPP__
+
+
+#endif  // __TESTS__MATRIX_ASSIGN_OPERATOR_INL__

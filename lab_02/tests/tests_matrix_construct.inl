@@ -1,5 +1,5 @@
-#ifndef __CONSTRUCTOR_TESTS_HPP__
-#define __CONSTRUCTOR_TESTS_HPP__
+#ifndef __TESTS_MATRIX_CONSTRUCTOR_INL__
+#define __TESTS_MATRIX_CONSTRUCTOR_INL__
 
 #include <iostream>
 #include <gtest/gtest.h>
@@ -78,4 +78,4 @@ TEST(ConstructorTests, ZeroRowsInitList)
 
 
 
-#endif  // __CONSTRUCTOR_TESTS_HPP__
+#endif  // __TESTS_MATRIX_CONSTRUCTOR_INL__
