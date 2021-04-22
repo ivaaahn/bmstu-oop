@@ -70,9 +70,13 @@ bool ConstIterator<T>::operator==(ConstIterator const &other) const
 
 
 template <typename T>
-const T& ConstIterator<T>::operator*() const {
-    _checkValid("Iterator points on nullptr");
-    _checkIndex("ConstIterator doens't in data bounds, while executing const operator*");
+const T& ConstIterator<T>::operator*() const 
+{
+    if (!isValid())
+        throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
+
+    if (this->index >= this->rows * this->cols)
+        throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator*");
 
     SharedPtrOnRow<T> dataPtr = this->data.lock();
     return dataPtr[this->index / this->cols][this->index % this->cols];
@@ -87,34 +91,17 @@ const T& ConstIterator<T>::current() const
 template <typename T>
 const T* ConstIterator<T>::operator->() const 
 {
-    _checkValid("Iterator points on nullptr");
-    _checkIndex("ConstIterator doens't in data bounds, while executing const operator->");
+    if (!isValid())
+        throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
+
+    if (this->index >= this->rows * this->cols)
+        throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator->");
+
+
     std::shared_ptr<typename Matrix<T>::MatrixRow[]> dataPtr = this->data.lock();
     return dataPtr[this->index / this->cols].getAddr() + (this->index % this->cols);
 }
 
-
-template <typename T>
-void ConstIterator<T>::_checkIndex(const string hint) const 
-{
-    if (this->index >= this->rows * this->cols)
-    {
-        time_t cur_time = time(NULL);
-        auto local_time = localtime(&cur_time);
-        throw IndexError(asctime(local_time), __FILE__, __LINE__, hint);
-    }
-}
-
-template <typename T>
-void ConstIterator<T>::_checkValid(const string hint) const
-{
-    if (!isValid()) 
-    {
-        time_t cur_time = time(NULL);
-        auto local_time = localtime(&cur_time);
-        throw MemoryError(asctime(local_time), __FILE__, __LINE__, hint);
-    }
-}
 
 template <typename T>
 bool ConstIterator<T>::isBegin() const 
