@@ -9,7 +9,6 @@
 #include "iterator.hpp"
 #include "const_iterator.hpp"
 
-using string = std::string;
 template <typename T>
 class Matrix : public MatrixBase
 {
