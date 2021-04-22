@@ -1,7 +1,7 @@
 #ifndef __CONST_ITERATOR_HPP__
 #define __CONST_ITERATOR_HPP__
 
-#include <memory>
+#include <iterator>
 
 #include "exceptions.hpp"
 

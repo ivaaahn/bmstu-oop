@@ -1,7 +1,7 @@
 #ifndef __ITERATOR_HPP__
 #define __ITERATOR_HPP__
 
-#include <memory>
+#include <iterator>
 
 template <typename T>
 class Matrix;

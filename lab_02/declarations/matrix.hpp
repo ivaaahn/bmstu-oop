@@ -1,7 +1,6 @@
 #ifndef __MATRIX_HPP__
 #define __MATRIX_HPP__
 
-#include <memory>
 #include <initializer_list>
 
 #include "matrix_base.hpp"
