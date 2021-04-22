@@ -20,10 +20,7 @@ private:
     size_t rows = 0;
     size_t index = 0;
 
-    void _checkIndex(const string msg = "");
-    void _checkValid(const string msg = "") const;
-
-    Iterator(const std::shared_ptr<typename Matrix<T>::MatrixRow[]> &data, const size_t rows, const size_t cols, const size_t index) 
+    Iterator(const std::shared_ptr<typename Matrix<T>::MatrixRow[]> &data, const size_t rows, const size_t cols, const size_t index)
         : data(data), index(index), rows(rows), cols(cols) {}
 
 public:
@@ -50,11 +47,11 @@ public:
     const T &operator*() const;
     const T *operator->() const;
 
-    Iterator<T> &next();
+    Iterator<T> next();
     Iterator<T> &operator++();
     Iterator<T> operator++(int);
 
-    Iterator<T> &prev();
+    Iterator<T> prev();
     Iterator<T> &operator--();
     Iterator<T> operator--(int);
 };
