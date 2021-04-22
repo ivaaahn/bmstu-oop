@@ -3,21 +3,23 @@
 
 #include "matrix.hpp"
 
-
 template <typename T>
 static T _determinant(const Matrix<T> &matrix)
 {
-    if (!matrix) return 1;
+    if (!matrix)
+        return 1;
 
     size_t rows = matrix.getRows(), cols = matrix.getColumns();
 
-    if (rows == 2) return matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1];
-    if (rows == 1) return matrix[0][0];
+    if (rows == 2)
+        return matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1];
+    if (rows == 1)
+        return matrix[0][0];
 
     T result = {};
     for (size_t j = 0; j < cols; ++j)
     {
-        T minor = matrix.minor(0, j);
+        T minor = matrix.calcMinor(0, j);
         result += j & 1 ? -matrix[0][j] * minor : matrix[0][j] * minor;
     }
 
@@ -25,11 +27,10 @@ static T _determinant(const Matrix<T> &matrix)
 }
 
 template <typename T>
-T Matrix<T>::minor(const size_t row, const size_t col) const
+T Matrix<T>::calcMinor(const size_t row, const size_t col) const
 {
     if (!this->isSquare())
         throw InvalidDimensions(__FILE__, __LINE__, "Matrix should be square to calculate minor");
-
 
     Matrix<T> cutMatrix(this->rows - 1, this->cols - 1);
 
@@ -41,30 +42,27 @@ T Matrix<T>::minor(const size_t row, const size_t col) const
             colIndex = j >= col ? j + 1 : j;
             cutMatrix[i][j] = this->data[rowIndex][colIndex];
         }
-    
+
     return _determinant(cutMatrix);
 }
 
-
 template <typename T>
-Matrix<T>& Matrix<T>::transpose()
+Matrix<T> Matrix<T>::getTransposed()
 {
-    if (!*this || this->rows == this->cols == 1) return *this;
+    if (!*this || (this->rows == this->cols == 1))
+        return Matrix<T>(*this);
 
-    auto tempData = this->allocMem(this->cols, this->rows);
+    Matrix<T> result(this->cols, this->rows);
 
     for (size_t i = 0; i < this->rows; ++i)
         for (size_t j = 0; j < this->cols; ++j)
-            tempData[j][i] = this->data[i][j];
+            result[j][i] = this->data[i][j];
 
-    this->data = tempData;
-    std::swap(this->rows, this->cols);
-
-    return *this;
+    return result;
 }
 
 template <typename T>
-T Matrix<T>::determinant() const
+T Matrix<T>::calcDeterminant() const
 {
     if (!this->isSquare())
         throw InvalidDimensions(__FILE__, __LINE__, "Matrix should be square to get determinant");
@@ -73,17 +71,17 @@ T Matrix<T>::determinant() const
 }
 
 template <typename T>
-Matrix<T>& Matrix<T>::inverse()
+Matrix<T> Matrix<T>::getInversed()
 {
-    if (!*this) return *this;
+    if (!*this)
+        return Matrix<T>(*this);
 
     if (!this->isSquare())
         throw InvalidDimensions(__FILE__, __LINE__, "Only square matrix can be inversed");
 
-    T thisDet = this->determinant();
+    T thisDet = this->calcDeterminant();
     if (!thisDet)
         throw SingularMatrix(__FILE__, __LINE__, "A singular matrix cannot be inverted");
-
 
     Matrix<T> result(this->rows, this->cols);
     T value = {};
@@ -91,13 +89,11 @@ Matrix<T>& Matrix<T>::inverse()
     for (size_t i = 0; i < this->rows; ++i)
         for (size_t j = 0; j < this->cols; ++j)
         {
-            value = this->minor(i, j) / thisDet;
+            value = this->calcMinor(i, j) / thisDet;
             result[j][i] = (i + j) & 1 ? -value : value;
         }
 
-    *this = result;
-
-    return *this;
+    return result;
 }
 
 #endif // __MATRIX_MATH_INL__
