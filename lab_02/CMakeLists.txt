@@ -17,16 +17,17 @@ set (ITERATORS_SRC
     ${IMPL}/iterator.inl)
 
 set (EXCEPTIONS_SRC
-    ${DECL}/exceptions.hpp
-    ${IMPL}/exceptions.inl)
+    ${DECL}/exceptions.hpp)
 
 set (MATRIX_BASE_SRC
     ${DECL}/matrix_base.hpp)
 
 set (MATRIX_SRC
     ${DECL}/matrix.hpp
+    ${IMPL}/matrix_assign_operators.inl
     ${IMPL}/matrix_checkers.inl
-    ${IMPL}/matrix_inits.inl
+    ${IMPL}/matrix_construct.inl
+    ${IMPL}/matrix_fill.inl
     ${IMPL}/matrix_iter.inl
     ${IMPL}/matrix_math.inl
     ${IMPL}/matrix_operations.inl
@@ -36,7 +37,12 @@ set (MATRIX_SRC
 
 set (TEST_SRC
     ${TESTS}/matrix_tests.hpp
-    ${TESTS}/test_construct.hpp
+    ${TESTS}/tests_matrix_assign_operaor.inl
+    ${TESTS}/tests_matrix_construct.inl
+    ${TESTS}/tests_matrix_filling.inl
+    ${TESTS}/tests_matrix_iterators.inl
+    ${TESTS}/tests_matrix_math.inl
+    ${TESTS}/tests_matrix_restruct.inl
 )
 
 include_directories(
