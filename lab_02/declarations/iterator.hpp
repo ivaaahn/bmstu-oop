@@ -2,9 +2,6 @@
 #define __ITERATOR_HPP__
 
 #include <memory>
-#include <string>
-
-using string = std::string;
 
 template <typename T>
 class Matrix;

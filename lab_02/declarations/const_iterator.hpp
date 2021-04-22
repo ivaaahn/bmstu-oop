@@ -2,11 +2,8 @@
 #define __CONST_ITERATOR_HPP__
 
 #include <memory>
-#include <string>
 
 #include "exceptions.hpp"
-
-using string = std::string;
 
 template <typename T>
 class Matrix;
