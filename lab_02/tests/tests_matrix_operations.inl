@@ -35,32 +35,6 @@ TEST(MatrixOperations, MPlusMConst)
 }
 
 
-TEST(MatrixOperations, MPlusEl)
-{
-    int el = 1;
-    Matrix<int> a = { {1,2}, {3,4} };
-
-    Matrix<int> reference = { {2,3}, {4,5} };
-
-
-    EXPECT_EQ(a+el, reference);
-    EXPECT_EQ(el+a, reference);
-    EXPECT_EQ(a.addElem(el), reference);
-}
-
-TEST(MatrixOperations, MPlusElConst)
-{
-    const int el = 1;
-    const Matrix<int> a = { {1,2}, {3,4} };
-
-    const Matrix<int> reference = { {2,3}, {4,5} };
-
-
-    EXPECT_EQ(a+el, reference);
-    EXPECT_EQ(el+a, reference);
-    EXPECT_EQ(a.addElem(el), reference);
-}
-
 
 TEST(MatrixOperations, MPlusEquM)
 {
@@ -74,25 +48,11 @@ TEST(MatrixOperations, MPlusEquM)
     EXPECT_EQ(b+=a, reference);
 
     b = { {1,1}, {1,1} };
-    EXPECT_EQ(a.addEqMatrix(b), reference);
+    EXPECT_EQ(a.addEqMatr(b), reference);
 
     a = { {1,2}, {3,4} };
-    EXPECT_EQ(b.addEqMatrix(a), reference);
+    EXPECT_EQ(b.addEqMatr(a), reference);
 }
-
-TEST(MatrixOperations, MPlusEquEl)
-{
-    Matrix<int> reference = { {2,3}, {4,5} };
-
-    Matrix<int> a = { {1,2}, {3,4} };
-    int b = 1;
-    EXPECT_EQ(a+=b, reference);
-
-
-    a = { {1,2}, {3,4} };
-    EXPECT_EQ(a.addEqElem(b), reference);
-}
-
 
 
 
@@ -120,30 +80,6 @@ TEST(MatrixOperations, MMinusMConst)
 }
 
 
-TEST(MatrixOperations, MMinusEl)
-{
-    Matrix<int> a = { {3,4}, {5,6} };
-    int el = 1;
-
-    Matrix<int> reference = { {2,3}, {4,5} };
-
-
-    EXPECT_EQ(a-el, reference);
-    EXPECT_EQ(el-a, -reference);
-    EXPECT_EQ(a.subElem(el), reference);
-}
-
-TEST(MatrixOperations, MMinusElConst)
-{
-    const int el = 1;
-    const Matrix<int> a = { {3,4}, {5,6} };
-    const Matrix<int> reference = { {2,3}, {4,5} };
-
-
-    EXPECT_EQ(a-el, reference);
-    EXPECT_EQ(el-a, -reference);
-    EXPECT_EQ(a.subElem(el), reference);
-}
 
 
 TEST(MatrixOperations, MMinusEquM)
@@ -158,24 +94,12 @@ TEST(MatrixOperations, MMinusEquM)
     EXPECT_EQ(b-=a, -reference);
 
     b = { {1,1}, {1,1} };
-    EXPECT_EQ(a.subEqMatrix(b), reference);
+    EXPECT_EQ(a.subEqMatr(b), reference);
 
     a = { {3,4}, {5,6} };
-    EXPECT_EQ(b.subEqMatrix(a), -reference);
+    EXPECT_EQ(b.subEqMatr(a), -reference);
 }
 
-TEST(MatrixOperations, MMinusEquEl)
-{
-    Matrix<int> reference = { {2,3}, {4,5} };
-
-    Matrix<int> a = { {3,4}, {5,6} };
-    int b = 1;
-    EXPECT_EQ(a-=b, reference);
-
-
-    a = { {3,4}, {5,6} };
-    EXPECT_EQ(a.subElem(b), reference);
-}
 
 
 
@@ -336,10 +260,10 @@ TEST(MatrixOperations, MMulEquM)
     EXPECT_EQ(b*=a, reference2);
 
     b = { {1,1}, {1,1} };
-    EXPECT_EQ(a.mulEqMatrix(b), reference1);
+    EXPECT_EQ(a.mulEqMatr(b), reference1);
 
     a = { {1,2}, {3,4} };
-    EXPECT_EQ(b.mulEqMatrix(a), reference2);
+    EXPECT_EQ(b.mulEqMatr(a), reference2);
 }
 
 TEST(MatrixOperations, MMulEquEye)
@@ -354,10 +278,10 @@ TEST(MatrixOperations, MMulEquEye)
     EXPECT_EQ(b*=a, reference);
 
     b = { {1,0}, {0,1} };
-    EXPECT_EQ(a.mulEqMatrix(b), reference);
+    EXPECT_EQ(a.mulEqMatr(b), reference);
 
     a = { {1,2}, {3,4} };
-    EXPECT_EQ(b.mulEqMatrix(a), reference);
+    EXPECT_EQ(b.mulEqMatr(a), reference);
 }
 
 
@@ -400,6 +324,185 @@ TEST(MatrixOperations, MMulEquZero)
     a = { {1,2}, {3,4} };
     EXPECT_EQ(a.mulEqElem(b), reference);
 }
+
+TEST(MatrixOperations, MDivMEqu)
+{
+    Matrix<double> reference = { {1,0}, {0,1} };
+
+    Matrix<double> a = { {1,2}, {3,4} };
+
+    EXPECT_EQ(a / a, reference);
+    EXPECT_EQ(a.divMatr(a), reference);
+}
+
+TEST(MatrixOperations, MDivMEquConst)
+{
+    const Matrix<double> reference = { {1,0}, {0,1} };
+
+    const Matrix<double> a = { {1,2}, {3,4} };
+
+    EXPECT_EQ(a / a, reference);
+    EXPECT_EQ(a.divMatr(a), reference);
+}
+
+
+TEST(MatrixOperations, MDivM)
+{
+    Matrix<double> reference = { {1,0, 0}, {-1.2, 1.8, -0.4} };
+
+    Matrix<double> a = { {1,2,3}, {3,4,2} };
+    Matrix<double> b = { {1,2,3}, {3,4,4}, {3,2,4} };
+
+    EXPECT_DOUBLE_EQ(a / b, reference);
+    EXPECT_DOUBLE_EQ(a.divMatr(b), reference);
+}
+
+
+TEST(MatrixOperations, MDivMConst)
+{
+    const Matrix<double> reference = { {1,0, 0}, {-1.2, 1.8, -0.4} };
+
+    const Matrix<double> a = { {1,2,3}, {3,4,2} };
+    const Matrix<double> b = { {1,2,3}, {3,4,4}, {3,2,4} };
+
+    EXPECT_DOUBLE_EQ(a / b, reference);
+    EXPECT_DOUBLE_EQ(a.divMatr(b), reference);
+}
+
+
+TEST(MatrixOperations, MDivMSingularMatrix)
+{
+    Matrix<double> reference = { {1,0}, {0,1} };
+
+    Matrix<double> a = { {1,2}, {3,4} };
+    Matrix<double> b = { {0,0}, {0,0} };
+
+    EXPECT_THROW(a / b, SingularMatrix);
+}
+
+
+TEST(MatrixOperations, MDivMSingularMatrixMethod)
+{
+    Matrix<double> reference = { {1,0}, {0,1} };
+
+    Matrix<double> a = { {1,2}, {3,4} };
+    Matrix<double> b = { {0,0}, {0,0} };
+
+    EXPECT_THROW(a.divMatr(b), SingularMatrix);
+}
+
+
+TEST(MatrixOperations, MDivMNonSquareMatrix)
+{
+    Matrix<double> reference = { {1,0}, {0,1} };
+
+    Matrix<double> a = { {1,2}, {3,4} };
+    Matrix<double> b = { {1,2,3}, {4,5,6} };
+
+    EXPECT_THROW(a / b, InvalidDimensions);
+}
+
+TEST(MatrixOperations, MDivMNonSquareMatrixMethod)
+{
+    Matrix<double> reference = { {1,0}, {0,1} };
+
+    Matrix<double> a = { {1,2}, {3,4} };
+    Matrix<double> b = { {1,2,3}, {4,5,6} };
+
+    EXPECT_THROW(a / b, InvalidDimensions);
+}
+
+
+
+TEST(MatrixOperations, MDivMSingularMatrixConst)
+{
+    const Matrix<double> reference = { {1,0}, {0,1} };
+
+    const Matrix<double> a = { {1,2}, {3,4} };
+    const Matrix<double> b = { {0,0}, {0,0} };
+
+    EXPECT_THROW(a / b, SingularMatrix);
+}
+
+
+TEST(MatrixOperations, MDivMSingularMatrixMethodConst)
+{
+    const Matrix<double> reference = { {1,0}, {0,1} };
+
+    const Matrix<double> a = { {1,2}, {3,4} };
+    const Matrix<double> b = { {0,0}, {0,0} };
+
+    EXPECT_THROW(a.divMatr(b), SingularMatrix);
+}
+
+
+TEST(MatrixOperations, MDivMNonSquareMatrixConst)
+{
+    const Matrix<double> reference = { {1,0}, {0,1} };
+
+    const Matrix<double> a = { {1,2}, {3,4} };
+    const Matrix<double> b = { {1,2,3}, {4,5,6} };
+
+    EXPECT_THROW(a / b, InvalidDimensions);
+}
+
+TEST(MatrixOperations, MDivMNonSquareMatrixMethodConst)
+{
+    const Matrix<double> reference = { {1,0}, {0,1} };
+
+    const Matrix<double> a = { {1,2}, {3,4} };
+    const Matrix<double> b = { {1,2,3}, {4,5,6} };
+
+    EXPECT_THROW(a / b, InvalidDimensions);
+}
+
+
+TEST(MatrixOperations, MDivElem)
+{
+    Matrix<double> reference = { {1,2}, {3,4} };
+
+    Matrix<double> a = { {2,4}, {6,8} };
+
+    double b = 2;
+
+    EXPECT_EQ(a / b, reference);
+}
+
+TEST(MatrixOperations, MDivElemConst)
+{
+    const Matrix<double> reference = { {1,2}, {3,4} };
+
+    const Matrix<double> a = { {2,4}, {6,8} };
+
+    const double b = 2;
+
+    EXPECT_EQ(a / b, reference);
+}
+
+
+TEST(MatrixOperations, MDivElemZero)
+{
+    Matrix<double> a = { {2,4}, {6,8} };
+
+    double b = 0;
+
+    EXPECT_THROW(a / b, ZeroDivision);
+}
+
+
+TEST(MatrixOperations, MNegative)
+{
+    Matrix<double> a = { {2,4}, {6,8} };
+    Matrix<double> reference = { {-2,-4}, {-6,-8} };
+
+    EXPECT_EQ(-a, reference);
+    EXPECT_EQ(a.neg(), reference);
+}
+
+
+
+
+
 
 
 #endif // __TESTS_MATRIX_OPERATIONS_INL__
