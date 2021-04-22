@@ -98,7 +98,7 @@ const T* ConstIterator<T>::operator->() const
         throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator->");
 
 
-    std::shared_ptr<typename Matrix<T>::MatrixRow[]> dataPtr = this->data.lock();
+    auto dataPtr = this->data.lock();
     return dataPtr[this->index / this->cols].getAddr() + (this->index % this->cols);
 }
 

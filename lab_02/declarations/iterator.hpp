@@ -30,14 +30,8 @@ public:
     bool operator==(const Iterator<T> &another) const;
     bool operator!=(const Iterator<T> &another) const;
 
-    explicit operator bool() const;
-    bool isBegin() const;
-    bool isEnd() const;
-    bool isValid() const;
-
     Iterator<T> operator+(const int value) const;
     Iterator<T> operator-(const int value) const;
-    Iterator<T> &operator+=(const int value); //!
 
     T &current();
     T &operator*();
@@ -54,6 +48,13 @@ public:
     Iterator<T> prev();
     Iterator<T> &operator--();
     Iterator<T> operator--(int);
+    
+
+    operator bool() const;
+    bool isBegin() const;
+    bool isEnd() const;
+    bool isValid() const;
+    
 };
 
 #include "iterator.inl"
