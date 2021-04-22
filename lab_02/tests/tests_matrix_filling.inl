@@ -34,9 +34,7 @@ TEST(FillingTests, FirstRowFill)
 
     auto it_start = a.begin();
 
-    auto it_end = a.begin().next();
-
-    ++it_end;
+    auto it_end = a.begin() + 2;
 
     a.fill(it_start, it_end, 0);
 
@@ -51,10 +49,10 @@ TEST(FillingTests, FillFromSource)
 
     Matrix<int> reference = { {1,8}, {7,4} };
 
-    auto it_start = a.begin().next();
+    auto it_start = a.begin() + 1;
 
-    auto it_src_start = b.begin().next();
-    auto it_src_end = b.end().prev();
+    auto it_src_start = b.begin() + 1;
+    auto it_src_end = b.end() - 1;
 
 
     a.fill(it_start, it_src_start, it_src_end);
@@ -69,10 +67,10 @@ TEST(FillingTests, FillFromSourceConst)
 
     Matrix<int> reference = { {1,8}, {7,4} };
 
-    auto it_start = a.begin().next();
+    auto it_start = a.begin() + 1;
 
-    auto it_src_start = b.cbegin().next();
-    auto it_src_end = b.cend().prev();
+    auto it_src_start = b.cbegin() + 1;
+    auto it_src_end = b.cend() - 1;
 
 
     a.fill(it_start, it_src_start, it_src_end);
