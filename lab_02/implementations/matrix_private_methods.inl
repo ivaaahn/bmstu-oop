@@ -1,5 +1,5 @@
-#ifndef __MATRIX_CHECKERS_INL__
-#define __MATRIX_CHECKERS_INL__
+#ifndef __MATRIX_PRIVATE_METHODS_INL__
+#define __MATRIX_PRIVATE_METHODS_INL__
 
 #include "matrix.hpp"
 
@@ -32,4 +32,4 @@ bool Matrix<T>::_validInitList(std::initializer_list<std::initializer_list<T>> i
     return true;
 }
 
-#endif // __MATRIX_CHECKERS_INL__
+#endif // __MATRIX_PRIVATE_METHODS_INL__
