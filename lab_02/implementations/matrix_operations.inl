@@ -19,18 +19,6 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T> &anotherM) const
 }
 
 template <typename T>
-Matrix<T> Matrix<T>::operator+(const T &elem) const noexcept
-{
-    Matrix<T> resultM(this->rows, this->cols);
-
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
-            resultM[i][j] = this->data[i][j] + elem;
-
-    return resultM;
-}
-
-template <typename T>
 Matrix<T> Matrix<T>::operator-(const Matrix<T> &anotherM) const
 {
     if (!(this->rows == anotherM.rows && this->cols == anotherM.cols))
@@ -41,18 +29,6 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T> &anotherM) const
     for (size_t i = 0; i < this->rows; ++i)
         for (size_t j = 0; j < this->cols; ++j)
             resultM[i][j] = this->data[i][j] - anotherM[i][j];
-
-    return resultM;
-}
-
-template <typename T>
-Matrix<T> Matrix<T>::operator-(const T &elem) const noexcept
-{
-    Matrix<T> resultM(this->rows, this->cols);
-
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
-            resultM[i][j] = this->data[i][j] - elem;
 
     return resultM;
 }
@@ -77,7 +53,7 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T> &anotherM) const
 template <typename T>
 Matrix<T> Matrix<T>::operator*(const T &elem) const noexcept
 {
-    Matrix<T> resultM(this->rows, this->cols);
+    Matrix<T> resultM(this->rows, this->cols, 0);
 
     for (size_t i = 0; i < this->rows; ++i)
         for (size_t j = 0; j < this->cols; ++j)
@@ -86,18 +62,18 @@ Matrix<T> Matrix<T>::operator*(const T &elem) const noexcept
     return resultM;
 }
 
-
 template <typename T>
 Matrix<T> Matrix<T>::operator/(const Matrix &anotherM) const
 {
     Matrix<T> resultM(anotherM);
-    return *this * resultM.inverse();
+    return *this * resultM.getInversed();
 }
 
 template <typename T>
 Matrix<T> Matrix<T>::operator/(const T &elem) const
 {
-    if (!elem) throw InvalidArgument(__FILE__, __LINE__, "Zero divisor");
+    if (!elem)
+        throw ZeroDivision(__FILE__, __LINE__, "Divisor must not be zero!");
 
     Matrix<T> resultM(this->rows, this->cols);
 
@@ -108,7 +84,6 @@ Matrix<T> Matrix<T>::operator/(const T &elem) const
     return resultM;
 }
 
-
 template <typename T>
 Matrix<T> &Matrix<T>::operator+=(const Matrix &anotherM)
 {
@@ -118,15 +93,6 @@ Matrix<T> &Matrix<T>::operator+=(const Matrix &anotherM)
     for (size_t i = 0; i < this->rows; ++i)
         for (size_t j = 0; j < this->cols; ++j)
             this->data[i][j] += anotherM[i][j];
-
-    return *this;
-}
-
-template <typename T>
-Matrix<T> &Matrix<T>::operator+=(const T &elem) noexcept
-{
-    for (auto &oldElement : *this)
-        oldElement += elem;
 
     return *this;
 }
@@ -145,15 +111,6 @@ Matrix<T> &Matrix<T>::operator-=(const Matrix &anotherM)
 }
 
 template <typename T>
-Matrix<T> &Matrix<T>::operator-=(const T &elem) noexcept
-{
-    for (auto &oldElement : *this)
-        oldElement -= elem;
-
-    return *this;
-}
-
-template <typename T>
 Matrix<T> &Matrix<T>::operator*=(const Matrix &anotherM)
 {
     *this = *this * anotherM;
@@ -167,11 +124,11 @@ Matrix<T> &Matrix<T>::operator*=(const T &elem) noexcept
     return *this;
 }
 
-
 template <typename T>
 Matrix<T> &Matrix<T>::operator/=(const T &elem)
 {
-    if (!elem) throw InvalidArgument(__FILE__, __LINE__, "Zero divisor");
+    if (!elem)
+        throw ZeroDivision(__FILE__, __LINE__, "Divisor must not be zero!");
 
     for (size_t i = 0; i < this->rows; ++i)
         for (size_t j = 0; j < this->cols; ++j)
@@ -187,7 +144,6 @@ Matrix<T> &Matrix<T>::operator/=(const Matrix &anotherM)
     return *this;
 }
 
-
 template <typename T>
 Matrix<T> Matrix<T>::operator-() const
 {
@@ -200,17 +156,10 @@ Matrix<T> Matrix<T>::operator-() const
     return resultM;
 }
 
-
 template <typename T>
 Matrix<T> Matrix<T>::addMatr(const Matrix &anotherM) const
 {
     return *this + anotherM;
-}
-
-template <typename T>
-Matrix<T> Matrix<T>::addElem(const T &elem) const noexcept
-{
-    return *this + elem;
 }
 
 template <typename T>
@@ -220,18 +169,10 @@ Matrix<T> Matrix<T>::subMatr(const Matrix &anotherM) const
 }
 
 template <typename T>
-Matrix<T> Matrix<T>::subElem(const T &elem) const noexcept
-{
-    return *this - elem;
-}
-
-
-template <typename T>
 Matrix<T> Matrix<T>::mulMatr(const Matrix &anotherM) const
 {
     return *this * anotherM;
 }
-
 
 template <typename T>
 Matrix<T> Matrix<T>::mulElem(const T &elem) const noexcept
@@ -239,13 +180,11 @@ Matrix<T> Matrix<T>::mulElem(const T &elem) const noexcept
     return *this * elem;
 }
 
-
 template <typename T>
 Matrix<T> Matrix<T>::divMatr(const Matrix &anotherM) const
 {
     return *this / anotherM;
 }
-
 
 template <typename T>
 Matrix<T> Matrix<T>::divElem(const T &elem) const
@@ -253,38 +192,20 @@ Matrix<T> Matrix<T>::divElem(const T &elem) const
     return *this / elem;
 }
 
-
-
 template <typename T>
-Matrix<T> &Matrix<T>::addEqMatrix(const Matrix &anotherM)
+Matrix<T> &Matrix<T>::addEqMatr(const Matrix &anotherM)
 {
     return *this += anotherM;
 }
 
 template <typename T>
-Matrix<T> &Matrix<T>::addEqElem(const T &elem) noexcept
-{
-    return *this += elem;
-}
-
-
-
-template <typename T>
-Matrix<T> &Matrix<T>::subEqMatrix(const Matrix &anotherM)
+Matrix<T> &Matrix<T>::subEqMatr(const Matrix &anotherM)
 {
     return *this -= anotherM;
 }
 
-
 template <typename T>
-Matrix<T> &Matrix<T>::subEqElem(const T &elem) noexcept
-{
-    return *this -= elem;
-}
-
-
-template <typename T>
-Matrix<T> &Matrix<T>::mulEqMatrix(const Matrix &anotherM)
+Matrix<T> &Matrix<T>::mulEqMatr(const Matrix &anotherM)
 {
     return *this *= anotherM;
 }
@@ -295,26 +216,22 @@ Matrix<T> &Matrix<T>::mulEqElem(const T &elem) noexcept
     return *this *= elem;
 }
 
-
 template <typename T>
 Matrix<T> &Matrix<T>::divEqElem(const T &elem)
 {
     return *this /= elem;
-
 }
 
-
 template <typename T>
-Matrix<T> &Matrix<T>::divEqMatrix(const Matrix &anotherM)
+Matrix<T> &Matrix<T>::divEqMatr(const Matrix &anotherM)
 {
     return *this /= anotherM;
 }
 
-
 template <typename T>
-Matrix<T> Matrix<T>::neg() const 
+Matrix<T> Matrix<T>::neg() const
 {
-    return -*this();
+    return -*this;
 }
 
 template <typename T>
@@ -339,7 +256,7 @@ template <typename T>
 Matrix<T> operator/(const T &elem, const Matrix<T> &matrix)
 {
     Matrix<T> resultM(matrix);
-    return resultM.inverse() * elem;
+    return resultM.getInversed() * elem;
 }
 
 template <typename T>
@@ -355,8 +272,5 @@ std::ostream &operator<<(std::ostream &out, const Matrix<T> &matrix)
 
     return out;
 }
-
-
-// TODO добавить деление и унарные
 
 #endif // __MATRIX_OPERATIONS_INL__
