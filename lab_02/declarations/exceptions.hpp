@@ -54,15 +54,6 @@ public:
     }
 };
 
-class IncompatibleElements : public MatrixException
-{
-public:
-    IncompatibleElements(const string file, const int line, const string msg = "No error message") : MatrixException(file, line, msg)
-    {
-        this->errMsg = "IncompatibleElements: " + this->errMsg;
-    }
-};
-
 class InvalidDimensions : public MatrixException
 {
 public:
