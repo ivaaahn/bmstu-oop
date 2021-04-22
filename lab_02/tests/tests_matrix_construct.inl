@@ -13,27 +13,25 @@ TEST(ConstructorTests, Default)
 
 TEST(ConstructorTests, InitList)
 {
-    Matrix<int> a = {{1,2}, {3,4}};
-    EXPECT_EQ(a, Matrix<int>({{1,2}, {3,4}}));
+    Matrix<int> a = {{1, 2}, {3, 4}};
+    EXPECT_EQ(a, Matrix<int>({{1, 2}, {3, 4}}));
 }
-
 
 TEST(ConstructorTests, Copy)
 {
-    Matrix<int> a = {{1,2}, {3,4}};
+    Matrix<int> a = {{1, 2}, {3, 4}};
     Matrix<int> b = Matrix<int>(a);
 
-    EXPECT_EQ(b, Matrix<int>({{1,2}, {3,4}}));
+    EXPECT_EQ(b, Matrix<int>({{1, 2}, {3, 4}}));
 }
 
 TEST(ConstructorTests, Move)
 {
-    Matrix<int> a = {{1,2}, {3,4}};
+    Matrix<int> a = {{1, 2}, {3, 4}};
     Matrix<int> b = std::move(a);
 
-    EXPECT_EQ(b, Matrix<int>({{1,2}, {3,4}}));
+    EXPECT_EQ(b, Matrix<int>({{1, 2}, {3, 4}}));
 }
-
 
 TEST(ConstructorTests, LargeDimensions)
 {
@@ -53,29 +51,26 @@ TEST(ConstructorTests, BadDimensionalInitList)
 
 TEST(ConstructorTests, ZeroCols)
 {
-    Matrix<int> a(1,0);
-    EXPECT_EQ(a, Matrix<int>(0,0));
+    Matrix<int> a(1, 0);
+    EXPECT_EQ(a, Matrix<int>(0, 0));
 }
 
 TEST(ConstructorTests, ZeroRows)
 {
-    Matrix<int> a(0,1);
-    EXPECT_EQ(a, Matrix<int>(0,0));
+    Matrix<int> a(0, 1);
+    EXPECT_EQ(a, Matrix<int>(0, 0));
 }
 
 TEST(ConstructorTests, ZeroColsInitList)
 {
     Matrix<int> a({{}, {}});
-    EXPECT_EQ(a, Matrix<int>(0,0));
+    EXPECT_EQ(a, Matrix<int>(0, 0));
 }
-
 
 TEST(ConstructorTests, ZeroRowsInitList)
 {
     Matrix<int> a({});
-    EXPECT_EQ(a, Matrix<int>(0,0));
+    EXPECT_EQ(a, Matrix<int>(0, 0));
 }
 
-
-
-#endif  // __TESTS_MATRIX_CONSTRUCTOR_INL__
+#endif // __TESTS_MATRIX_CONSTRUCTOR_INL__

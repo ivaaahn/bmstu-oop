@@ -7,7 +7,7 @@
 
 TEST(AssignOperatorTests, Copy)
 {
-    Matrix<int> a = {{1,2}, {3,4}};
+    Matrix<int> a = {{1, 2}, {3, 4}};
     Matrix<int> b;
 
     b = a;
@@ -17,7 +17,7 @@ TEST(AssignOperatorTests, Copy)
 
 TEST(AssignOperatorTests, Move)
 {
-    Matrix<int> a = {{1,2}, {3,4}};
+    Matrix<int> a = {{1, 2}, {3, 4}};
     Matrix<int> b;
 
     b = std::move(a);
@@ -28,18 +28,15 @@ TEST(AssignOperatorTests, Move)
 TEST(AssignOperatorTests, InitList)
 {
     Matrix<int> a;
-    a = { {1, 2}, {3, 4} };
+    a = {{1, 2}, {3, 4}};
 
-    EXPECT_EQ(a, Matrix<int>({ {1, 2}, {3, 4} }));
+    EXPECT_EQ(a, Matrix<int>({{1, 2}, {3, 4}}));
 }
-
 
 TEST(AssignOperatorTests, BadInitList)
 {
     Matrix<int> a;
-    EXPECT_THROW((a = { {1, 2}, {3, 4, 5} }), InvalidArgument);
+    EXPECT_THROW((a = {{1, 2}, {3, 4, 5}}), InvalidArgument);
 }
 
-
-
-#endif  // __TESTS__MATRIX_ASSIGN_OPERATOR_INL__
+#endif // __TESTS__MATRIX_ASSIGN_OPERATOR_INL__
