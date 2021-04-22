@@ -1,12 +1,7 @@
 #ifndef __ITERATOR_INL__
 #define __ITERATOR_INL__
 
-#include <string>
-
 #include "iterator.hpp"
-#include "exceptions.hpp"
-
-using string = std::string;
 
 template <typename T>
 Iterator<T> &Iterator<T>::operator=(const Iterator<T> &it)
@@ -35,13 +30,6 @@ Iterator<T> Iterator<T>::operator++(int)
 }
 
 template <typename T>
-Iterator<T> Iterator<T>::next()
-{
-    Iterator<T> it(*this);
-    return ++it;
-}
-
-template <typename T>
 Iterator<T> &Iterator<T>::operator--()
 {
     if (this->index > 0)
@@ -58,13 +46,6 @@ Iterator<T> Iterator<T>::operator--(int)
 }
 
 template <typename T>
-Iterator<T> Iterator<T>::prev()
-{
-    Iterator<T> it(*this);
-    return --it;
-}
-
-template <typename T>
 bool Iterator<T>::operator==(const Iterator &other) const
 {
     return this->index == other.index;
@@ -73,83 +54,75 @@ bool Iterator<T>::operator==(const Iterator &other) const
 template <typename T>
 bool Iterator<T>::operator!=(const Iterator &other) const
 {
-    return this->index != other.index;
+    return !(*this == other);
 }
 
 template <typename T>
-T &Iterator<T>::operator*()
+bool Iterator<T>::operator<(const Iterator<T> &other) const
 {
-    if (!isValid())
+    return this->index < other.index;
+}
+
+template <typename T>
+bool Iterator<T>::operator>(const Iterator<T> &other) const
+{
+    return this->index > other.index;
+}
+
+template <typename T>
+bool Iterator<T>::operator>=(const Iterator<T> &other) const
+{
+    return !(this->index < other.index);
+}
+
+template <typename T>
+bool Iterator<T>::operator<=(const Iterator<T> &other) const
+{
+    return !(this->index > other.index);
+}
+
+template <typename T>
+T &Iterator<T>::operator*() const
+{
+    if (!this->isValid())
         throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
 
     if (this->index >= this->rows * this->cols)
-        throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing operator*");
+        throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator*");
 
     auto dataPtr = this->data.lock();
     return dataPtr[this->index / this->cols][this->index % this->cols];
 }
 
 template <typename T>
-const T &Iterator<T>::operator*() const
-{
-    if (!isValid())
-        throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
-
-    if (this->index >= this->rows * this->cols)
-        throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator*");
-
-    auto data_ptr = this->data.lock();
-    return data_ptr[this->index / this->cols][this->index % this->cols];
-}
-
-template <typename T>
-const T &Iterator<T>::current() const
+T &Iterator<T>::current() const
 {
     return this->operator*();
 }
 
 template <typename T>
-T &Iterator<T>::current()
+T *Iterator<T>::operator->() const
 {
-    return this->operator*();
-}
-
-template <typename T>
-T *Iterator<T>::operator->()
-{
-    if (!isValid())
-        throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
-
-    if (this->index >= this->rows * this->cols)
-        throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing operator->");
-
-    auto data_ptr = this->data.lock();
-    return data_ptr[this->index / this->cols].getAddr() + (this->index % this->cols);
-}
-
-template <typename T>
-const T *Iterator<T>::operator->() const
-{
-    if (!isValid())
+    if (!this->isValid())
         throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
 
     if (this->index >= this->rows * this->cols)
         throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator->");
 
-    auto data_ptr = this->data.lock();
-    return this->data_ptr[this->index / this->cols].getAddr() + (this->index % this->cols);
-}
-
-template <typename T>
-bool Iterator<T>::isEnd() const
-{
-    return this->index == this->rows * this->cols;
+    auto dataPtr = this->data.lock();
+    return this->dataPtr[this->index / this->cols].getAddr() + (this->index % this->cols);
 }
 
 template <typename T>
 bool Iterator<T>::isBegin() const
 {
     return this->index == 0;
+}
+
+template <typename T>
+bool Iterator<T>::isEnd() const
+{
+    return this->index == this->rows * this->cols;
 }
 
 template <typename T>
@@ -184,6 +157,46 @@ template <typename T>
 Iterator<T> Iterator<T>::operator-(const int value) const
 {
     return operator+(-value);
+}
+
+template <typename T>
+int Iterator<T>::operator-(const Iterator<T> &it) const
+{
+    return static_cast<int>(this->index) - static_cast<int>(it.index);
+}
+
+template <typename T>
+Iterator<T> operator+(const int value, const Iterator<T> &it)
+{
+    return it + value;
+}
+
+template <typename T>
+Iterator<T> &Iterator<T>::operator+=(const int value)
+{
+    *this = *this + value;
+    return *this;
+}
+
+template <typename T>
+Iterator<T> &Iterator<T>::operator-=(const int value)
+{
+    *this = *this - value;
+    return *this;
+}
+
+template <typename T>
+T &Iterator<T>::operator[](const int value) const
+{
+    return *(*this + value);
+}
+
+template <typename T>
+void Iterator<T>::swapWith(Iterator<T> &it)
+{
+    T tmp = **this;
+    **this = *it;
+    *it = tmp;
 }
 
 #endif // __ITERATOR_INL__

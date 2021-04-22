@@ -1,14 +1,20 @@
 #ifndef __CONST_ITERATOR_INL__
-#define __CONST_ITERATOR_INL__ 
+#define __CONST_ITERATOR_INL__
 
 #include "const_iterator.hpp"
 
 template <typename T>
-using SharedPtrOnRow = std::shared_ptr<typename Matrix<T>::MatrixRow[]>;
-
+ConstIterator<T> &ConstIterator<T>::operator=(const ConstIterator<T> &it)
+{
+    this->data = it.data;
+    this->index = it.index;
+    this->rows = it.rows;
+    this->cols = it.cols;
+    return *this;
+}
 
 template <typename T>
-const ConstIterator<T>& ConstIterator<T>::operator++()
+const ConstIterator<T> &ConstIterator<T>::operator++()
 {
     if (this->index < this->cols * this->rows)
         ++this->index;
@@ -24,15 +30,7 @@ ConstIterator<T> ConstIterator<T>::operator++(int)
 }
 
 template <typename T>
-ConstIterator<T> ConstIterator<T>::next() const 
-{
-    auto it(*this);
-    return ++it;
-}
-
-
-template <typename T>
-const ConstIterator<T>& ConstIterator<T>::operator--()
+const ConstIterator<T> &ConstIterator<T>::operator--()
 {
     if (this->index > 0)
         --this->index;
@@ -48,29 +46,43 @@ ConstIterator<T> ConstIterator<T>::operator--(int)
 }
 
 template <typename T>
-ConstIterator<T> ConstIterator<T>::prev() const 
-{
-    auto it(*this);
-    return --it;
-
-}
-
-
-template <typename T>
-bool ConstIterator<T>::operator!=(ConstIterator const &other) const 
-{
-    return this->index != other.index;
-}
-
-template <typename T>
-bool ConstIterator<T>::operator==(ConstIterator const &other) const 
+bool ConstIterator<T>::operator==(ConstIterator const &other) const
 {
     return this->index == other.index;
 }
 
+template <typename T>
+bool ConstIterator<T>::operator!=(ConstIterator const &other) const
+{
+    return !(*this == other);
+}
 
 template <typename T>
-const T& ConstIterator<T>::operator*() const 
+bool ConstIterator<T>::operator<(const ConstIterator<T> &other) const
+{
+    return this->index < other.index;
+}
+
+template <typename T>
+bool ConstIterator<T>::operator>(const ConstIterator<T> &other) const
+{
+    return this->index > other.index;
+}
+
+template <typename T>
+bool ConstIterator<T>::operator>=(const ConstIterator<T> &other) const
+{
+    return !(this->index < other.index);
+}
+
+template <typename T>
+bool ConstIterator<T>::operator<=(const ConstIterator<T> &other) const
+{
+    return !(this->index > other.index);
+}
+
+template <typename T>
+const T &ConstIterator<T>::operator*() const
 {
     if (!isValid())
         throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
@@ -78,18 +90,18 @@ const T& ConstIterator<T>::operator*() const
     if (this->index >= this->rows * this->cols)
         throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator*");
 
-    SharedPtrOnRow<T> dataPtr = this->data.lock();
+    auto dataPtr = this->data.lock();
     return dataPtr[this->index / this->cols][this->index % this->cols];
 }
 
 template <typename T>
-const T& ConstIterator<T>::current() const 
+const T &ConstIterator<T>::current() const
 {
     return this->operator*();
 }
 
 template <typename T>
-const T* ConstIterator<T>::operator->() const 
+const T *ConstIterator<T>::operator->() const
 {
     if (!isValid())
         throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
@@ -97,33 +109,30 @@ const T* ConstIterator<T>::operator->() const
     if (this->index >= this->rows * this->cols)
         throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator->");
 
-
     auto dataPtr = this->data.lock();
     return dataPtr[this->index / this->cols].getAddr() + (this->index % this->cols);
 }
 
-
 template <typename T>
-bool ConstIterator<T>::isBegin() const 
+bool ConstIterator<T>::isBegin() const
 {
     return this->index == 0;
 }
 
 template <typename T>
-bool ConstIterator<T>::isEnd() const 
+bool ConstIterator<T>::isEnd() const
 {
     return this->index == this->rows * this->cols;
 }
 
-
 template <typename T>
-ConstIterator<T>::operator bool() const 
+ConstIterator<T>::operator bool() const
 {
     return !this->data.expired();
 }
 
 template <typename T>
-bool ConstIterator<T>::isValid() const 
+bool ConstIterator<T>::isValid() const
 {
     return bool(*this);
 }
@@ -150,10 +159,35 @@ ConstIterator<T> ConstIterator<T>::operator-(const int value) const
 }
 
 template <typename T>
+int ConstIterator<T>::operator-(const ConstIterator<T> &it) const
+{
+    return static_cast<int>(this->index) - static_cast<int>(it.index);
+}
+
+template <typename T>
+ConstIterator<T> operator+(const int value, const ConstIterator<T> &it)
+{
+    return it + value;
+}
+
+template <typename T>
 ConstIterator<T> &ConstIterator<T>::operator+=(const int value)
 {
-    this->index += value;
+    *this = *this + value;
     return *this;
 }
 
-#endif  // __CONST_ITERATOR_INL__
+template <typename T>
+ConstIterator<T> &ConstIterator<T>::operator-=(const int value)
+{
+    *this = *this - value;
+    return *this;
+}
+
+template <typename T>
+const T &ConstIterator<T>::operator[](const int value) const
+{
+    return *(*this + value);
+}
+
+#endif // __CONST_ITERATOR_INL__

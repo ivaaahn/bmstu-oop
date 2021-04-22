@@ -12,7 +12,7 @@ template<typename T>
 class Matrix;
 
 template<typename T>
-class ConstIterator: public std::iterator<std::bidirectional_iterator_tag, T> 
+class ConstIterator: public std::iterator<std::random_access_iterator_tag, T> 
 {
     friend Matrix<T>;
 
@@ -28,31 +28,41 @@ private:
 
 public:
     ConstIterator(const ConstIterator &it) = default;
+    ConstIterator<T> &operator=(const ConstIterator<T> &it);
+    
 
     bool operator==(ConstIterator const &other) const;
     bool operator!=(ConstIterator const &other) const;
+    bool operator<(const ConstIterator<T> &other) const;
+    bool operator<=(const ConstIterator<T> &other) const;
+    bool operator>(const ConstIterator<T> &other) const;
+    bool operator>=(const ConstIterator<T> &other) const;
 
-    explicit operator bool() const;
+    operator bool() const;
     bool isEnd() const;
     bool isBegin() const;
     bool isValid() const;
 
     ConstIterator<T> operator+(const int value) const;
     ConstIterator<T> operator-(const int value) const;
-    ConstIterator<T>& operator+=(const int value);
+    int operator-(const ConstIterator<T> &it) const;
+
 
     const T& current() const;
     const T& operator*() const;
     const T* operator->() const;
 
     ConstIterator<T> operator++(int);
-    ConstIterator<T> operator--(int);
-
-    const ConstIterator<T>& operator--();
     const ConstIterator<T>& operator++();
 
-    ConstIterator<T> next() const;
-    ConstIterator<T> prev() const;
+
+    ConstIterator<T> operator--(int);
+    const ConstIterator<T>& operator--();
+
+    ConstIterator<T>& operator+=(const int value);
+    ConstIterator<T>& operator-=(const int value);
+
+    const T& operator[](const int value) const;
 };
 
 
