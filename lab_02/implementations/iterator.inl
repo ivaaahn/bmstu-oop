@@ -12,7 +12,6 @@ template <typename T>
 using SharedPtrOnRow = std::shared_ptr<typename Matrix<T>::MatrixRow[]>;
 
 
-
 template <typename T>
 Iterator<T>& Iterator<T>::operator=(const Iterator<T> &it) 
 {
@@ -43,9 +42,10 @@ Iterator<T> Iterator<T>::operator++(int)
 
 
 template <typename T>
-Iterator<T>& Iterator<T>::next() 
+Iterator<T> Iterator<T>::next() 
 {   
-    return this->operator++();
+    Iterator<T> it(*this);
+    return ++it;
 }
 
 template <typename T>
@@ -65,9 +65,10 @@ Iterator<T> Iterator<T>::operator--(int)
 }
 
 template <typename T>
-Iterator<T>& Iterator<T>::prev() 
+Iterator<T> Iterator<T>::prev() 
 {   
-    return this->operator--();
+    Iterator<T> it(*this);
+    return --it;
 }
 
 template <typename T>
@@ -87,8 +88,12 @@ bool Iterator<T>::operator!=(const Iterator &other) const
 template <typename T>
 T& Iterator<T>::operator*() 
 {
-    _checkValid("Iterator points on nullptr");
-    _checkIndex("Iterator doens't in data bounds, while executing operator*");
+     if (!isValid())
+        throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
+
+    if (this->index >= this->rows * this->cols)
+        throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing operator*");
+
 
     SharedPtrOnRow<T> dataPtr = this->data.lock();
     return dataPtr[this->index / this->cols][this->index % this->cols];
@@ -96,9 +101,12 @@ T& Iterator<T>::operator*()
 
 template <typename T>
 const T& Iterator<T>::operator*() const 
-{
-    _checkValid("Iterator points on nullptr");
-    _checkIndex("Iterator doens't in data bounds, while executing const operator*");
+{ 
+    if (!isValid())
+        throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
+
+    if (this->index >= this->rows * this->cols)
+        throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator*");
 
     SharedPtrOnRow<T> data_ptr = this->data.lock();
     return data_ptr[this->index / this->cols][this->index % this->cols];
@@ -121,8 +129,12 @@ T& Iterator<T>::current()
 template <typename T>
 T* Iterator<T>::operator->() 
 {
-    _checkValid("Iterator points on nullptr");
-    _checkIndex("Iterator doens't in data bounds, while executing operator->");
+    if (!isValid())
+        throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
+
+    if (this->index >= this->rows * this->cols)
+        throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing operator->");
+
 
     SharedPtrOnRow<T> data_ptr = this->data.lock();
     return data_ptr[this->index / this->cols].getAddr() + (this->index % this->cols);
@@ -131,34 +143,15 @@ T* Iterator<T>::operator->()
 template <typename T>
 const T* Iterator<T>::operator->() const 
 {
-    _checkValid("Iterator points on nullptr");
-    _checkIndex("Iterator doens't in data bounds, while executing const operator->");
+    if (!isValid())
+        throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
+
+    if (this->index >= this->rows * this->cols)
+        throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator->");
+
 
     SharedPtrOnRow<T> data_ptr = this->data.lock();
     return this->data_ptr[this->index / this->cols].getAddr() + (this->index % this->cols);
-}
-
-
-template <typename T>
-void Iterator<T>::_checkIndex(const string errMsg) 
-{
-    if (this->index >= this->rows * this->cols || this->index < 0)
-    {
-        time_t currT = time(NULL);
-        auto localT = localtime(&currT);
-        throw IndexError(asctime(localT), __FILE__, __LINE__, errMsg);
-    }
-}
-
-template <typename T>
-void Iterator<T>::_checkValid(const string errMsg) const 
-{
-    if (!isValid())  //! equ data.expired() == true
-    { 
-        time_t currT = time(NULL);
-        auto localT = localtime(&currT);
-        throw MemoryError(asctime(localT), __FILE__, __LINE__, errMsg);
-    }
 }
 
 
