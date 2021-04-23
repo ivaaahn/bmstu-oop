@@ -137,7 +137,7 @@ private:
     std::shared_ptr<MatrixRow[]> _allocateMemory(const size_t rows, const size_t cols);
     void _moveRow(const size_t from, const size_t to);
     void _moveCol(const size_t from, const size_t to);
-    bool _validInitList(std::initializer_list<std::initializer_list<T>> lst, const size_t rowSize) const;
+    bool _initListIsValid(std::initializer_list<std::initializer_list<T>> lst, const size_t rowSize) const;
 
 public:
     class MatrixRow

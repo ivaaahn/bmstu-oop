@@ -27,7 +27,7 @@ Matrix<T>::Matrix(const int rows, const int cols, const T &filler) : Matrix(rows
 template <typename T>
 Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> lst) : Matrix(lst.size(), lst.size() ? lst.begin()->size() : 0)
 {
-    if (!this->_validInitList(lst, this->cols))
+    if (!this->_initListIsValid(lst, this->cols))
         throw InvalidArgument(__FILE__, __LINE__, "Receive bad initializer list for create matrix");
 
     auto it = this->begin();

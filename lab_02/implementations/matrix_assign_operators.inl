@@ -35,7 +35,7 @@ Matrix<T> &Matrix<T>::operator=(std::initializer_list<std::initializer_list<T>> 
     size_t rows = initList.size();
     size_t cols = initList.size() ? initList.begin()->size() : 0;
 
-    if (!this->_validInitList(initList, cols))
+    if (!this->_initListIsValid(initList, cols))
         throw InvalidArgument(__FILE__, __LINE__, "Receive bad initializer list for matrix assignment");
 
     this->resize(rows, cols);
