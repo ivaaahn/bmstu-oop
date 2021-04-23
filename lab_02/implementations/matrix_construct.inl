@@ -40,10 +40,7 @@ Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> lst) : Matrix(
 template <typename T>
 Matrix<T>::Matrix(const Matrix &anotherM) : Matrix(anotherM.rows, anotherM.cols)
 {
-    auto it = this->begin();
-
-    for (auto &elem : anotherM)
-        *it++ = elem;
+    this->fill(this->begin(), anotherM.begin(), anotherM.end());
 }
 
 template <typename T>
