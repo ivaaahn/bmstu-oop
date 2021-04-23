@@ -24,54 +24,54 @@ bool Matrix<T>::operator!=(const Matrix &anotherM) const
 }
 
 template <typename T>
-typename Matrix<T>::MatrixRow Matrix<T>::operator[](const size_t row)
+typename Matrix<T>::MatrixRow Matrix<T>::operator[](const int row)
 {
-    if (row >= this->rows)
+    if (row < 0 || row >= this->rows)
         throw IndexError(__FILE__, __LINE__, "Index out of bound of matrix dimensions when using the operator[].");
 
     return this->data[row];
 }
 
 template <typename T>
-const typename Matrix<T>::MatrixRow Matrix<T>::operator[](const size_t row) const
+const typename Matrix<T>::MatrixRow Matrix<T>::operator[](const int row) const
 {
-    if (row >= this->rows)
+    if (row < 0 || row >= this->rows)
         throw IndexError(__FILE__, __LINE__, "Index out of bound of matrix dimensions when using the const operator[]");
 
     return this->data[row];
 }
 
 template <typename T>
-T &Matrix<T>::operator()(const size_t row, const size_t col)
+T &Matrix<T>::operator()(const int row, const int col)
 {
-    if (row >= this->rows || col >= this->cols)
+    if (row < 0 || col < 0 || row >= this->rows || col >= this->cols)
         throw IndexError(__FILE__, __LINE__, "Index out of bound of matrix dimensions when using the operator()");
 
     return this->data[row][col];
 }
 
 template <typename T>
-T &Matrix<T>::at(const size_t row, const size_t col)
+T &Matrix<T>::at(const int row, const int col)
 {
-    if (row >= this->rows || col >= this->cols)
+    if (row < 0 || col < 0 || row >= this->rows || col >= this->cols)
         throw IndexError(__FILE__, __LINE__, "Index out of bound of matrix dimensions when using the operator at()");
 
     return this->data[row][col];
 }
 
 template <typename T>
-const T &Matrix<T>::operator()(const size_t row, const size_t col) const
+const T &Matrix<T>::operator()(const int row, const int col) const
 {
-    if (row >= this->rows || col >= this->cols)
+    if (row < 0 || col < 0 || row >= this->rows || col >= this->cols)
         throw IndexError(__FILE__, __LINE__, "Index out of bound of matrix dimensions when using the const operator()");
 
     return this->data[row][col];
 }
 
 template <typename T>
-const T &Matrix<T>::at(const size_t row, const size_t col) const
+const T &Matrix<T>::at(const int row, const int col) const
 {
-    if (row >= this->rows || col >= this->cols)
+    if (row < 0 || col < 0 || row >= this->rows || col >= this->cols)
         throw IndexError(__FILE__, __LINE__, "Index out of bound of matrix dimensions when using the const operator at()");
 
     return this->data[row][col];
