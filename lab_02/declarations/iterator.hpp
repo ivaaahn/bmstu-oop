@@ -22,7 +22,7 @@ private:
 
 public:
     Iterator(const Iterator &it) = default;
-    Iterator<T> &operator=(const Iterator<T> &it);
+    Iterator<T> &operator=(const Iterator<T> &other);
 
     bool operator==(const Iterator<T> &other) const;
     bool operator!=(const Iterator<T> &other) const;
@@ -38,7 +38,7 @@ public:
 
     Iterator<T> operator+(const int value) const;
     Iterator<T> operator-(const int value) const;
-    int operator-(const Iterator<T> &it) const;
+    int operator-(const Iterator<T> &other) const;
 
     T &current() const;
     T &operator*() const;
@@ -55,7 +55,7 @@ public:
 
     T &operator[](const int value) const;
 
-    void swapWith(Iterator<T> &it);
+    void swapWith(Iterator<T> &other);
 };
 
 #include "iterator.inl"

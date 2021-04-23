@@ -24,7 +24,7 @@ private:
 
 public:
     ConstIterator(const ConstIterator &it) = default;
-    ConstIterator<T> &operator=(const ConstIterator<T> &it);
+    ConstIterator<T> &operator=(const ConstIterator<T> &other);
 
     bool operator==(ConstIterator const &other) const;
     bool operator!=(ConstIterator const &other) const;
@@ -40,7 +40,7 @@ public:
 
     ConstIterator<T> operator+(const int value) const;
     ConstIterator<T> operator-(const int value) const;
-    int operator-(const ConstIterator<T> &it) const;
+    int operator-(const ConstIterator<T> &other) const;
 
     const T &current() const;
     const T &operator*() const;
