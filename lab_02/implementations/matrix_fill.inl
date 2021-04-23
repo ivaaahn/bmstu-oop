@@ -7,15 +7,15 @@
 #include "matrix.hpp"
 
 template <typename T>
-void Matrix<T>::fill(Iterator<T> start, const Iterator<T> &end, const T &value)
+void Matrix<T>::fill(MatrixIterator<T> start, const MatrixIterator<T> &end, const T &value)
 {
     for (auto it = start; it != end; ++it)
         *it = value;
 }
 
 template <typename T>
-template <typename Any>
-void Matrix<T>::fill(Iterator<T> start, Any source_start, const Any &source_end)
+template <typename AnyIterator>
+void Matrix<T>::fill(MatrixIterator<T> start, AnyIterator source_start, const AnyIterator &source_end)
 {
     auto source_it = source_start;
     auto it = start;

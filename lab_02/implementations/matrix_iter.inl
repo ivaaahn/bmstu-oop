@@ -4,39 +4,39 @@
 #include "matrix.hpp"
 
 template <typename T>
-Iterator<T> Matrix<T>::begin()
+MatrixIterator<T> Matrix<T>::begin()
 {
-    return Iterator<T>(this->data, this->rows, this->cols, 0);
+    return MatrixIterator<T>(this->data, this->rows, this->cols, 0);
 }
 
 template <typename T>
-Iterator<T> Matrix<T>::end()
+MatrixIterator<T> Matrix<T>::end()
 {
-    return Iterator<T>(this->data, this->rows, this->cols, this->cols * this->rows);
+    return MatrixIterator<T>(this->data, this->rows, this->cols, this->cols * this->rows);
 }
 
 template <typename T>
-ConstIterator<T> Matrix<T>::begin() const
+ConstMatrixIterator<T> Matrix<T>::begin() const
 {
-    return ConstIterator<T>(this->data, this->rows, this->cols, 0);
+    return ConstMatrixIterator<T>(this->data, this->rows, this->cols, 0);
 }
 
 template <typename T>
-ConstIterator<T> Matrix<T>::end() const
+ConstMatrixIterator<T> Matrix<T>::end() const
 {
-    return ConstIterator<T>(this->data, this->rows, this->cols, this->cols * this->rows);
+    return ConstMatrixIterator<T>(this->data, this->rows, this->cols, this->cols * this->rows);
 }
 
 template <typename T>
-ConstIterator<T> Matrix<T>::cbegin() const
+ConstMatrixIterator<T> Matrix<T>::cbegin() const
 {
-    return ConstIterator<T>(this->data, this->rows, this->cols, 0);
+    return ConstMatrixIterator<T>(this->data, this->rows, this->cols, 0);
 }
 
 template <typename T>
-ConstIterator<T> Matrix<T>::cend() const
+ConstMatrixIterator<T> Matrix<T>::cend() const
 {
-    return ConstIterator<T>(this->data, this->rows, this->cols, this->cols * this->rows);
+    return ConstMatrixIterator<T>(this->data, this->rows, this->cols, this->cols * this->rows);
 }
 
 #endif // __MATRIX_ITER_INL__
