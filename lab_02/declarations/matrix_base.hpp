@@ -11,7 +11,7 @@ protected:
     size_t cols;
 
 public:
-    MatrixBase(const size_t rows = 0, const size_t cols = 0) : rows(cols ? rows : 0), cols(rows ? cols : 0) {}
+    MatrixBase(const size_t rows = 0, const size_t cols = 0) : rows(rows), cols(cols) {}
 
     virtual size_t getColumns() const { return this->cols; }
     virtual size_t getRows() const { return this->rows; }
