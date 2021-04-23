@@ -7,7 +7,7 @@ template <typename T>
 class Matrix;
 
 template <typename T>
-class Iterator : public std::iterator<std::random_access_iterator_tag, T>
+class MatrixIterator : public std::iterator<std::random_access_iterator_tag, T>
 {
     friend Matrix<T>;
 
@@ -17,45 +17,45 @@ private:
     size_t rows = 0;
     size_t index = 0;
 
-    Iterator(const std::shared_ptr<typename Matrix<T>::MatrixRow[]> &data, const size_t rows, const size_t cols, const size_t index)
+    MatrixIterator(const std::shared_ptr<typename Matrix<T>::MatrixRow[]> &data, const size_t rows, const size_t cols, const size_t index)
         : data(data), index(index), rows(rows), cols(cols) {}
 
 public:
-    Iterator(const Iterator &it) = default;
-    Iterator<T> &operator=(const Iterator<T> &other);
+    MatrixIterator(const MatrixIterator &it) = default;
+    MatrixIterator<T> &operator=(const MatrixIterator<T> &other);
 
-    bool operator==(const Iterator<T> &other) const;
-    bool operator!=(const Iterator<T> &other) const;
-    bool operator<(const Iterator<T> &other) const;
-    bool operator<=(const Iterator<T> &other) const;
-    bool operator>(const Iterator<T> &other) const;
-    bool operator>=(const Iterator<T> &other) const;
+    bool operator==(const MatrixIterator<T> &other) const;
+    bool operator!=(const MatrixIterator<T> &other) const;
+    bool operator<(const MatrixIterator<T> &other) const;
+    bool operator<=(const MatrixIterator<T> &other) const;
+    bool operator>(const MatrixIterator<T> &other) const;
+    bool operator>=(const MatrixIterator<T> &other) const;
 
     operator bool() const;
     bool isBegin() const;
     bool isEnd() const;
     bool isValid() const;
 
-    Iterator<T> operator+(const int value) const;
-    Iterator<T> operator-(const int value) const;
-    int operator-(const Iterator<T> &other) const;
+    MatrixIterator<T> operator+(const int value) const;
+    MatrixIterator<T> operator-(const int value) const;
+    int operator-(const MatrixIterator<T> &other) const;
 
     T &current() const;
     T &operator*() const;
     T *operator->() const;
 
-    Iterator<T> operator++(int);
-    Iterator<T> &operator++();
+    MatrixIterator<T> operator++(int);
+    MatrixIterator<T> &operator++();
 
-    Iterator<T> operator--(int);
-    Iterator<T> &operator--();
+    MatrixIterator<T> operator--(int);
+    MatrixIterator<T> &operator--();
 
-    Iterator<T> &operator+=(const int value);
-    Iterator<T> &operator-=(const int value);
+    MatrixIterator<T> &operator+=(const int value);
+    MatrixIterator<T> &operator-=(const int value);
 
     T &operator[](const int value) const;
 
-    void swapWith(Iterator<T> &other);
+    void swapWith(MatrixIterator<T> &other);
 };
 
 #include "iterator.inl"
