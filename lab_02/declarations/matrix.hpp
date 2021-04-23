@@ -86,8 +86,9 @@ public:
     // Fillers
 
     void fill(Iterator<T> start, const Iterator<T> &end, const T &filler = {});
-    void fill(Iterator<T> start, Iterator<T> source_start, const Iterator<T> &source_end);
-    void fill(Iterator<T> start, ConstIterator<T> source_start, const ConstIterator<T> &source_end);
+
+    template<typename Any> 
+    void fill(Iterator<T> start, Any source_start, const Any &source_end);
 
     Matrix<T> &eye();
     Matrix<T> &zeros();

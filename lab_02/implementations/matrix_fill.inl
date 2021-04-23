@@ -14,7 +14,8 @@ void Matrix<T>::fill(Iterator<T> start, const Iterator<T> &end, const T &value)
 }
 
 template <typename T>
-void Matrix<T>::fill(Iterator<T> start, Iterator<T> source_start, const Iterator<T> &source_end)
+template <typename Any>
+void Matrix<T>::fill(Iterator<T> start, Any source_start, const Any &source_end)
 {
     auto source_it = source_start;
     auto it = start;
@@ -23,15 +24,6 @@ void Matrix<T>::fill(Iterator<T> start, Iterator<T> source_start, const Iterator
         *it++ = *source_it++;
 }
 
-template <typename T>
-void Matrix<T>::fill(Iterator<T> start, ConstIterator<T> source_start, const ConstIterator<T> &source_end)
-{
-    auto source_it = source_start;
-    auto it = start;
-
-    while (!it.isEnd() && source_it != source_end)
-        *it++ = *source_it++;
-}
 
 template <typename T>
 Matrix<T> &Matrix<T>::zeros()

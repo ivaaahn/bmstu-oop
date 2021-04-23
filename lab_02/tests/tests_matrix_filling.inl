@@ -73,6 +73,26 @@ TEST(FillingTests, FillFromSourceConst)
     EXPECT_EQ(a, reference);
 }
 
+
+TEST(FillingTests, FillFromSourceAnyConst)
+{
+
+    const std::array<int, 4> b = {9,8,7,6};
+    Matrix<int> a = {{1, 2}, {3, 4}};
+
+    const Matrix<int> reference = {{1, 8}, {7, 4}};
+
+    auto it_start = a.begin() + 1;
+
+    auto it_src_start = b.cbegin() + 1;
+    auto it_src_end = b.cend() - 1;
+
+    a.fill(it_start, it_src_start, it_src_end);
+
+    EXPECT_EQ(a, reference);
+}
+
+
 TEST(FillingTests, ZerosFill)
 {
     Matrix<int> a(2, 2);
