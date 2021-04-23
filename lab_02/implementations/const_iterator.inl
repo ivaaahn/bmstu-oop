@@ -4,7 +4,7 @@
 #include "const_iterator.hpp"
 
 template <typename T>
-ConstIterator<T> &ConstIterator<T>::operator=(const ConstIterator<T> &it)
+ConstMatrixIterator<T> &ConstMatrixIterator<T>::operator=(const ConstMatrixIterator<T> &it)
 {
     this->data = it.data;
     this->index = it.index;
@@ -14,7 +14,7 @@ ConstIterator<T> &ConstIterator<T>::operator=(const ConstIterator<T> &it)
 }
 
 template <typename T>
-const ConstIterator<T> &ConstIterator<T>::operator++()
+const ConstMatrixIterator<T> &ConstMatrixIterator<T>::operator++()
 {
     if (this->index < this->cols * this->rows)
         ++this->index;
@@ -22,15 +22,15 @@ const ConstIterator<T> &ConstIterator<T>::operator++()
 }
 
 template <typename T>
-ConstIterator<T> ConstIterator<T>::operator++(int)
+ConstMatrixIterator<T> ConstMatrixIterator<T>::operator++(int)
 {
-    ConstIterator<T> it(*this);
+    ConstMatrixIterator<T> it(*this);
     ++(*this);
     return it;
 }
 
 template <typename T>
-const ConstIterator<T> &ConstIterator<T>::operator--()
+const ConstMatrixIterator<T> &ConstMatrixIterator<T>::operator--()
 {
     if (this->index > 0)
         --this->index;
@@ -38,51 +38,51 @@ const ConstIterator<T> &ConstIterator<T>::operator--()
 }
 
 template <typename T>
-ConstIterator<T> ConstIterator<T>::operator--(int)
+ConstMatrixIterator<T> ConstMatrixIterator<T>::operator--(int)
 {
-    ConstIterator<T> it(*this);
+    ConstMatrixIterator<T> it(*this);
     --(*this);
     return it;
 }
 
 template <typename T>
-bool ConstIterator<T>::operator==(ConstIterator const &other) const
+bool ConstMatrixIterator<T>::operator==(ConstMatrixIterator const &other) const
 {
     return this->index == other.index;
 }
 
 template <typename T>
-bool ConstIterator<T>::operator!=(ConstIterator const &other) const
+bool ConstMatrixIterator<T>::operator!=(ConstMatrixIterator const &other) const
 {
     return !(*this == other);
 }
 
 template <typename T>
-bool ConstIterator<T>::operator<(const ConstIterator<T> &other) const
+bool ConstMatrixIterator<T>::operator<(const ConstMatrixIterator<T> &other) const
 {
     return this->index < other.index;
 }
 
 template <typename T>
-bool ConstIterator<T>::operator>(const ConstIterator<T> &other) const
+bool ConstMatrixIterator<T>::operator>(const ConstMatrixIterator<T> &other) const
 {
     return this->index > other.index;
 }
 
 template <typename T>
-bool ConstIterator<T>::operator>=(const ConstIterator<T> &other) const
+bool ConstMatrixIterator<T>::operator>=(const ConstMatrixIterator<T> &other) const
 {
     return !(this->index < other.index);
 }
 
 template <typename T>
-bool ConstIterator<T>::operator<=(const ConstIterator<T> &other) const
+bool ConstMatrixIterator<T>::operator<=(const ConstMatrixIterator<T> &other) const
 {
     return !(this->index > other.index);
 }
 
 template <typename T>
-const T &ConstIterator<T>::operator*() const
+const T &ConstMatrixIterator<T>::operator*() const
 {
     if (!isValid())
         throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
@@ -95,13 +95,13 @@ const T &ConstIterator<T>::operator*() const
 }
 
 template <typename T>
-const T &ConstIterator<T>::current() const
+const T &ConstMatrixIterator<T>::current() const
 {
     return this->operator*();
 }
 
 template <typename T>
-const T *ConstIterator<T>::operator->() const
+const T *ConstMatrixIterator<T>::operator->() const
 {
     if (!isValid())
         throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
@@ -114,33 +114,33 @@ const T *ConstIterator<T>::operator->() const
 }
 
 template <typename T>
-bool ConstIterator<T>::isBegin() const
+bool ConstMatrixIterator<T>::isBegin() const
 {
     return this->index == 0;
 }
 
 template <typename T>
-bool ConstIterator<T>::isEnd() const
+bool ConstMatrixIterator<T>::isEnd() const
 {
     return this->index == this->rows * this->cols;
 }
 
 template <typename T>
-ConstIterator<T>::operator bool() const
+ConstMatrixIterator<T>::operator bool() const
 {
     return !this->data.expired();
 }
 
 template <typename T>
-bool ConstIterator<T>::isValid() const
+bool ConstMatrixIterator<T>::isValid() const
 {
     return bool(*this);
 }
 
 template <typename T>
-ConstIterator<T> ConstIterator<T>::operator+(const int value) const
+ConstMatrixIterator<T> ConstMatrixIterator<T>::operator+(const int value) const
 {
-    ConstIterator<T> it(*this);
+    ConstMatrixIterator<T> it(*this);
     if (value < 0 && it.index < static_cast<size_t>(-value))
         it.index = 0;
     else
@@ -153,39 +153,39 @@ ConstIterator<T> ConstIterator<T>::operator+(const int value) const
 }
 
 template <typename T>
-ConstIterator<T> ConstIterator<T>::operator-(const int value) const
+ConstMatrixIterator<T> ConstMatrixIterator<T>::operator-(const int value) const
 {
     return operator+(-value);
 }
 
 template <typename T>
-int ConstIterator<T>::operator-(const ConstIterator<T> &it) const
+int ConstMatrixIterator<T>::operator-(const ConstMatrixIterator<T> &it) const
 {
     return static_cast<int>(this->index) - static_cast<int>(it.index);
 }
 
 template <typename T>
-ConstIterator<T> operator+(const int value, const ConstIterator<T> &it)
+ConstMatrixIterator<T> operator+(const int value, const ConstMatrixIterator<T> &it)
 {
     return it + value;
 }
 
 template <typename T>
-ConstIterator<T> &ConstIterator<T>::operator+=(const int value)
+ConstMatrixIterator<T> &ConstMatrixIterator<T>::operator+=(const int value)
 {
     *this = *this + value;
     return *this;
 }
 
 template <typename T>
-ConstIterator<T> &ConstIterator<T>::operator-=(const int value)
+ConstMatrixIterator<T> &ConstMatrixIterator<T>::operator-=(const int value)
 {
     *this = *this - value;
     return *this;
 }
 
 template <typename T>
-const T &ConstIterator<T>::operator[](const int value) const
+const T &ConstMatrixIterator<T>::operator[](const int value) const
 {
     return *(*this + value);
 }
