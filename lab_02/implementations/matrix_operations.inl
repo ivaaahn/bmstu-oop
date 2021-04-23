@@ -18,6 +18,21 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T> &anotherM) const
     return resultM;
 }
 
+
+// decltype(auto) Matrix<T>::operator+(const Matrix<U> &anotherM) const
+// {
+//     if (!(this->rows == anotherM.getRows() && this->cols == anotherM.getColumns()))
+//         throw(InvalidDimensions(__FILE__, __LINE__, "The dimensions of the matrices must be the same."));
+
+//     Matrix<decltype(std::declval<T>()+std::declval<U>())> resultM(this->rows, this->cols);
+
+//     for (size_t i = 0; i < this->rows; ++i)
+//         for (size_t j = 0; j < this->cols; ++j)
+//             resultM[i][j] = this->data[i][j] + anotherM[i][j];
+
+//     return resultM;
+// }
+
 template <typename T>
 Matrix<T> Matrix<T>::operator-(const Matrix<T> &anotherM) const
 {

@@ -30,6 +30,7 @@ public:
 
     // Overloads of the Matrix-Matrix binary operators
 
+    // decltype(auto) operator+(const Matrix<U> &anotherM) const;
     Matrix<T> operator+(const Matrix &anotherM) const;
     Matrix<T> operator-(const Matrix &anotherM) const;
     Matrix<T> operator*(const Matrix &anotherM) const;
@@ -85,10 +86,10 @@ public:
 
     // Fillers
 
-    void fill(Iterator<T> start, const Iterator<T> &end, const T &filler = {});
+    void fill(MatrixIterator<T> start, const MatrixIterator<T> &end, const T &filler = {});
 
-    template<typename Any> 
-    void fill(Iterator<T> start, Any source_start, const Any &source_end);
+    template<typename AnyIterator> 
+    void fill(MatrixIterator<T> start, AnyIterator source_start, const AnyIterator &source_end);
 
     Matrix<T> &eye();
     Matrix<T> &zeros();
@@ -117,14 +118,14 @@ public:
 
     // Iterators
 
-    Iterator<T> begin();
-    Iterator<T> end();
+    MatrixIterator<T> begin();
+    MatrixIterator<T> end();
 
-    ConstIterator<T> begin() const;
-    ConstIterator<T> end() const;
+    ConstMatrixIterator<T> begin() const;
+    ConstMatrixIterator<T> end() const;
 
-    ConstIterator<T> cbegin() const;
-    ConstIterator<T> cend() const;
+    ConstMatrixIterator<T> cbegin() const;
+    ConstMatrixIterator<T> cend() const;
 
     bool isSquare() const;
 
