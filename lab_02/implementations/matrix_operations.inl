@@ -18,7 +18,6 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T> &anotherM) const
     return resultM;
 }
 
-
 // decltype(auto) Matrix<T>::operator+(const Matrix<U> &anotherM) const
 // {
 //     if (!(this->rows == anotherM.getRows() && this->cols == anotherM.getColumns()))

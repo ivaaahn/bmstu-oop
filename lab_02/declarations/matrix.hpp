@@ -15,7 +15,7 @@ class Matrix : public MatrixBase
 public:
     class MatrixRow;
 
-    explicit Matrix(const int rows=0, const int cols=0);
+    explicit Matrix(const int rows = 0, const int cols = 0);
     explicit Matrix(const Matrix &anotherM);
 
     Matrix(const int rows, const int cols, const T &filler);
@@ -88,7 +88,7 @@ public:
 
     void fill(MatrixIterator<T> start, const MatrixIterator<T> &end, const T &filler = {});
 
-    template<typename AnyIterator> 
+    template <typename AnyIterator>
     void fill(MatrixIterator<T> start, AnyIterator source_start, const AnyIterator &source_end);
 
     Matrix<T> &eye();

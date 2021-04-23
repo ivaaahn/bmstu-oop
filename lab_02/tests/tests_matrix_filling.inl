@@ -73,11 +73,10 @@ TEST(FillingTests, FillFromSourceConst)
     EXPECT_EQ(a, reference);
 }
 
-
 TEST(FillingTests, FillFromSourceAnyConst)
 {
 
-    const std::array<int, 4> b = {9,8,7,6};
+    const std::array<int, 4> b = {9, 8, 7, 6};
     Matrix<int> a = {{1, 2}, {3, 4}};
 
     const Matrix<int> reference = {{1, 8}, {7, 4}};
@@ -91,7 +90,6 @@ TEST(FillingTests, FillFromSourceAnyConst)
 
     EXPECT_EQ(a, reference);
 }
-
 
 TEST(FillingTests, ZerosFill)
 {

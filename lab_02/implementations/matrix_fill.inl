@@ -24,7 +24,6 @@ void Matrix<T>::fill(MatrixIterator<T> start, AnyIterator source_start, const An
         *it++ = *source_it++;
 }
 
-
 template <typename T>
 Matrix<T> &Matrix<T>::zeros()
 {
