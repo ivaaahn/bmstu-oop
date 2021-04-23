@@ -35,8 +35,14 @@ TEST(ConstructorTests, Move)
 
 TEST(ConstructorTests, LargeDimensions)
 {
-    EXPECT_THROW(Matrix<int> err_m(-1, 2), MemoryError);
+    EXPECT_THROW(Matrix<int> err_m(999999999, 999999999), MemoryError);
 }
+
+TEST(ConstructorTests, NegativeDim)
+{
+    EXPECT_THROW(Matrix<int> err_m(-1, -5), InvalidDimensions);
+}
+
 
 TEST(ConstructorTests, WithFiller)
 {

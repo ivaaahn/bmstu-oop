@@ -58,6 +58,20 @@ TEST(RestructTests, InsertRowInitList)
     EXPECT_EQ(a, reference);
 }
 
+TEST(RestructTests, InsertRowInitListEmpty)
+{
+    Matrix<int> a = { {1, 2}, {3, 4}, {5, 6} };
+    EXPECT_THROW(a.insertRow(1,{}), InvalidArgument);
+}
+
+TEST(RestructTests, InsertColInitListEmpty)
+{
+    Matrix<int> a = { {1, 2}, {3, 4}, {5, 6} };
+    EXPECT_THROW(a.insertCol(2,{}), InvalidArgument);
+}
+
+
+
 TEST(RestructTests, InsertRowDefaultFill)
 {
     Matrix<int> a = { {1, 2}, {3, 4}, {5, 6} };
