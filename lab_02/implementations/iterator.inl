@@ -16,7 +16,7 @@ MatrixIterator<T> &MatrixIterator<T>::operator=(const MatrixIterator<T> &it)
 template <typename T>
 MatrixIterator<T> &MatrixIterator<T>::operator++()
 {
-    if (this->index < this->cols * this->rows)
+    if (this->index < *(this->cols.lock()) * *(this->rows.lock()))
         ++this->index;
     return *this;
 }
@@ -87,11 +87,11 @@ T &MatrixIterator<T>::operator*() const
     if (!this->isValid())
         throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
 
-    if (this->index >= this->rows * this->cols)
+    if (this->index >= *(this->rows.lock()) * *(this->cols.lock()))
         throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator*");
 
     auto dataPtr = this->data.lock();
-    return dataPtr[this->index / this->cols][this->index % this->cols];
+    return dataPtr[this->index / *(this->cols.lock())][this->index % *(this->cols.lock())];
 }
 
 template <typename T>
@@ -106,11 +106,11 @@ T *MatrixIterator<T>::operator->() const
     if (!this->isValid())
         throw MemoryError(__FILE__, __LINE__, "Iterator points on nullptr");
 
-    if (this->index >= this->rows * this->cols)
+    if (this->index >= *(this->rows.lock()) * *(this->cols.lock()))
         throw IndexError(__FILE__, __LINE__, "Iterator doens't in data bounds, while executing const operator->");
 
     auto dataPtr = this->data.lock();
-    return this->dataPtr[this->index / this->cols].getAddr() + (this->index % this->cols);
+    return this->dataPtr[this->index / *(this->cols.lock())].getAddr() + (this->index % *(this->cols.lock()));
 }
 
 template <typename T>
@@ -122,7 +122,7 @@ bool MatrixIterator<T>::isBegin() const
 template <typename T>
 bool MatrixIterator<T>::isEnd() const
 {
-    return this->index == this->rows * this->cols;
+    return this->index == *(this->rows.lock()) * *(this->cols.lock());
 }
 
 template <typename T>
@@ -147,8 +147,8 @@ MatrixIterator<T> MatrixIterator<T>::operator+(const int value) const
     else
         it.index += value;
 
-    if (it.index > this->rows * this->cols)
-        it.index = this->rows * this->cols;
+    if (it.index > *(this->rows.lock()) * *(this->cols.lock()))
+        it.index = *(this->rows.lock()) * *(this->cols.lock());
 
     return it;
 }

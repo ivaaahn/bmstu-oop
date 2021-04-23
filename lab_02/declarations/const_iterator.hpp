@@ -13,15 +13,6 @@ class ConstMatrixIterator : public std::iterator<std::random_access_iterator_tag
 {
     friend Matrix<T>;
 
-private:
-    std::weak_ptr<typename Matrix<T>::MatrixRow[]> data = nullptr;
-    size_t cols = 0;
-    size_t rows = 0;
-    size_t index = 0;
-
-    ConstMatrixIterator(const std::shared_ptr<typename Matrix<T>::MatrixRow[]> &data, const size_t rows, const size_t cols, const size_t index)
-        : data(data), index(index), rows(rows), cols(cols) {}
-
 public:
     ConstMatrixIterator(const ConstMatrixIterator &it) = default;
     ConstMatrixIterator<T> &operator=(const ConstMatrixIterator<T> &other);
@@ -56,6 +47,16 @@ public:
     ConstMatrixIterator<T> &operator-=(const int value);
 
     const T &operator[](const int value) const;
+
+private:
+    std::weak_ptr<typename Matrix<T>::MatrixRow[]> data = nullptr;
+    std::weak_ptr<size_t> rows = nullptr;
+    std::weak_ptr<size_t> cols = nullptr;
+    size_t index = 0;
+
+    ConstMatrixIterator(const std::shared_ptr<typename Matrix<T>::MatrixRow[]> &data, const std::shared_ptr<size_t> &rows, const std::shared_ptr<size_t> &cols, const size_t index)
+        : data(data), index(index), rows(rows), cols(cols) {}
+
 };
 
 #include "const_iterator.inl"

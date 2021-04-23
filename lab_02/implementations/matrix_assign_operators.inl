@@ -9,11 +9,11 @@ Matrix<T> &Matrix<T>::operator=(const Matrix &anotherM)
     if (this == &anotherM)
         return *this;
 
-    this->data = _allocateMemory(anotherM.rows, anotherM.cols);
-    this->rows = anotherM.rows, this->cols = anotherM.cols;
+    this->data = _allocateData(*(anotherM.rows), *(anotherM.cols));
+    *(this->rows) = *(anotherM.rows), *(this->cols) = *(anotherM.cols);
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(this->cols); ++j)
             this->data[i][j] = anotherM[i][j];
     return *this;
 }
@@ -25,7 +25,7 @@ Matrix<T> &Matrix<T>::operator=(Matrix &&anotherM)
         return *this;
 
     this->data = anotherM.data;
-    this->rows = anotherM.rows, this->cols = anotherM.cols;
+    *(this->rows) = *(anotherM.rows), *(this->cols) = *(anotherM.cols);
     return *this;
 }
 

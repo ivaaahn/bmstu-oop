@@ -3,11 +3,14 @@
 
 #include "matrix.hpp"
 
+
+
+
+
 template <typename T>
-std::shared_ptr<typename Matrix<T>::MatrixRow[]> Matrix<T>::_allocateMemory(const size_t rows, const size_t cols)
+std::shared_ptr<typename Matrix<T>::MatrixRow[]> Matrix<T>:: _allocateData(const size_t rows, const size_t cols)
 {
     std::shared_ptr<MatrixRow[]> data = nullptr;
-
     try
     {
         data.reset(new MatrixRow[rows]);
@@ -49,7 +52,7 @@ void Matrix<T>::_moveRow(const size_t from, const size_t to)
 template <typename T>
 void Matrix<T>::_moveCol(const size_t from, const size_t to)
 {
-    for (size_t j = 0; j < this->rows; ++j)
+    for (size_t j = 0; j < *(this->rows); ++j)
     {
         auto tmp = this->data[j][from];
 

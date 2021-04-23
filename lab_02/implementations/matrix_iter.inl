@@ -12,7 +12,7 @@ MatrixIterator<T> Matrix<T>::begin()
 template <typename T>
 MatrixIterator<T> Matrix<T>::end()
 {
-    return MatrixIterator<T>(this->data, this->rows, this->cols, this->cols * this->rows);
+    return MatrixIterator<T>(this->data, this->rows, this->cols, *(this->cols) * *(this->rows));
 }
 
 template <typename T>
@@ -24,7 +24,7 @@ ConstMatrixIterator<T> Matrix<T>::begin() const
 template <typename T>
 ConstMatrixIterator<T> Matrix<T>::end() const
 {
-    return ConstMatrixIterator<T>(this->data, this->rows, this->cols, this->cols * this->rows);
+    return ConstMatrixIterator<T>(this->data, this->rows, this->cols, *(this->cols) * *(this->rows));
 }
 
 template <typename T>
@@ -36,7 +36,7 @@ ConstMatrixIterator<T> Matrix<T>::cbegin() const
 template <typename T>
 ConstMatrixIterator<T> Matrix<T>::cend() const
 {
-    return ConstMatrixIterator<T>(this->data, this->rows, this->cols, this->cols * this->rows);
+    return ConstMatrixIterator<T>(this->data, this->rows, this->cols, *(this->cols) * *(this->rows));
 }
 
 #endif // __MATRIX_ITER_INL__

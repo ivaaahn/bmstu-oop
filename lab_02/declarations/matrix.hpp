@@ -17,10 +17,12 @@ public:
 
     explicit Matrix(const int rows = 0, const int cols = 0);
     explicit Matrix(const Matrix &anotherM);
-
+    
     Matrix(const int rows, const int cols, const T &filler);
     Matrix(std::initializer_list<std::initializer_list<T>> lst);
-    Matrix(Matrix &&anotherM);
+    Matrix(Matrix &&anotherM) noexcept;
+    Matrix(T **matrix, const int rows, const int cols);
+
 
     // Overloads of the assign operator
 
@@ -134,7 +136,7 @@ public:
 private:
     std::shared_ptr<MatrixRow[]> data = nullptr;
 
-    std::shared_ptr<MatrixRow[]> _allocateMemory(const size_t rows, const size_t cols);
+    std::shared_ptr<MatrixRow[]> _allocateData(const size_t rows, const size_t cols);
     void _moveRow(const size_t from, const size_t to);
     void _moveCol(const size_t from, const size_t to);
     bool _initListIsValid(std::initializer_list<std::initializer_list<T>> lst, const size_t rowSize) const;

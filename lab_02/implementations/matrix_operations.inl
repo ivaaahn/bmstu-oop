@@ -6,13 +6,13 @@
 template <typename T>
 Matrix<T> Matrix<T>::operator+(const Matrix<T> &anotherM) const
 {
-    if (!(this->rows == anotherM.rows && this->cols == anotherM.cols))
+    if (!(*(this->rows) == *(anotherM.rows) && *(this->cols) == *(anotherM.cols)))
         throw(InvalidDimensions(__FILE__, __LINE__, "The dimensions of the matrices must be the same."));
 
-    Matrix<T> resultM(this->rows, this->cols);
+    Matrix<T> resultM(*(this->rows), *(this->cols));
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(this->cols); ++j)
             resultM[i][j] = this->data[i][j] + anotherM[i][j];
 
     return resultM;
@@ -20,13 +20,13 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T> &anotherM) const
 
 // decltype(auto) Matrix<T>::operator+(const Matrix<U> &anotherM) const
 // {
-//     if (!(this->rows == anotherM.getRows() && this->cols == anotherM.getColumns()))
+//     if (!(*(this->rows) == anotherM.getRows() && *(this->cols) == anotherM.getCols()))
 //         throw(InvalidDimensions(__FILE__, __LINE__, "The dimensions of the matrices must be the same."));
 
-//     Matrix<decltype(std::declval<T>()+std::declval<U>())> resultM(this->rows, this->cols);
+//     Matrix<decltype(std::declval<T>()+std::declval<U>())> resultM(*(this->rows), *(this->cols));
 
-//     for (size_t i = 0; i < this->rows; ++i)
-//         for (size_t j = 0; j < this->cols; ++j)
+//     for (size_t i = 0; i < *(this->rows); ++i)
+//         for (size_t j = 0; j < *(this->cols); ++j)
 //             resultM[i][j] = this->data[i][j] + anotherM[i][j];
 
 //     return resultM;
@@ -35,13 +35,13 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T> &anotherM) const
 template <typename T>
 Matrix<T> Matrix<T>::operator-(const Matrix<T> &anotherM) const
 {
-    if (!(this->rows == anotherM.rows && this->cols == anotherM.cols))
+    if (!(*(this->rows) == *(anotherM.rows) && *(this->cols) == *(anotherM.cols)))
         throw(InvalidDimensions(__FILE__, __LINE__, "The dimensions of the matrices must be the same."));
 
-    Matrix<T> resultM(this->rows, this->cols);
+    Matrix<T> resultM(*(this->rows), *(this->cols));
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(this->cols); ++j)
             resultM[i][j] = this->data[i][j] - anotherM[i][j];
 
     return resultM;
@@ -50,15 +50,15 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T> &anotherM) const
 template <typename T>
 Matrix<T> Matrix<T>::operator*(const Matrix<T> &anotherM) const
 {
-    if (this->cols != anotherM.rows)
+    if (*(this->cols) != *(anotherM.rows))
         throw(InvalidDimensions(__FILE__, __LINE__, "The number of columns in the first"
                                                     "matrix must be equal to the number of rows in the second."));
 
-    Matrix<T> resultM(this->rows, anotherM.cols, 0);
+    Matrix<T> resultM(*(this->rows), *(anotherM.cols), 0);
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < anotherM.cols; ++j)
-            for (size_t k = 0; k < this->cols; ++k)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(anotherM.cols); ++j)
+            for (size_t k = 0; k < *(this->cols); ++k)
                 resultM[i][j] += this->data[i][k] * anotherM[k][j];
 
     return resultM;
@@ -67,10 +67,10 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T> &anotherM) const
 template <typename T>
 Matrix<T> Matrix<T>::operator*(const T &elem) const noexcept
 {
-    Matrix<T> resultM(this->rows, this->cols, 0);
+    Matrix<T> resultM(*(this->rows), *(this->cols), 0);
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(this->cols); ++j)
             resultM[i][j] = this->data[i][j] * elem;
 
     return resultM;
@@ -89,10 +89,10 @@ Matrix<T> Matrix<T>::operator/(const T &elem) const
     if (!elem)
         throw ZeroDivision(__FILE__, __LINE__, "Divisor must not be zero!");
 
-    Matrix<T> resultM(this->rows, this->cols);
+    Matrix<T> resultM(*(this->rows), *(this->cols));
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(this->cols); ++j)
             resultM[i][j] = this->data[i][j] / elem;
 
     return resultM;
@@ -101,11 +101,11 @@ Matrix<T> Matrix<T>::operator/(const T &elem) const
 template <typename T>
 Matrix<T> &Matrix<T>::operator+=(const Matrix &anotherM)
 {
-    if (!(this->rows == anotherM.rows && this->cols == anotherM.cols))
+    if (!(*(this->rows) == *(anotherM.rows) && *(this->cols) == *(anotherM.cols)))
         throw(InvalidDimensions(__FILE__, __LINE__, "The dimensions of the matrices must be the same."));
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(this->cols); ++j)
             this->data[i][j] += anotherM[i][j];
 
     return *this;
@@ -114,11 +114,11 @@ Matrix<T> &Matrix<T>::operator+=(const Matrix &anotherM)
 template <typename T>
 Matrix<T> &Matrix<T>::operator-=(const Matrix &anotherM)
 {
-    if (!(this->rows == anotherM.rows && this->cols == anotherM.cols))
+    if (!(*(this->rows) == *(anotherM.rows) && *(this->cols) == *(anotherM.cols)))
         throw(InvalidDimensions(__FILE__, __LINE__, "The dimensions of the matrices must be the same."));
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(this->cols); ++j)
             this->data[i][j] -= anotherM[i][j];
 
     return *this;
@@ -144,8 +144,8 @@ Matrix<T> &Matrix<T>::operator/=(const T &elem)
     if (!elem)
         throw ZeroDivision(__FILE__, __LINE__, "Divisor must not be zero!");
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(this->cols); ++j)
             this->data[i][j] /= elem;
 
     return *this;
@@ -161,10 +161,10 @@ Matrix<T> &Matrix<T>::operator/=(const Matrix &anotherM)
 template <typename T>
 Matrix<T> Matrix<T>::operator-() const
 {
-    Matrix<T> resultM(this->rows, this->cols);
+    Matrix<T> resultM(*(this->rows), *(this->cols));
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(this->cols); ++j)
             resultM[i][j] = -this->data[i][j];
 
     return resultM;
@@ -278,7 +278,7 @@ std::ostream &operator<<(std::ostream &out, const Matrix<T> &matrix)
 {
     for (size_t i = 0; i < matrix.getRows(); ++i)
     {
-        for (size_t j = 0; j < matrix.getColumns(); ++j)
+        for (size_t j = 0; j < matrix.getCols(); ++j)
             out << matrix[i][j] << '\t';
 
         out << '\n';

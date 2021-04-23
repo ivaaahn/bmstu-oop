@@ -9,7 +9,7 @@ static T _determinant(const Matrix<T> &matrix)
     if (!matrix)
         return 1;
 
-    size_t rows = matrix.getRows(), cols = matrix.getColumns();
+    size_t rows = matrix.getRows(), cols = matrix.getCols();
 
     if (rows == 2)
         return matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1];
@@ -32,11 +32,11 @@ T Matrix<T>::calcMinor(const size_t row, const size_t col) const
     if (!this->isSquare())
         throw InvalidDimensions(__FILE__, __LINE__, "Matrix should be square to calculate minor");
 
-    Matrix<T> cutMatrix(this->rows - 1, this->cols - 1);
+    Matrix<T> cutMatrix(*(this->rows) - 1, *(this->cols) - 1);
 
     size_t rowIndex, colIndex;
-    for (size_t i = 0; i < this->rows - 1; ++i)
-        for (size_t j = 0; j < this->cols - 1; ++j)
+    for (size_t i = 0; i < *(this->rows) - 1; ++i)
+        for (size_t j = 0; j < *(this->cols) - 1; ++j)
         {
             rowIndex = i >= row ? i + 1 : i;
             colIndex = j >= col ? j + 1 : j;
@@ -49,13 +49,13 @@ T Matrix<T>::calcMinor(const size_t row, const size_t col) const
 template <typename T>
 Matrix<T> Matrix<T>::getTransposed()
 {
-    if (!*this || (this->rows == this->cols == 1))
+    if (!*this || (*(this->rows) == *(this->cols) == 1))
         return Matrix<T>(*this);
 
-    Matrix<T> result(this->cols, this->rows);
+    Matrix<T> result(*(this->cols), *(this->rows));
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(this->cols); ++j)
             result[j][i] = this->data[i][j];
 
     return result;
@@ -83,11 +83,11 @@ Matrix<T> Matrix<T>::getInversed()
     if (!thisDet)
         throw SingularMatrix(__FILE__, __LINE__, "A singular matrix cannot be inverted");
 
-    Matrix<T> result(this->rows, this->cols);
+    Matrix<T> result(*(this->rows), *(this->cols));
     T value = {};
 
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
+    for (size_t i = 0; i < *(this->rows); ++i)
+        for (size_t j = 0; j < *(this->cols); ++j)
         {
             value = this->calcMinor(i, j) / thisDet;
             result[j][i] = (i + j) & 1 ? -value : value;
