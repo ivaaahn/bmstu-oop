@@ -7,7 +7,7 @@
 #include "matrix.hpp"
 
 template <typename T>
-Matrix<T>::Matrix(const int rows, const int cols) : MatrixBase(cols ? rows : 0, rows ? cols : rows)
+Matrix<T>::Matrix(const int rows, const int cols) : MatrixBase(cols ? rows : 0, rows ? cols : 0)
 {
     if (rows < 0)
         throw(InvalidDimensions(__FILE__, __LINE__, "Matrix rows must not be negative."));
