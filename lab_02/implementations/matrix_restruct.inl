@@ -52,6 +52,10 @@ void Matrix<T>::insertRow(const size_t pos, std::initializer_list<T> lst)
     if (pos > this->rows)
         throw IndexError(__FILE__, __LINE__, "Index out of bound matrix dimension during row insertion");
 
+    if (!lst.size())
+        throw InvalidArgument(__FILE__, __LINE__, "Matrix must not have empty rows");
+        
+
     resizeRows(this->rows + 1);
 
     size_t k = 0;
@@ -81,6 +85,9 @@ void Matrix<T>::insertCol(const size_t pos, std::initializer_list<T> lst)
     if (pos > this->cols)
         throw IndexError(__FILE__, __LINE__, "Index out of bound matrix dimension during row insertion");
 
+    if (!lst.size())
+        throw InvalidArgument(__FILE__, __LINE__, "Matrix must not have empty rows");
+        
     resizeCols(this->cols + 1);
 
     size_t k = 0;
