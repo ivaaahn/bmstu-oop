@@ -23,13 +23,44 @@ std::shared_ptr<typename Matrix<T>::MatrixRow[]> Matrix<T>::_allocateMemory(cons
 }
 
 template <typename T>
-bool Matrix<T>::_validInitList(std::initializer_list<std::initializer_list<T>> initList, const size_t rowSize) const
+bool Matrix<T>::_initListIsValid(std::initializer_list<std::initializer_list<T>> initList, const size_t rowSize) const
 {
     for (const auto &row : initList)
         if (row.size() != rowSize)
             return false;
 
     return true;
+}
+
+template <typename T>
+void Matrix<T>::_moveRow(const size_t from, const size_t to)
+{
+    auto tmp = this->data[from];
+
+    for (size_t i = from; i > to; --i)
+        this->data[i] = this->data[i - 1];
+
+    for (size_t i = from; i < to; ++i)
+        this->data[i] = this->data[i + 1];
+
+    this->data[to] = tmp;
+}
+
+template <typename T>
+void Matrix<T>::_moveCol(const size_t from, const size_t to)
+{
+    for (size_t j = 0; j < this->rows; ++j)
+    {
+        auto tmp = this->data[j][from];
+
+        for (size_t i = from; i > to; --i)
+            this->data[j][i] = this->data[j][i - 1];
+
+        for (size_t i = from; i < to; ++i)
+            this->data[j][i] = this->data[j][i + 1];
+
+        this->data[j][to] = tmp;
+    }
 }
 
 #endif // __MATRIX_PRIVATE_METHODS_INL__

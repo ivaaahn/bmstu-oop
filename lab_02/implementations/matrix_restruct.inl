@@ -54,7 +54,6 @@ void Matrix<T>::insertRow(const size_t pos, std::initializer_list<T> lst)
 
     if (!lst.size())
         throw InvalidArgument(__FILE__, __LINE__, "Matrix must not have empty rows");
-        
 
     resizeRows(this->rows + 1);
 
@@ -87,7 +86,7 @@ void Matrix<T>::insertCol(const size_t pos, std::initializer_list<T> lst)
 
     if (!lst.size())
         throw InvalidArgument(__FILE__, __LINE__, "Matrix must not have empty rows");
-        
+
     resizeCols(this->cols + 1);
 
     size_t k = 0;
@@ -145,37 +144,6 @@ template <typename T>
 bool Matrix<T>::isSquare() const
 {
     return this->rows == this->cols;
-}
-
-template <typename T>
-void Matrix<T>::_moveRow(const size_t from, const size_t to)
-{
-    auto tmp = this->data[from];
-
-    for (size_t i = from; i > to; --i)
-        this->data[i] = this->data[i - 1];
-
-    for (size_t i = from; i < to; ++i)
-        this->data[i] = this->data[i + 1];
-
-    this->data[to] = tmp;
-}
-
-template <typename T>
-void Matrix<T>::_moveCol(const size_t from, const size_t to)
-{
-    for (size_t j = 0; j < this->rows; ++j)
-    {
-        auto tmp = this->data[j][from];
-
-        for (size_t i = from; i > to; --i)
-            this->data[j][i] = this->data[j][i - 1];
-
-        for (size_t i = from; i < to; ++i)
-            this->data[j][i] = this->data[j][i + 1];
-
-        this->data[j][to] = tmp;
-    }
 }
 
 #endif // __MATRIX_RESTRUCT_INL__
