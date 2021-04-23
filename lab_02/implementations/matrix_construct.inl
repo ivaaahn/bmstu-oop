@@ -7,44 +7,43 @@
 #include "matrix.hpp"
 
 template <typename T>
-Matrix<T>::Matrix(const size_t rows, const size_t cols) : MatrixBase(rows, cols)
+Matrix<T>::Matrix(const int rows, const int cols) : MatrixBase(cols ? rows : 0, rows ? cols : rows)
 {
-    this->data = _allocateMemory(rows, cols);
+    if (rows < 0)
+        throw(InvalidDimensions(__FILE__, __LINE__, "Matrix rows must not be negative."));
+
+    if (cols < 0)
+        throw(InvalidDimensions(__FILE__, __LINE__, "Matrix cols must not be negative."));
+
+    this->data = _allocateMemory(this->rows, this->cols);
 }
 
 template <typename T>
-Matrix<T>::Matrix(const size_t rows, const size_t cols, const T &filler) : MatrixBase(rows, cols)
+Matrix<T>::Matrix(const int rows, const int cols, const T &filler) : Matrix(rows, cols)
 {
-    this->data = _allocateMemory(rows, cols);
-    for (size_t i = 0; i < rows; ++i)
-        for (size_t j = 0; j < cols; ++j)
-            this->data[i][j] = filler;
+    this->fill(this->begin(), this->end(), filler);
 }
 
 template <typename T>
-Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> initList) : MatrixBase(initList.size(), initList.size() ? initList.begin()->size() : 0)
+Matrix<T>::Matrix(std::initializer_list<std::initializer_list<T>> lst) : Matrix(lst.size(), lst.size() ? lst.begin()->size() : 0)
 {
-
-    if (!this->_validInitList(initList, this->cols))
+    if (!this->_validInitList(lst, this->cols))
         throw InvalidArgument(__FILE__, __LINE__, "Receive bad initializer list for create matrix");
 
-    this->data = _allocateMemory(rows, cols);
+    auto it = this->begin();
 
-    size_t i = 0;
-    for (const auto &row : initList)
-        for (const auto &item : row)
-        {
-            this->data[i / cols][i % cols] = item;
-            ++i;
-        }
+    for (const auto &row : lst)
+        for (const auto &elem : row)
+            *it++ = elem;
 }
 
 template <typename T>
 Matrix<T>::Matrix(const Matrix &anotherM) : Matrix(anotherM.rows, anotherM.cols)
 {
-    for (size_t i = 0; i < this->rows; ++i)
-        for (size_t j = 0; j < this->cols; ++j)
-            this->data[i][j] = anotherM[i][j];
+    auto it = this->begin();
+
+    for (auto &elem : anotherM)
+        *it++ = elem;
 }
 
 template <typename T>

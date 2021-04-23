@@ -2,6 +2,7 @@
 #define __MATRIX_HPP__
 
 #include <initializer_list>
+#include <memory>
 
 #include "matrix_base.hpp"
 #include "exceptions.hpp"
@@ -14,10 +15,10 @@ class Matrix : public MatrixBase
 public:
     class MatrixRow;
 
-    explicit Matrix(const size_t rows = 0, const size_t cols = 0);
+    explicit Matrix(const int rows=0, const int cols=0);
     explicit Matrix(const Matrix &anotherM);
 
-    Matrix(const size_t rows, const size_t cols, const T &filler);
+    Matrix(const int rows, const int cols, const T &filler);
     Matrix(std::initializer_list<std::initializer_list<T>> lst);
     Matrix(Matrix &&anotherM);
 
@@ -73,14 +74,14 @@ public:
 
     // Access operators
 
-    MatrixRow operator[](const size_t row);
-    const MatrixRow operator[](const size_t row) const;
+    MatrixRow operator[](const int row);
+    const MatrixRow operator[](const int row) const;
 
-    T &operator()(const size_t row, const size_t col);
-    const T &operator()(const size_t row, const size_t col) const;
+    T &operator()(const int row, const int col);
+    const T &operator()(const int row, const int col) const;
 
-    T &at(const size_t row, const size_t col);
-    const T &at(const size_t row, const size_t col) const;
+    T &at(const int row, const int col);
+    const T &at(const int row, const int col) const;
 
     // Fillers
 
