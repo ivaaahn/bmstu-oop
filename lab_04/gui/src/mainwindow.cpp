@@ -5,7 +5,7 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    qDebug() << "Этаж № 1 | Двери закрыты\nОжидание пассажиров...";
+    qDebug() << "Этаж № 1 | Двери открыты\nОжидание пассажиров...";
 
     for (int i = 0; i < ui->cabin_buttons.size(); ++i)
     {

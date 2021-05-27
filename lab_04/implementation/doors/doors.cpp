@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-Doors::Doors(QObject *parent) : QObject(parent), curr_state(CLOSED) {
+Doors::Doors(QObject *parent) : QObject(parent), curr_state(OPEN) {
     this->passenger_waiting_timer.setInterval(PASSENGER_WAITING_DELAY);
     this->passenger_waiting_timer.setSingleShot(true);
     this->open_timer.setSingleShot(true);
