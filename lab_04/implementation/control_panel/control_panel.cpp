@@ -4,112 +4,93 @@
 
 #include <QDebug>
 
-ControlPanel::ControlPanel(QObject *parent) : QObject(parent), curr_floor(START_FLOOR), curr_target(NO_TARGET),
-                                              is_floor_to_stop(NUM_OF_FLOORS, false), curr_state(FREE), curr_direction(NONE) {}
+ControlPanel::ControlPanel(QObject *parent) : QObject(parent), curr_floor(START_FLOOR), main_target(NO_TARGET),
+                                              is_floor_to_stop(NUM_OF_FLOORS, false), curr_state(FREE),
+                                              curr_direction(NONE) {}
 
-void ControlPanel::setNewTarget(int new_target) {
+void ControlPanel::setNewTarget(int floor) {
     this->curr_state = BUSY;
-    this->is_floor_to_stop[new_target - 1] = true;
+    this->is_floor_to_stop[floor - 1] = true;
 
-    if ((this->curr_direction == UP && new_target > this->curr_target) ||
-        (this->curr_direction == DOWN && new_target < this->curr_target) ||
-        (this->curr_target == NO_TARGET))
+//    qDebug() << "floor is" << floor;
+
+
+    if ((this->curr_direction == UP && floor > this->main_target) ||
+        (this->curr_direction == DOWN && floor < this->main_target) ||
+        (this->main_target == NO_TARGET))
     {
 
-        this->curr_target = new_target;
+//        qDebug() << "Main target is " << floor << "now";
+        this->main_target = floor;
     }
 
-    this->nextTarget(new_target);
-    this->curr_direction = (this->curr_target > this->curr_floor) ? UP : DOWN;
+    this->findNearestFloor(floor);
+    this->curr_direction = (this->main_target > this->curr_floor) ? UP : DOWN;
 
-    emit gotNewTarget(new_target, this->curr_direction);
+//    qDebug() << "After findNearestFloor() floor is" << floor;
+    emit go(floor, this->curr_direction);
 }
 
-void ControlPanel::confirmArrival(int floor) {
+void ControlPanel::handleArrival(int floor) {
+//    qDebug() << "Into handleArrival()";
     if (this->curr_state != BUSY) return;
+
 
     this->curr_floor = floor;
     this->is_floor_to_stop[floor - 1] = false;
 
-    if (this->curr_floor == this->curr_target)
+    if (this->curr_floor == this->main_target)
     {
-        this->curr_target = NO_TARGET;
-        this->findNewTarget();
+        this->main_target = NO_TARGET;
+        this->findNewMainTarget();
     }
 
-    if (this->nextTarget(floor))
+    if (this->findNearestFloor(floor))
     {
-        this->curr_direction = (curr_target > curr_floor) ? UP : DOWN;
-        emit gotNewTarget(floor, curr_direction);
+        this->curr_direction = (this->main_target > this->curr_floor) ? UP : DOWN;
+        emit go(floor, this->curr_direction);
     }
     else
     {
         this->curr_state = FREE;
     }
+
+//    qDebug() << "END handleArrival()";
 }
 
-void ControlPanel::passedFloor(const int new_floor) {
+void ControlPanel::handleFloorPass(const int new_floor) {
     this->curr_floor = new_floor;
     qDebug() << "ELEVATOR IS MOVING | FLOOR #" << new_floor;
 }
 
-void ControlPanel::findNewTarget() {
-    int state = false;
+void ControlPanel::findNewMainTarget() {
+    int is_found = false;
 
     if (this->curr_direction == UP)
     {
-        for (int i = NUM_OF_FLOORS; i >= 1 && !state; --i)
-        {
-            if (this->is_floor_to_stop[i - 1])
-            {
-                state = true;
-                this->curr_target = i;
-            }
-        }
+        for (int i = NUM_OF_FLOORS; i >= 1 && !is_found; --i)
+            if (this->is_floor_to_stop[i - 1]) this->main_target = i, is_found = true;
     }
     else
     {
-        for (int i = 1; i <= NUM_OF_FLOORS && !state; ++i)
-        {
-            if (this->is_floor_to_stop[i - 1])
-            {
-                state = true;
-                this->curr_target = i;
-            }
-        }
+        for (int i = 1; i <= NUM_OF_FLOORS && !is_found; ++i)
+            if (this->is_floor_to_stop[i - 1]) this->main_target = i, is_found = true;
     }
 }
 
-bool ControlPanel::nextTarget(int &floor) {
-    bool state = false;
+bool ControlPanel::findNearestFloor(int &floor) {
+    bool is_found = false;
 
-//    Есть ли этажи на данном маршруте, на которых нужно остановиться? (Данный маршрут - имеется ввиду согласно направлению)
-    if (this->curr_target > this->curr_floor)
+    if (this->main_target > this->curr_floor)
     {
-        bool flag = true;
-        for (int i = this->curr_floor; i <= NUM_OF_FLOORS && flag; ++i)
-        {
-            if (this->is_floor_to_stop[i - 1])
-            {
-                floor = i;
-                state = true;
-                flag = false;
-            }
-        }
+        for (int i = this->curr_floor; i <= NUM_OF_FLOORS && !is_found; ++i)
+            if (this->is_floor_to_stop[i - 1]) floor = i, is_found = true;
     }
     else
     {
-        bool flag = true;
-        for (int i = curr_floor; i >= 1 && flag; --i)
-        {
-            if (this->is_floor_to_stop[i - 1])
-            {
-                floor = i;
-                state = true;
-                flag = false;
-            }
-        }
+        for (int i = curr_floor; i >= 1 && !is_found; --i)
+            if (this->is_floor_to_stop[i - 1]) floor = i, is_found = true;
     }
 
-    return state;
+    return is_found;
 }

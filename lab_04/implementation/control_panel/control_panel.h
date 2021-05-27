@@ -12,27 +12,27 @@ Q_OBJECT
 public:
     explicit ControlPanel(QObject *parent = nullptr);
 
-    void setNewTarget(int new_target);
+    void setNewTarget(int floor);
 
 signals:
 
-    void gotNewTarget(int floor, Direction dir);
+    void go(int floor, Direction dir);
 
 public slots:
 
-    void confirmArrival(int floor);
+    void handleArrival(int floor);
 
-    void passedFloor(int new_floor);
+    void handleFloorPass(int new_floor);
 
 private:
     int curr_floor;
-    int curr_target = -1; // TODO
+    int main_target = -1; // TODO
 
     QVector<bool> is_floor_to_stop;
     PanelState curr_state;
     Direction curr_direction;
 
-    bool nextTarget(int &floor);
+    bool findNearestFloor(int &floor);
 
-    void findNewTarget();
+    void findNewMainTarget();
 };

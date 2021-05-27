@@ -29,7 +29,7 @@ public slots:
 
     void doStop();
 
-    void doMove(int floor, Direction dir);
+    void handleCall(int floor, Direction dir);
 
 private:
     int curr_floor;

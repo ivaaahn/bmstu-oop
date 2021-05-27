@@ -25,13 +25,13 @@ public slots:
 
 private slots:
 
-    void confirmOpening();
+    void handleOpening();
 
-    void confirmClosing();
+    void handleClosing();
 
 private:
     DoorsState curr_state;
     QTimer open_timer;
     QTimer close_timer;
-    QTimer waiting_passengers_timer;
+    QTimer passenger_waiting_timer;
 };

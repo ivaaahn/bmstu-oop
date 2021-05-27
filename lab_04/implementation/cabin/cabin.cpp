@@ -5,8 +5,8 @@
 #include <QDebug>
 
 
-
-Cabin::Cabin(QObject *parent) : QObject(parent), curr_floor(START_FLOOR), target_floor(NO_TARGET), new_target_is_received(false),
+Cabin::Cabin(QObject *parent) : QObject(parent), curr_floor(START_FLOOR), target_floor(NO_TARGET),
+                                new_target_is_received(false),
                                 curr_state(STOP), curr_direction(NONE) {
 
     pass_floor_timer.setSingleShot(true);
@@ -28,7 +28,7 @@ void Cabin::doMove() {
         this->curr_state = MOVE;
 
         if (this->curr_floor == this->target_floor)
-            emit arrived(this->curr_floor);
+                emit arrived(this->curr_floor);
         else
             this->pass_floor_timer.start(ONE_FLOOR_PASS_TIME);
     }
@@ -53,18 +53,23 @@ void Cabin::doStop() {
     if (this->curr_state != MOVE) return;
 
     this->curr_state = STOP;
+    this->pass_floor_timer.stop(); // TODO
     qDebug() << "ELEVATOR: STOPPED AT FLOOR #" << QString::number(this->curr_floor) << ".";
     emit stopped(this->curr_floor);
 }
 
-void Cabin::doMove(int floor, Direction dir) {
-    if (this->curr_state != STOP) return;
+void Cabin::handleCall(int floor, Direction dir) {
+//    qDebug() << "Into Cabin::handleCall()";
+//    if (this->curr_state != STOP) { qDebug() << "OOOPS"; return; } TODO
+
 
     this->new_target_is_received = true;
     this->target_floor = floor;
     this->curr_direction = dir;
 
     this->curr_state = WAIT;
+
+//    qDebug() << "END Cabin::handleCall()";
 
     emit called();
 }
