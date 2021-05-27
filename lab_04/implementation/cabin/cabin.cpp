@@ -54,7 +54,7 @@ void Cabin::doStop() {
 
     this->curr_state = STOP;
     this->pass_floor_timer.stop(); // TODO
-    qDebug() << "ELEVATOR: STOPPED AT FLOOR #" << QString::number(this->curr_floor) << ".";
+    qDebug() << "Лифт остановился | ЭТАЖ №" << QString::number(this->curr_floor);
     emit stopped(this->curr_floor);
 }
 

@@ -12,8 +12,8 @@ set(REQUIRED_LIBS Core Gui Widgets)
 set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets)
 
 set(SOURCES
-        control_panel/control_panel.h
-        control_panel/control_panel.cpp
+        controller/controller.h
+        controller/controller.cpp
         cabin/cabin.h
         cabin/cabin.cpp
         doors/doors.h

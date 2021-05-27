@@ -20,7 +20,7 @@ void Doors::doOpen() {
     if (this->curr_state != CLOSED && this->curr_state != CLOSING)  return;
 
     this->curr_state = OPENING;
-    qDebug() << "DOORS: OPENING";
+    qDebug() << "Двери открываются...";
 
     if (this->curr_state == CLOSED)
         this->open_timer.start(DOORS_DEFAULT_DELAY);
@@ -40,7 +40,7 @@ void Doors::doClose() {
     else
     {
         this->curr_state = CLOSING;
-        qDebug() << "DOORS: CLOSING";
+        qDebug() << "Двери закрываются...";
         this->close_timer.start(DOORS_DEFAULT_DELAY);
     }
 }
@@ -49,16 +49,16 @@ void Doors::handleOpening() {
     if (this->curr_state != OPENING) return;
 
     this->curr_state = OPEN;
-    qDebug() << "DOORS: OPEN | WAITING FOR PASSENGERS";
+    qDebug() << "Двери открыты.\nОжидание пассажиров...";
 
     emit opened();
 }
 
 void Doors::handleClosing() {
-    if (curr_state != CLOSING) return;
+    if (this->curr_state != CLOSING) return;
 
     this->curr_state = CLOSED;
-    qDebug() << "DOORS: CLOSED";
+    qDebug() << "Двери закрыты.";
 
     emit closed();
 }

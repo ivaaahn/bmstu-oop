@@ -5,12 +5,12 @@
 
 #include <constants.h>
 
-class ControlPanel : public QObject {
+class Controller : public QObject {
 Q_OBJECT
     enum PanelState { FREE, BUSY };
 
 public:
-    explicit ControlPanel(QObject *parent = nullptr);
+    explicit Controller(QObject *parent = nullptr);
 
     void setNewTarget(int floor);
 

@@ -4,7 +4,7 @@
 #include <QTextEdit>
 
 #include <cabin/cabin.h>
-#include <control_panel/control_panel.h>
+#include <controller/controller.h>
 
 class Elevator : public QObject {
 Q_OBJECT
@@ -15,6 +15,6 @@ public:
     void click(int btn_number);
 
 private:
-    ControlPanel control_panel;
+    Controller control_panel;
     Cabin cabin;
 };

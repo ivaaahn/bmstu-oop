@@ -3,7 +3,7 @@
 #include <QObject>
 
 #include <constants.h>
-#include <control_panel/control_panel.h>
+#include <controller/controller.h>
 #include <doors/doors.h>
 
 class Cabin : public QObject {

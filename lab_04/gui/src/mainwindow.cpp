@@ -5,7 +5,7 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    qDebug() << "FLOOR #1 | DOORS: CLOSED | WAITING FOR...";
+    qDebug() << "Этаж № 1 | Двери закрыты\nОжидание пассажиров...";
 
     for (int i = 0; i < ui->cabin_buttons.size(); ++i)
     {
@@ -20,12 +20,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 
 void MainWindow::onCabinBtnClicked(const int btn_number) {
-    qDebug() << "CABIN | PRESSED #" << btn_number;
+    qDebug() << "Кабина | Нажата кнопка #" << btn_number;
     lift.click(btn_number);
 }
 
 void MainWindow::onFloorBtnClicked(const int btn_number) {
-    qDebug() << "FLOOR #" << btn_number << "| CALLS";
+    qDebug() << "Этаж №" << btn_number << "| Вызов лифта";
     lift.click(btn_number);
 }
 
