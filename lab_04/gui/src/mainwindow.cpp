@@ -21,12 +21,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 void MainWindow::onCabinBtnClicked(const int btn_number) {
     qDebug() << "Кабина | Нажата кнопка #" << btn_number;
-    lift.click(btn_number);
+    lift.click_btn(btn_number);
 }
 
 void MainWindow::onFloorBtnClicked(const int btn_number) {
     qDebug() << "Этаж №" << btn_number << "| Вызов лифта";
-    lift.click(btn_number);
+    lift.click_btn(btn_number);
 }
 
 MainWindow::~MainWindow() {

@@ -12,9 +12,9 @@ Q_OBJECT
 public:
     Elevator();
 
-    void click(int btn_number);
+    void click_btn(int btn_number);
 
 private:
-    Controller control_panel;
+    Controller controller;
     Cabin cabin;
 };

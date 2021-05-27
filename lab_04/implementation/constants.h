@@ -5,7 +5,7 @@
 
 enum Direction {
     DOWN = -1,
-    NONE = 0,
+    STAY = 0,
     UP = 1
 };
 

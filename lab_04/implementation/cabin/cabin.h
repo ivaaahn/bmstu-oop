@@ -17,7 +17,7 @@ signals:
 
     void called();
 
-    void floorPassed(int floor, Direction d);
+    void floorPassed(int floor);
 
     void arrived(int floor);
 
@@ -33,12 +33,13 @@ public slots:
 
 private:
     int curr_floor;
-    CabinState curr_state;
-    Direction curr_direction;
-
     int target_floor;
-    bool new_target_is_received;
+
+    CabinState curr_state;
+    Direction direction;
 
     Doors doors;
     QTimer pass_floor_timer;
+
+    void goNextFloor();
 };

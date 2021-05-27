@@ -6,8 +6,7 @@
 
 
 Cabin::Cabin(QObject *parent) : QObject(parent), curr_floor(START_FLOOR), target_floor(NO_TARGET),
-                                new_target_is_received(false),
-                                curr_state(STOP), curr_direction(NONE) {
+                                curr_state(STOP), direction(STAY) {
 
     pass_floor_timer.setSingleShot(true);
 
@@ -22,54 +21,48 @@ Cabin::Cabin(QObject *parent) : QObject(parent), curr_floor(START_FLOOR), target
     QObject::connect(&this->pass_floor_timer, SIGNAL(timeout()), this, SLOT(doMove()));
 }
 
+
+void Cabin::goNextFloor() {
+    this->curr_floor += this->direction;
+    emit floorPassed(this->curr_floor);
+}
+
 void Cabin::doMove() {
-    if (this->new_target_is_received && this->curr_state == WAIT)
+    if (this->curr_state == WAIT)
     {
         this->curr_state = MOVE;
-
-        if (this->curr_floor == this->target_floor)
-                emit arrived(this->curr_floor);
-        else
-            this->pass_floor_timer.start(ONE_FLOOR_PASS_TIME);
     }
     else if (this->curr_state == MOVE)
     {
-        this->curr_floor += this->curr_direction;
-
-        if (this->curr_floor == this->target_floor)
-        {
-            emit floorPassed(this->curr_floor, this->curr_direction);
-            emit arrived(this->curr_floor);
-        }
-        else
-        {
-            emit floorPassed(this->curr_floor, this->curr_direction);
-            this->pass_floor_timer.start(ONE_FLOOR_PASS_TIME);
-        }
+        this->goNextFloor();
     }
+    else
+    {
+        qDebug() << "Лифт ожидает на" << this->curr_floor << "этаже";
+        return;
+    }
+
+    if (this->curr_floor == this->target_floor)
+            emit arrived(this->curr_floor);
+    else
+        this->pass_floor_timer.start(ONE_FLOOR_PASS_TIME);
 }
 
 void Cabin::doStop() {
     if (this->curr_state != MOVE) return;
 
-    this->curr_state = STOP;
-    this->pass_floor_timer.stop(); // TODO
+    this->curr_state = STOP, this->pass_floor_timer.stop(); // TODO
     qDebug() << "Лифт остановился | ЭТАЖ №" << QString::number(this->curr_floor);
+
     emit stopped(this->curr_floor);
 }
 
 void Cabin::handleCall(int floor, Direction dir) {
-//    qDebug() << "Into Cabin::handleCall()";
-//    if (this->curr_state != STOP) { qDebug() << "OOOPS"; return; } TODO
-
-
-    this->new_target_is_received = true;
     this->target_floor = floor;
-    this->curr_direction = dir;
+    this->direction = dir;
 
     this->curr_state = WAIT;
 
-//    qDebug() << "END Cabin::handleCall()";
-
     emit called();
 }
+
