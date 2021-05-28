@@ -39,6 +39,7 @@ void Cabin::doMove() {
     else
     {
         qDebug() << "Лифт ожидает на" << this->curr_floor << "этаже";
+        this->direction = STAY;
         return;
     }
 
@@ -51,7 +52,7 @@ void Cabin::doMove() {
 void Cabin::doStop() {
     if (this->curr_state != MOVE) return;
 
-    this->curr_state = STOP, this->pass_floor_timer.stop(); // TODO
+    this->curr_state = STOP;
     qDebug() << "Лифт остановился | ЭТАЖ №" << QString::number(this->curr_floor);
 
     emit stopped(this->curr_floor);
@@ -61,8 +62,18 @@ void Cabin::handleCall(int floor, Direction dir) {
     this->target_floor = floor;
     this->direction = dir;
 
-    this->curr_state = WAIT;
+    if (this->curr_state == STOP)
+    {
+        this->curr_state = WAIT;
+        emit called();
 
-    emit called();
+//        if (this->curr_floor == this->target_floor)
+//            emit stopped(floor);
+//        else
+//        {
+//            this->curr_state = WAIT;
+//            emit called();
+//        }
+    }
 }
 

@@ -14,17 +14,15 @@ void Controller::addTarget(const int floor) {
 
     if (this->updateMainTarget(floor)) this->updateDirection();
 
-    this->updateNearestTarget(floor);
-
-//    qDebug() << "main=" << this->main_target << ", near=" << this->nearest_target << ", direct=" << this->curr_direct;
-    emit go(this->nearest_target, this->curr_direct);
+    if (this->updateNearestTarget(floor)) emit nearestTargetChanged(this->nearest_target, this->curr_direct);
 }
 
 
-void Controller::handleStopping(const int target_floor) {
+void Controller::handleStopping(const int floor) {
     if (this->curr_state != BUSY) return;
 
-    this->need_visit[target_floor - 1] = false;
+    this->need_visit[floor - 1] = false;
+
 
     if (this->curr_floor == this->main_target)
     {
@@ -41,7 +39,7 @@ void Controller::handleStopping(const int target_floor) {
 
     this->findNearestTarget();
 //    qDebug() << "[N] main=" << this->main_target << ", near=" << this->nearest_target << ", direct=" << this->curr_direct;
-    emit go(this->nearest_target, this->curr_direct);
+    emit nearestTargetChanged(this->nearest_target, this->curr_direct);
 }
 
 void Controller::handleFloorPass(const int new_floor) {
@@ -105,8 +103,8 @@ bool Controller::updateNearestTarget(const int floor) {
     bool is_updated = false;
 
     if ((this->nearest_target == NO_TARGET) ||
-        (this->curr_direct == UP && floor < this->nearest_target && floor >= this->curr_floor) ||
-        (this->curr_direct == DOWN && floor > this->nearest_target && floor <= this->curr_floor))
+        (this->curr_direct == UP && floor < this->nearest_target && floor > this->curr_floor) ||
+        (this->curr_direct == DOWN && floor > this->nearest_target && floor < this->curr_floor))
     {
         is_updated = true;
         this->nearest_target = floor;
@@ -119,6 +117,7 @@ void Controller::resetParams() {
     this->main_target = NO_TARGET;
     this->nearest_target = NO_TARGET;
     this->curr_state = FREE;
+    this->curr_direct = STAY;
 }
 
 

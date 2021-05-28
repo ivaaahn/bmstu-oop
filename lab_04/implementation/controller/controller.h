@@ -16,11 +16,11 @@ public:
 
 signals:
 
-    void go(int floor, Direction dir);
+    void nearestTargetChanged(int floor, Direction dir);
 
 public slots:
 
-    void handleStopping(int target_floor);
+    void handleStopping(int floor);
 
     void handleFloorPass(int new_floor);
 
