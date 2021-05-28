@@ -10,13 +10,13 @@ Cabin::Cabin(QObject *parent) : QObject(parent), curr_floor(START_FLOOR), target
 
     pass_floor_timer.setSingleShot(true);
 
-    QObject::connect(this, SIGNAL(called()), &this->doors, SLOT(doClose()));
+    QObject::connect(this, SIGNAL(called()), &this->doors, SLOT(prepareToGo()));
 
     QObject::connect(this, SIGNAL(arrived(int)), this, SLOT(doStop()));
 
     QObject::connect(this, SIGNAL(stopped(int)), &this->doors, SLOT(doOpen()));
 
-    QObject::connect(&this->doors, SIGNAL(closed()), this, SLOT(doMove()));
+    QObject::connect(&this->doors, SIGNAL(readyToGo()), this, SLOT(doMove()));
 
     QObject::connect(&this->pass_floor_timer, SIGNAL(timeout()), this, SLOT(doMove()));
 }
@@ -66,14 +66,5 @@ void Cabin::handleCall(int floor, Direction dir) {
     {
         this->curr_state = WAIT;
         emit called();
-
-//        if (this->curr_floor == this->target_floor)
-//            emit stopped(floor);
-//        else
-//        {
-//            this->curr_state = WAIT;
-//            emit called();
-//        }
     }
 }
-

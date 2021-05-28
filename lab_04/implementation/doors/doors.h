@@ -13,7 +13,7 @@ public:
 
 signals:
 
-    void closed();
+    void readyToGo();
 
     void opened();
 
@@ -21,7 +21,7 @@ public slots:
 
     void doOpen();
 
-    void doClose();
+    void prepareToGo();
 
 private slots:
 

@@ -11,7 +11,7 @@ Doors::Doors(QObject *parent) : QObject(parent), curr_state(OPEN) {
 
     QObject::connect(&this->open_timer, SIGNAL(timeout()), this, SLOT(handleOpening()));
     QObject::connect(this, SIGNAL(opened()), &this->passenger_waiting_timer, SLOT(start()));
-    QObject::connect(&this->passenger_waiting_timer, SIGNAL(timeout()), this, SLOT(doClose()));
+    QObject::connect(&this->passenger_waiting_timer, SIGNAL(timeout()), this, SLOT(prepareToGo()));
     QObject::connect(&this->close_timer, SIGNAL(timeout()), this, SLOT(handleClosing()));
 }
 
@@ -34,12 +34,12 @@ void Doors::doOpen() {
     qDebug() << "Двери открываются...";
 }
 
-void Doors::doClose() {
+void Doors::prepareToGo() {
     if (this->curr_state != OPEN && this->curr_state != CLOSED) return;
 
     if (this->curr_state == CLOSED)
     {
-        emit closed();
+        emit readyToGo();
     }
     else
     {
@@ -64,6 +64,6 @@ void Doors::handleClosing() {
     this->curr_state = CLOSED;
     qDebug() << "Двери закрыты.";
 
-    emit closed();
+    emit readyToGo();
 }
 

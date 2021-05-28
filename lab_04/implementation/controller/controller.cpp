@@ -38,7 +38,6 @@ void Controller::handleStopping(const int floor) {
     }
 
     this->findNearestTarget();
-//    qDebug() << "[N] main=" << this->main_target << ", near=" << this->nearest_target << ", direct=" << this->curr_direct;
     emit nearestTargetChanged(this->nearest_target, this->curr_direct);
 }
 

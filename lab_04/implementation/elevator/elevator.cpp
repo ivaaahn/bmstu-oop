@@ -1,7 +1,7 @@
 #include "elevator/elevator.h"
 
 Elevator::Elevator() {
-    QObject::connect(&controller, SIGNAL(nearestTargetChanged(int, Direction)), &cabin, SLOT(handleCall(int, Direction)));
+    QObject::connect(&controller, SIGNAL(nearestTargetChanged(int,Direction)), &cabin, SLOT(handleCall(int,Direction)));
     QObject::connect(&cabin, SIGNAL(floorPassed(int)), &controller, SLOT(handleFloorPass(int)));
     QObject::connect(&cabin, SIGNAL(stopped(int)), &controller, SLOT(handleStopping(int)));
 }
