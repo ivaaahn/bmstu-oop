@@ -6,8 +6,6 @@ Controller::Controller(QObject *parent) : QObject(parent), curr_floor(START_FLOO
                                           need_visit(NUM_OF_FLOORS, false), state(FREE),
                                           direction(STAY) {
     QObject::connect(this, SIGNAL(targetsFound(int)), this, SLOT(targetSetting(int)));
-    QObject::connect(this, SIGNAL(targetsNotFound()), this, SLOT(finishing()));
-
 }
 
 void Controller::setTarget(const int floor) {
@@ -25,32 +23,26 @@ void Controller::setTarget(const int floor) {
 void Controller::targetUpdating() {
     if (this->state != BUSY) return;
 
-    this->state = PROCESSING;
-
+    this->state = FREE;
     this->need_visit[this->curr_floor - 1] = false;
 
     auto new_target = this->findMainTarget();
     if (this->curr_floor == this->main_target && new_target == NO_TARGET)
-            emit targetsNotFound();
+    {
+        this->direction = STAY;
+        this->main_target = NO_TARGET;
+    }
     else
-            emit targetsFound(new_target);
-}
-
-void Controller::finishing() {
-    if (this->state != PROCESSING) return;
-
-    this->state = FREE;
-
-    this->direction = STAY;
-    this->main_target = NO_TARGET;
+    {
+        emit targetsFound(new_target);
+    }
 }
 
 void Controller::targetSetting(const int new_floor) {
-    if (this->state != PROCESSING && this->state != BUSY) return;
-
-    if (this->state == PROCESSING)
+    if (this->state == FREE)
     {
         this->state = BUSY;
+
         if (this->curr_floor == this->main_target && new_floor != NO_TARGET)
         {
             this->main_target = new_floor;
@@ -61,6 +53,7 @@ void Controller::targetSetting(const int new_floor) {
     else
     {
         this->state = BUSY;
+
         this->curr_floor = new_floor;
         qDebug() << "Лифт движется | Этаж №" << new_floor;
     }

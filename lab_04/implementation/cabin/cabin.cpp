@@ -20,7 +20,7 @@ Cabin::Cabin(QObject *parent) : QObject(parent), curr_floor(START_FLOOR), target
 
     QObject::connect(&this->pass_floor_timer, SIGNAL(timeout()), this, SLOT(cabinMoving()));
 
-    QObject::connect(this, SIGNAL(called()), this, SLOT(cabinMoving()));
+    QObject::connect(this, SIGNAL(processed()), this, SLOT(cabinMoving()));
 }
 
 void Cabin::goNextFloor() {
@@ -68,7 +68,7 @@ void Cabin::cabinProcessing(int floor, Direction dir) {
     this->target_floor = floor;
     this->direction = dir;
 
-    emit called();
+    emit processed();
 }
 
 void Cabin::cabinLocking() {

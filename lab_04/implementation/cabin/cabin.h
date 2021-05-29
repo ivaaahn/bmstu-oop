@@ -19,7 +19,7 @@ signals:
 
     void locked();
 
-    void called();
+    void processed();
 
     void floorPassed(int floor);
 
