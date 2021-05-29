@@ -20,6 +20,8 @@ public:
 
     ~ModelDetails() = default;
 
+    void setCenter(const Point &point);
+
     void addPoint(const Point &point);
 
     void addEdge(const Edge &edge);

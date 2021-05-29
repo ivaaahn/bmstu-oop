@@ -40,3 +40,7 @@ void ModelDetails::transform(const Point &move_params, const Point &scale_params
         point.rotate(rotate_params.getX(), rotate_params.getY(), rotate_params.getZ());
     }
 }
+
+void ModelDetails::setCenter(const Point &point) {
+    this->center = point;
+}

@@ -1,4 +1,4 @@
-//
+    //
 // Created by ivaaahn on 23.05.2021.
 //
 
@@ -18,6 +18,7 @@ class Object;
 class Visitor;
 
 using Iterator = std::vector<std::shared_ptr<Object>>::iterator;
+using ConstIterator = std::vector<std::shared_ptr<Object>>::const_iterator;
 
 
 class Object {
@@ -26,19 +27,23 @@ public:
 
     virtual ~Object() = default;
 
+    virtual void accept(std::shared_ptr<Visitor> visitor) = 0;
+
     virtual bool add(const std::shared_ptr<Object> &) { return false; };
 
     virtual bool remove(const Iterator &) { return false; };
 
     virtual Iterator begin() { return Iterator(); };
 
+    virtual ConstIterator cbegin() { return Iterator(); };
+
     virtual Iterator end() { return Iterator(); };
+
+    virtual ConstIterator cend() { return ConstIterator(); };
 
     virtual bool is_visible() { return false; }
 
     virtual bool is_composite() const { return false; };
-
-    virtual void accept(std::shared_ptr<Visitor> visitor) = 0;
 
     virtual void transform(const Point &move_params, const Point &scale_params, const Point &rotate_params) = 0;
 };

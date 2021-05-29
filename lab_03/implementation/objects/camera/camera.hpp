@@ -5,9 +5,9 @@
 #ifndef __LAB_03_CAMERA_HPP__
 #define __LAB_03_CAMERA_HPP__
 
-
-#include "../object.hpp"
-#include "../model/model_details/point/point.hpp"
+#include "objects/object.hpp"
+#include "objects/model/model_details/point/point.hpp"
+#include "managers/draw/draw_manager.hpp"
 
 class Camera : public InvisibleObject {
 public:
@@ -21,7 +21,8 @@ public:
 
     void accept(std::shared_ptr<Visitor> visitor) override;
 
-    Point getPosition() const;
+private:
+    Point position;
 
     void shiftX(double delta);
 
@@ -29,8 +30,12 @@ public:
 
     void shiftZ(double delta);
 
-private:
-    Point position;
+protected:
+    Point getPosition() const;
+
+public:
+    friend DrawManager;
+
 };
 
 

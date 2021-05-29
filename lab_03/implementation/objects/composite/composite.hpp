@@ -18,7 +18,7 @@ public:
 
     explicit Composite(const std::vector<std::shared_ptr<Object>> &vector);
 
-    [[nodiscard]] std::size_t size() const;
+//    [[nodiscard]] std::size_t size() const;
 
     bool add(const std::shared_ptr<Object> &component) override;
 
@@ -35,8 +35,6 @@ public:
     void transform(const Point &move_params, const Point &scale_params, const Point &rotate_params) override;
 
     void accept(std::shared_ptr<Visitor> visitor) override;
-
-    std::vector<std::shared_ptr<Object>> &getObjects();
 
 private:
     std::vector<std::shared_ptr<Object>> objects;

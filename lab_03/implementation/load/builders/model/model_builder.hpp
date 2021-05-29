@@ -6,8 +6,32 @@
 #define __LAB_03_MODEL_BUILDER_HPP__
 
 
-class ModelBuilder {
+#include <vector>
+#include <objects/model/model_details/point/point.hpp>
+#include <objects/model/model_details/edge/edge.hpp>
+#include <memory>
+#include <objects/model/model.hpp>
 
+class ModelBuilder {
+public:
+    ModelBuilder();
+    ~ModelBuilder() = default;
+
+    bool isBuild();
+    void reset();
+
+
+    void buildCenter(const Point &point);
+    void buildPoint(const Point &point);
+    void buildEdge(const Edge &edge);
+
+    std::shared_ptr<Model> get();
+
+private:
+    std::shared_ptr<ModelDetails> model_details;
+//    std::vector<Center> center_to_build;
+//    std::vector<Point> points_to_build;
+//    std::vector<Edge> edges_to_build;
 };
 
 
