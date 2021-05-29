@@ -30,7 +30,7 @@ private slots:
     void doorsClose();
 
 private:
-    DoorsState curr_state;
+    DoorsState state;
     QTimer open_timer;
     QTimer close_timer;
     QTimer passenger_waiting_timer;

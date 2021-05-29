@@ -12,7 +12,7 @@ Q_OBJECT
 public:
     explicit Controller(QObject *parent = nullptr);
 
-    void addTarget(int floor);
+    void setTarget(int floor);
 
 signals:
 
@@ -22,24 +22,22 @@ signals:
 
     void targetsFound(int floor);
 
-    void haveMainTarget(int floor);
-
 
 public slots:
+
+    void targetSetting(int new_floor);
 
     void targetUpdating();
 
     void finishing();
-
-    void targetSetting(int new_floor);
 
 private:
     int curr_floor;
     int main_target;
 
     QVector<bool> need_visit;
-    PanelState curr_state;
-    Direction curr_direct;
+    PanelState state;
+    Direction direction;
 
     int findNextTarget();
 

@@ -14,17 +14,18 @@ public:
     explicit Cabin(QObject *parent = nullptr);
 
 signals:
-    void cabinUnlocked();
 
-    void cabinLocked();
+    void unlocked();
 
-    void cabinCalled();
+    void locked();
+
+    void called();
 
     void floorPassed(int floor);
 
-    void cabinArrived(int floor);
+    void arrived(int floor);
 
-    void cabinStopped(int floor);
+    void stopped(int floor);
 
 public slots:
 
@@ -43,7 +44,7 @@ private:
     int curr_floor;
     int target_floor;
 
-    CabinState curr_state;
+    CabinState state;
     Direction direction;
 
     Doors doors;
