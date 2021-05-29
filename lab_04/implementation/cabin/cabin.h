@@ -8,7 +8,7 @@
 
 class Cabin : public QObject {
 Q_OBJECT
-    enum CabinState { MOVE, PROCESSING, STOP, LOCKED, UNLOCKED };
+    enum CabinState { MOVING, STOPPED, LOCKED, UNLOCKED, PROCESSING };
 
 public:
     explicit Cabin(QObject *parent = nullptr);

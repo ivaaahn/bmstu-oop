@@ -29,13 +29,13 @@ void Cabin::goNextFloor() {
 }
 
 void Cabin::cabinMoving() {
-    if (this->state != PROCESSING && this->state != MOVE) return;
+    if (this->state != PROCESSING && this->state != MOVING) return;
 
     if (this->state == PROCESSING)
     {
-        this->state = MOVE;
+        this->state = MOVING;
     }
-    else if (this->state == MOVE)
+    else if (this->state == MOVING)
     {
         this->goNextFloor();
     }
@@ -52,9 +52,9 @@ void Cabin::cabinMoving() {
 }
 
 void Cabin::cabinStopping() {
-    if (this->state != MOVE) return;
+    if (this->state != MOVING) return;
 
-    this->state = STOP;
+    this->state = STOPPED;
     qDebug() << "Лифт остановился | Этаж №" << QString::number(this->curr_floor);
 
     emit stopped(this->curr_floor);
@@ -72,7 +72,7 @@ void Cabin::cabinProcessing(int floor, Direction dir) {
 }
 
 void Cabin::cabinLocking() {
-    if (this->state != STOP) return;
+    if (this->state != STOPPED) return;
 
     this->state = LOCKED;
     qDebug() << "Движение кабины заблокировано";
