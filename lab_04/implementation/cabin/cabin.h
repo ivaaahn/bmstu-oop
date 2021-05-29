@@ -8,28 +8,36 @@
 
 class Cabin : public QObject {
 Q_OBJECT
-    enum CabinState { MOVE, WAIT, STOP };
+    enum CabinState { MOVE, PROCESSING, STOP, LOCKED, UNLOCKED };
 
 public:
     explicit Cabin(QObject *parent = nullptr);
 
 signals:
+    void cabinUnlocked();
 
-    void called();
+    void cabinLocked();
+
+    void cabinCalled();
 
     void floorPassed(int floor);
 
-    void arrived(int floor);
+    void cabinArrived(int floor);
 
-    void stopped(int floor);
+    void cabinStopped(int floor);
 
 public slots:
 
-    void doMove();
+    void cabinLocking();
 
-    void doStop();
+    void cabinUnlocking();
 
-    void handleCall(int floor, Direction dir);
+    void cabinProcessing(int floor, Direction dir);
+
+    void cabinMoving();
+
+    void cabinStopping();
+
 
 private:
     int curr_floor;

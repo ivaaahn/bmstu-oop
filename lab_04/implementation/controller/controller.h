@@ -7,7 +7,7 @@
 
 class Controller : public QObject {
 Q_OBJECT
-    enum PanelState { FREE, BUSY };
+    enum PanelState { FREE, BUSY, PROCESSING };
 
 public:
     explicit Controller(QObject *parent = nullptr);
@@ -16,32 +16,36 @@ public:
 
 signals:
 
-    void nearestTargetChanged(int floor, Direction dir);
+    void targetIsSet(int floor, Direction dir);
+
+    void targetsNotFound();
+
+    void targetsFound(int floor);
+
+    void haveMainTarget(int floor);
+
 
 public slots:
 
-    void handleStopping(int floor);
+    void targetUpdating();
 
-    void handleFloorPass(int new_floor);
+    void finishing();
+
+    void targetSetting(int new_floor);
 
 private:
     int curr_floor;
     int main_target;
-    int nearest_target;
 
     QVector<bool> need_visit;
     PanelState curr_state;
     Direction curr_direct;
 
-    bool findNearestTarget();
+    int findNextTarget();
 
-    bool updateNearestTarget(int floor);
-
-    bool findMainTarget();
+    int findMainTarget();
 
     bool updateMainTarget(int floor);
 
     void updateDirection();
-
-    void resetParams();
 };

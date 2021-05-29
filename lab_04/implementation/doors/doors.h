@@ -6,28 +6,28 @@
 
 class Doors : public QObject {
 Q_OBJECT
-    enum DoorsState { OPENING, OPEN, CLOSING, CLOSED };
+    enum DoorsState { OPENING, OPENED, CLOSING, CLOSED };
 
 public:
     explicit Doors(QObject *parent = nullptr);
 
 signals:
 
-    void readyToGo();
+    void closed();
 
     void opened();
 
 public slots:
 
-    void doOpen();
+    void doorsOpening();
 
-    void prepareToGo();
+    void doorsClosing();
 
 private slots:
 
-    void handleOpening();
+    void doorsOpen();
 
-    void handleClosing();
+    void doorsClose();
 
 private:
     DoorsState curr_state;

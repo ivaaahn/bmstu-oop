@@ -1,9 +1,10 @@
 #include "elevator/elevator.h"
 
 Elevator::Elevator() {
-    QObject::connect(&controller, SIGNAL(nearestTargetChanged(int,Direction)), &cabin, SLOT(handleCall(int,Direction)));
-    QObject::connect(&cabin, SIGNAL(floorPassed(int)), &controller, SLOT(handleFloorPass(int)));
-    QObject::connect(&cabin, SIGNAL(stopped(int)), &controller, SLOT(handleStopping(int)));
+    QObject::connect(&controller, SIGNAL(targetIsSet(int, Direction)), &cabin, SLOT(cabinProcessing(int, Direction)));
+    QObject::connect(&cabin, SIGNAL(floorPassed(int)), &controller, SLOT(targetSetting(int)));
+    QObject::connect(&cabin, SIGNAL(cabinUnlocked()), &controller, SLOT(targetUpdating()));
+
 }
 
 void Elevator::click_btn(const int btn_number) {
