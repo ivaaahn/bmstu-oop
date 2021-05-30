@@ -20,24 +20,23 @@ Cabin::Cabin(QObject *parent) : QObject(parent), curr_floor(START_FLOOR), target
 
     QObject::connect(&this->pass_floor_timer, SIGNAL(timeout()), this, SLOT(cabinMoving()));
 
-    QObject::connect(this, SIGNAL(processed()), this, SLOT(cabinMoving()));
-}
-
-void Cabin::goNextFloor() {
-    this->curr_floor += this->direction;
-    emit floorPassed(this->curr_floor);
+    QObject::connect(this, SIGNAL(prepared()), this, SLOT(cabinMoving()));
 }
 
 void Cabin::cabinMoving() {
-    if (this->state != PROCESSING && this->state != MOVING) return;
+    if (this->state != PREPARING && this->state != MOVING) return;
 
-    if (this->state == PROCESSING)
+    if (this->state == PREPARING)
     {
         this->state = MOVING;
     }
     else if (this->state == MOVING)
     {
-        this->goNextFloor();
+        this->state = MOVING;
+        this->curr_floor += this->direction;
+
+        qDebug() << "Лифт движется | Этаж №" << this->curr_floor;
+        emit floorPassed(this->curr_floor);
     }
 
 
@@ -55,20 +54,22 @@ void Cabin::cabinStopping() {
     if (this->state != MOVING) return;
 
     this->state = STOPPED;
-    qDebug() << "Лифт остановился | Этаж №" << QString::number(this->curr_floor);
+
+    QDebug debug = qDebug(); debug.noquote();
+    debug << "Лифт остановился | Этаж №" << QString::number(this->curr_floor);
 
     emit stopped(this->curr_floor);
 }
 
-void Cabin::cabinProcessing(int floor, Direction dir) {
+void Cabin::cabinPreparing(int floor, Direction dir) {
     if (this->state != UNLOCKED) return;
 
-    this->state = PROCESSING;
+    this->state = PREPARING;
 
     this->target_floor = floor;
     this->direction = dir;
 
-    emit processed();
+    emit prepared();
 }
 
 void Cabin::cabinLocking() {

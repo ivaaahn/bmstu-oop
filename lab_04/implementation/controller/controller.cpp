@@ -53,9 +53,7 @@ void Controller::targetSetting(const int new_floor) {
     else
     {
         this->state = BUSY;
-
         this->curr_floor = new_floor;
-        qDebug() << "Лифт движется | Этаж №" << new_floor;
     }
 }
 

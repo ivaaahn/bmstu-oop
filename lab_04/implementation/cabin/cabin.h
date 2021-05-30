@@ -8,7 +8,7 @@
 
 class Cabin : public QObject {
 Q_OBJECT
-    enum CabinState { MOVING, STOPPED, LOCKED, UNLOCKED, PROCESSING };
+    enum CabinState { MOVING, STOPPED, LOCKED, UNLOCKED, PREPARING };
 
 public:
     explicit Cabin(QObject *parent = nullptr);
@@ -19,7 +19,7 @@ signals:
 
     void locked();
 
-    void processed();
+    void prepared();
 
     void floorPassed(int floor);
 
@@ -33,7 +33,7 @@ public slots:
 
     void cabinUnlocking();
 
-    void cabinProcessing(int floor, Direction dir);
+    void cabinPreparing(int floor, Direction dir);
 
     void cabinMoving();
 
@@ -49,6 +49,4 @@ private:
 
     Doors doors;
     QTimer pass_floor_timer;
-
-    void goNextFloor();
 };
