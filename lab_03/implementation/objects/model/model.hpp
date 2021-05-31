@@ -7,6 +7,7 @@
 
 
 #include <memory>
+#include <visitor/draw_visitor/draw_visitor.hpp>
 #include "../object.hpp"
 #include "model_details/model_details.hpp"
 
@@ -25,8 +26,10 @@ public:
 
     void accept(std::shared_ptr<Visitor> visitor) override;
 
-    [[nodiscard]] const std::shared_ptr<ModelDetails> getDetails() const;
+    friend void DrawVisitor::visit(const Model &model);
 
+protected:
+    [[nodiscard]] const std::shared_ptr<ModelDetails> getDetails() const;
 
 private:
     std::shared_ptr<ModelDetails> details;

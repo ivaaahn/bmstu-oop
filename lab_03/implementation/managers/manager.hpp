@@ -9,7 +9,7 @@
 class Manager {
 public:
     Manager() = default;
-    ~Manager() = default;
+    virtual ~Manager() = default;
 };
 
 

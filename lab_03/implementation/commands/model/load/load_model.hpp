@@ -13,14 +13,14 @@ class LoadModel : public ModelCommand {
 public:
     LoadModel() = delete;
 
-    explicit LoadModel(std::string fileName);
+    explicit LoadModel(std::string filename);
 
     ~LoadModel() override = default;
 
     void execute() override;
 
 private:
-    std::string fileName;
+    std::string filename;
 };
 
 

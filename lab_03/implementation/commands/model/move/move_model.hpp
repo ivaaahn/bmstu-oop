@@ -13,7 +13,7 @@ class MoveModel : public ModelCommand {
 public:
     MoveModel() = delete;
 
-    MoveModel(std::size_t model_id, double dx, double dy, double dz);
+    MoveModel(size_t model_id, double dx, double dy, double dz);
 
     ~MoveModel() override = default;
 

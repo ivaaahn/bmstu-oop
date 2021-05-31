@@ -6,22 +6,20 @@
 #define __LAB_03_LOAD_SCENE_HPP__
 
 
-#include "../scene_command.hpp"
+#include "commands/scene/scene_command.hpp"
 
 class LoadScene : public SceneCommand {
 public:
     LoadScene() = delete;
 
-    explicit LoadScene(std::string fileName);
-
-
-    void execute() override;
-
+    explicit LoadScene(std::string filename);
 
     ~LoadScene() override = default;
 
+    void execute() override;
+
 private:
-    std::string fileName;
+    std::string filename;
 };
 
 

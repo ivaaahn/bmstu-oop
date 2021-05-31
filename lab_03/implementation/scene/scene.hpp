@@ -16,7 +16,7 @@ public:
     Scene();
     ~Scene() = default;
 
-    void addModel(const std::shared_ptr<Model>& model);
+    void addModel(const std::shared_ptr<Object> &model);
     void removeModel(std::size_t model_id);
 
     void addCamera(const std::shared_ptr<Camera> &camera);
@@ -25,7 +25,7 @@ public:
     std::shared_ptr<Composite> getComposite();
 
     std::vector<std::shared_ptr<Camera>> getCameras();
-    std::vector<std::shared_ptr<Object>> getModels();
+//    std::vector<std::shared_ptr<Object>> getModels();
 
 private:
     std::shared_ptr<Composite> models;

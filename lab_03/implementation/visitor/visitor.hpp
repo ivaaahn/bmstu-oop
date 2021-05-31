@@ -12,7 +12,7 @@ class Composite;
 class Visitor {
 public:
     Visitor() = default;
-    ~Visitor() = default;
+    virtual ~Visitor() = default;
 
     virtual void visit(const Camera &camera) = 0;
     virtual void visit(const Model &model) = 0;

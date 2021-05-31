@@ -8,3 +8,8 @@ add_executable(${PROJECT_NAME}
 add_subdirectory(./camera)
 add_subdirectory(./model)
 add_subdirectory(./scene)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ../../implementation)
+
+
+find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)

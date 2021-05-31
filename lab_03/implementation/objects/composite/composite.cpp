@@ -52,8 +52,8 @@ void Composite::accept(std::shared_ptr<Visitor> visitor) {
         elem->accept(visitor);
 }
 
-// TODO: Нужно ли?
-std::vector<std::shared_ptr<Object>> &Composite::getObjects() {
-    return this->objects;
-}
+//// TODO: Нужно ли?
+//std::vector<std::shared_ptr<Object>> &Composite::getObjects() {
+//    return this->objects;
+//}
 

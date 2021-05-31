@@ -2,14 +2,20 @@
 // Created by ivaaahn on 23.05.2021.
 //
 
+#include <managers/scene/scene_manager.hpp>
+#include <managers/transform/transform_manager.hpp>
 #include "move_camera.hpp"
 
-void MoveCamera::execute()
-{
+MoveCamera::MoveCamera(std::size_t camera_id, double shift_x, double shift_y) : camera_id(camera_id), shift_x(shift_x),
+                                                                                shift_y(shift_y) {}
 
+void MoveCamera::execute() {
+    Point shift(shift_x, shift_y, 0);
+
+    auto scene_manager = SceneManagerCreator().getManager();
+    auto transform_manager = TransformManagerCreator().getManager();
+
+    auto camera = scene_manager->getScene()->getCameras().at(camera_id);
+    transform_manager->transform(camera, shift, shift, shift);
 }
 
-MoveCamera::MoveCamera(std::size_t camera_id, double shift_x, double shift_y)
-{
-
-}

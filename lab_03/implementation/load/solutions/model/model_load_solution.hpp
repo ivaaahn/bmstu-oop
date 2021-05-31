@@ -15,7 +15,7 @@ class ModelLoadSolution {
 public:
     ModelLoadSolution() = default;
 
-    std::shared_ptr<SourceLoaderCreator> getCreator();
+    static std::shared_ptr<SourceLoaderCreator> getCreator();
 };
 
 

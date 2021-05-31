@@ -24,7 +24,6 @@ public:
 
     ~ConSourceLoaderCreator() override = default;
 
-
     std::shared_ptr<SourceLoader> create() override {
         return std::make_shared<SourceLoaderType>();
     }

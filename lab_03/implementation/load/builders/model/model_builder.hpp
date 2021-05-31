@@ -29,9 +29,6 @@ public:
 
 private:
     std::shared_ptr<ModelDetails> model_details;
-//    std::vector<Center> center_to_build;
-//    std::vector<Point> points_to_build;
-//    std::vector<Edge> edges_to_build;
 };
 
 

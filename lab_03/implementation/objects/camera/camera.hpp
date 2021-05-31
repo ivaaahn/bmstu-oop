@@ -7,10 +7,12 @@
 
 #include "objects/object.hpp"
 #include "objects/model/model_details/point/point.hpp"
-#include "managers/draw/draw_manager.hpp"
+#include "visitor/draw_visitor/draw_visitor.hpp"
 
 class Camera : public InvisibleObject {
 public:
+    friend class DrawVisitor;
+
     Camera() = default;
 
     explicit Camera(const Point &position);
@@ -30,12 +32,7 @@ private:
 
     void shiftZ(double delta);
 
-protected:
-    Point getPosition() const;
-
-public:
-    friend DrawManager;
-
+    [[nodiscard]] Point getPosition() const;
 };
 
 

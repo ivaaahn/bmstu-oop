@@ -6,6 +6,7 @@
 #define __LAB_03_ADD_MODEL_HPP__
 
 #include <memory>
+#include <objects/object.hpp>
 #include "../model_command.hpp"
 
 class AddModel : public ModelCommand {

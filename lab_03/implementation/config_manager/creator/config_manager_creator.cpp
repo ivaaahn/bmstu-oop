@@ -12,6 +12,6 @@ std::shared_ptr<ConfigManager> ConfigManagerCreator::getManager() {
 }
 
 void ConfigManagerCreator::createManager() {
-    static std::shared_ptr<ConfigManager> new_manager(new ConfigManager());
+    static auto new_manager = std::make_shared<ConfigManager>();
     this->manager = new_manager;
 }

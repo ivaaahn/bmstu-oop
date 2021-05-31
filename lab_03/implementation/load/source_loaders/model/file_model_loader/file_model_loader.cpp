@@ -6,6 +6,7 @@
 #include "../../../../objects/model/model_details/edge/edge.hpp"
 
 #include <fstream>
+#include <exceptions/load_exceptions.hpp>
 
 FileModelLoader::FileModelLoader() : builder(std::make_shared<ModelBuilder>()) {}
 
@@ -15,13 +16,11 @@ FileModelLoader::FileModelLoader(std::shared_ptr<std::ifstream> &src_file) : Fil
 
 void FileModelLoader::open(const std::string &src_name) {
     this->src_file = std::make_shared<std::ifstream>(src_name);
-    if (!*(this->src_file)) throw FileOpenException(); // TODO: exceptions
+    if (!*(this->src_file)) throw FileOpenError(__FILE__, __LINE__, "could not open model-file")
 }
 
 std::shared_ptr<Object> FileModelLoader::load() {
     this->builder->reset();
-
-//    if (!*(this->src_file)) throw FileOpenException();
 
     this->loadCenter();
     this->loadPoints();

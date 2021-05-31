@@ -15,7 +15,7 @@
 class CameraLoadSolution {
     CameraLoadSolution() = default;
 
-    std::shared_ptr<SourceLoaderCreator> getCreator();
+    static std::shared_ptr<SourceLoaderCreator> getCreator();
 };
 
 

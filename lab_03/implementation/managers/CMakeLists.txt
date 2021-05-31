@@ -7,9 +7,6 @@ add_executable(${PROJECT_NAME}
         draw/draw_manager.hpp
         load/load_manager.cpp
         load/load_manager.hpp
-        creator/base_manager_creator.hpp
-        creator/base_manager_creator.cpp
-        creator/manager_creator.hpp
         scene/scene_manager.cpp
         scene/scene_manager.hpp
         transform/transform_manager.cpp
@@ -17,4 +14,6 @@ add_executable(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ../../implementation)
+
+find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
 

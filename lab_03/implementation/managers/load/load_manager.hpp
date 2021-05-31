@@ -7,23 +7,36 @@
 
 
 #include <memory>
+#include <load/directors/load_director.hpp>
 #include "../manager.hpp"
 #include "../../objects/object.hpp"
 
-class LoadController;  // TODO: removeIT;
-
 class LoadManager : public Manager {
 public:
-    LoadManager();
-    LoadManager(const LoadManager &) = delete;
-    LoadManager &operator=(const LoadManager &) = delete;
-    ~LoadManager() = default;
+    LoadManager() = default;
 
-    virtual std::shared_ptr<Object> load(std::string &name);
-    virtual void setLoadController(std::shared_ptr<LoadController> load_controller);
+    LoadManager(const LoadManager &) = delete;
+
+    LoadManager &operator=(const LoadManager &) = delete;
+
+    ~LoadManager() override = default;
+
+    virtual std::shared_ptr<Object> load(const std::string &name);
+
+    void setDirector(const std::shared_ptr<LoadDirector> &director);
+
 
 private:
-    std::shared_ptr<LoadController> load_controller;
+    std::shared_ptr<LoadDirector> director;
+};
+
+class LoadManagerCreator {
+public:
+    std::shared_ptr<LoadManager> getManager();
+
+private:
+    void createManager();
+    std::shared_ptr<LoadManager> manager;
 };
 
 

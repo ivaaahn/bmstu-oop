@@ -5,6 +5,8 @@
 #include "file_camera_loader.hpp"
 
 #include <fstream>
+#include <load/builders/camera/camera_builder.hpp>
+#include <exceptions/load_exceptions.hpp>
 
 FileCameraLoader::FileCameraLoader() : builder(std::make_shared<CameraBuilder>()) {}
 
@@ -15,20 +17,17 @@ FileCameraLoader::FileCameraLoader(std::shared_ptr<std::ifstream> &src_file) : F
 void FileCameraLoader::open(const std::string &src_name) {
     this->src_file = std::make_shared<std::ifstream>(src_name);
 
-    if (!*(this->src_file)) throw FileOpenException(); // TODO: exceptions
+    if (!*(this->src_file)) throw FileOpenError(__FILE__, __LINE__, "could not open camera-file");
 }
 
 std::shared_ptr<Object> FileCameraLoader::load() {
     this->builder->reset();
 
-    if (!*(this->src_file)) throw FileOpenException();
+//    if (!*(this->src_file)) throw FileOpenException();
 
     double x, y, z;
-    if (!(*(this->src_file) >> x >> y >> z)) throw FileFormatException();
+    if (!(*(this->src_file) >> x >> y >> z)) throw FileFormatError(__FILE__, __LINE__, "bad format of camera-file");
     this->builder->buildPosition(x, y, z);
-
-    if (!(*(this->src_file) >> x >> y >> z)) throw FileFormatException();
-    this->builder->buildAngles(x, y, z);
 
     return std::dynamic_pointer_cast<Object>(this->builder->get());
 }

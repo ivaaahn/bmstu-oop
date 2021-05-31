@@ -6,15 +6,15 @@
 #define __LAB_03_DRAW_MANAGER_HPP__
 
 
+#include <managers/load/load_manager.hpp>
 #include "../manager.hpp"
-#include "../../visitor/visitor.hpp"
-#include "../../objects/model/model_details/point/point.hpp"
-#include "../../objects/model/model.hpp"
-#include "../../objects/camera/camera.hpp"
+#include "visitor/visitor.hpp"
+#include "objects/model/model_details/point/point.hpp"
+#include "objects/model/model.hpp"
+#include "objects/camera/camera.hpp"
 
-class Drawer; // TODO: remove it!
 
-class DrawManager : public Visitor, public Manager {
+class DrawManager : public Manager {
 public:
     DrawManager() = default;
 
@@ -22,24 +22,27 @@ public:
 
     DrawManager &operator=(const DrawManager &) = delete;
 
-    ~DrawManager() = default;
+    ~DrawManager() override = default;
 
-    void visit(const Camera &camera) override;
-
-    void visit(const Model &model) override;
-
-    void visit(const Composite &composite) override;
+    void draw(const std::shared_ptr<Composite> &composite);
 
     void setDrawer(std::shared_ptr<Drawer> drawer);
 
     void setCamera(std::shared_ptr<Camera> camera);
 
 private:
-    Point projectPoint(const Point &point);
-
     std::shared_ptr<Drawer> drawer;
     std::shared_ptr<Camera> camera;
+};
 
+class DrawManagerCreator {
+public:
+    std::shared_ptr<DrawManager> getManager();
+
+private:
+    void createManager();
+
+    std::shared_ptr<DrawManager> manager;
 };
 
 #endif //__LAB_03_DRAW_MANAGER_HPP__

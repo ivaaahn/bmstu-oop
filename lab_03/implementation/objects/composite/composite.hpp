@@ -18,8 +18,6 @@ public:
 
     explicit Composite(const std::vector<std::shared_ptr<Object>> &vector);
 
-//    [[nodiscard]] std::size_t size() const;
-
     bool add(const std::shared_ptr<Object> &component) override;
 
     bool remove(const Iterator &iterator) override;

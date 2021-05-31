@@ -6,7 +6,7 @@
 
 Scene::Scene() : models(std::make_shared<Composite>()) {} // TODO: в оригинале было через new
 
-void Scene::addModel(const std::shared_ptr<Model> &model) {
+void Scene::addModel(const std::shared_ptr<Object> &model) {
     this->models->add(model);
 }
 
@@ -26,9 +26,9 @@ void Scene::removeCamera(std::size_t camera_id) {
     this->cameras.erase(it);
 }
 
-std::vector<std::shared_ptr<Object>> Scene::getModels() {
-    return this->models->getObjects();
-}
+//std::vector<std::shared_ptr<Object>> Scene::getModels() {
+//    return this->models->getObjects();
+//}
 
 std::vector<std::shared_ptr<Camera>> Scene::getCameras() {
     return this->cameras;
@@ -37,3 +37,8 @@ std::vector<std::shared_ptr<Camera>> Scene::getCameras() {
 std::shared_ptr<Composite> Scene::getComposite() {
     return this->models;
 }
+
+//std::vector<std::shared_ptr<Object>> Scene::getModels() {
+//    return this->models;
+//    return std::vector<std::shared_ptr<Object>>();
+//}

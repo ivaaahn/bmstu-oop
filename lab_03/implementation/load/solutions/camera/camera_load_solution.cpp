@@ -3,17 +3,19 @@
 //
 
 #include <fstream>
+#include <exceptions/load_exceptions.hpp>
 #include "camera_load_solution.hpp"
 #include "../../../config_manager/creator/config_manager_creator.hpp"
 
-std::shared_ptr <SourceLoaderCreator> CameraLoadSolution::getCreator() {
+std::shared_ptr<SourceLoaderCreator> CameraLoadSolution::getCreator() {
     std::ifstream cfg_file(CAMERA_CFG_PATH);
 
-    if (!cfg_file)
-        throw FileOpenException(); // TODO
+    if (!cfg_file) throw FileOpenError(__FILE__, __LINE__, "could not open config-file");
 
     size_t id;
-    if (!(cfg_file >> id))
-        throw FileFormatException(); // TODO
 
-    return ConfigManagerCreator().getManager()->getCreator(id);
+    if (!(cfg_file >> id)) throw FileFormatError(__FILE__, __LINE__, "invalid сonfig-file format");
+
+
+    return ConfigManagerCreator().getManager()->getSrcLoaderCreator(id);
+}
