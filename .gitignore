@@ -76,3 +76,4 @@ translations/
 .vscode
 .idea/
 cmake-build-debug/
+cmake-build-default/
