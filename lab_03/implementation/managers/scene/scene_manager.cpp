@@ -25,7 +25,7 @@ void SceneManager::setScene(std::shared_ptr<Scene> new_scene) {
 }
 
 void SceneManager::setMainCamera(const Iterator &it) {
-    this->main_camera = it;
+    this->main_camera = std::dynamic_pointer_cast<Camera>(*it);
 }
 
 void SceneManagerCreator::createManager() {

@@ -34,7 +34,6 @@ public:
 private:
     std::shared_ptr<Scene> scene;
     std::weak_ptr<Camera> main_camera;
-//    Iterator main_camera;
 };
 
 class SceneManagerCreator {

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1345</width>
-    <height>863</height>
+    <height>929</height>
    </rect>
   </property>
   <property name="palette">
@@ -1121,11 +1121,11 @@
               <property name="font">
                <font>
                 <family>Arial</family>
-                <pointsize>9</pointsize>
+                <pointsize>11</pointsize>
                </font>
               </property>
               <property name="text">
-               <string>Current model (id):</string>
+               <string>Current model:</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -1136,6 +1136,7 @@
              <widget class="QLabel" name="curr_model_lbl">
               <property name="font">
                <font>
+                <pointsize>11</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -1188,11 +1189,11 @@
               <property name="font">
                <font>
                 <family>Arial</family>
-                <pointsize>9</pointsize>
+                <pointsize>11</pointsize>
                </font>
               </property>
               <property name="text">
-               <string>Current camera (id):</string>
+               <string>Current camera:</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -1203,6 +1204,7 @@
              <widget class="QLabel" name="curr_camera_lbl">
               <property name="font">
                <font>
+                <pointsize>11</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>

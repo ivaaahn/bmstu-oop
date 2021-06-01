@@ -100,7 +100,7 @@ void MainWindow::on_rotate_btn_clicked() {
 
     auto rotate_model_cmd = std::make_shared<RotateModel>(this->getCurrModelID(),
                                                           this->ui->ax_box->value(),
-                                                          this->ui->ax_box->value(),
+                                                          this->ui->ay_box->value(),
                                                           this->ui->az_box->value());
     try
     {
@@ -134,14 +134,23 @@ void MainWindow::on_load_model_btn_clicked() {
         QMessageBox::warning(this, "Error", QString(ex.what()));
         return;
     }
+
+    auto obj_list = this->ui->objects_list;
+    this->ui->curr_model_lbl->setText(obj_list->item(obj_list->count() - 1)->text());
 }
 
 void MainWindow::on_clear_scene_btn_clicked() {
     auto obj_list = this->ui->objects_list;
+    if (!obj_list->count())
+    {
+        QMessageBox::information(nullptr, "OK!", "Сцена уже очищена");
+        return;
+    }
+
     std::shared_ptr<Command> remove_cmd;
 
     this->resetModel();
-    for (int i = this->ui->objects_list->count() - 1; i >= 0; --i)
+    for (int i = obj_list->count() - 1; i >= 0; --i)
         if (obj_list->item(i)->text().contains("model"))
         {
             remove_cmd = std::make_shared<RemoveModel>(i);
@@ -152,7 +161,7 @@ void MainWindow::on_clear_scene_btn_clicked() {
     if (this->cameraSelected()) this->updateScene();
 
     this->resetCamera();
-    for (int i = this->ui->objects_list->count() - 1; i >= 0; --i)
+    for (int i = obj_list->count() - 1; i >= 0; --i)
         if (obj_list->item(i)->text().contains("camera"))
         {
             remove_cmd = std::make_shared<RemoveCamera>(i);
@@ -176,6 +185,9 @@ void MainWindow::on_load_camera_btn_clicked() {
         QMessageBox::warning(this, "Error", QString(ex.what()));
         return;
     }
+
+    auto obj_list = this->ui->objects_list;
+    this->ui->curr_camera_lbl->setText(obj_list->item(obj_list->count() - 1)->text());
 }
 
 void MainWindow::on_add_camera_btn_clicked() {
@@ -192,6 +204,10 @@ void MainWindow::on_add_camera_btn_clicked() {
         QMessageBox::warning(this, "Error", QString(ex.what()));
         return;
     }
+
+    auto obj_list = this->ui->objects_list;
+    this->ui->curr_camera_lbl->setText(obj_list->item(obj_list->count() - 1)->text());
+    this->updateScene();
 }
 
 void MainWindow::on_change_model_btn_clicked() {
@@ -272,8 +288,6 @@ bool MainWindow::modelSelected() { return this->ui->curr_model_lbl->text() != QS
 
 void MainWindow::on_remove_object_btn_clicked() {
     auto curr_row = this->ui->objects_list->currentRow();
-    auto text_item = this->ui->objects_list->currentItem()->text();
-
     if (curr_row < 0)
     {
         QMessageBox::critical(nullptr, "Ошибка", "Выберите объект, который хотите удалить");
@@ -281,6 +295,8 @@ void MainWindow::on_remove_object_btn_clicked() {
     }
 
     std::shared_ptr<Command> remove_cmd;
+
+    auto text_item = this->ui->objects_list->currentItem()->text();
     if (text_item.contains("camera"))
     {
         if (!this->canRemoveCamera(curr_row)) return;
@@ -394,8 +410,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     this->facade = std::make_shared<Facade>(Facade());
 }
 
-MainWindow::~MainWindow() { delete this->ui; }
-
 bool MainWindow::checkCamAndModel() {
     if (!this->cameraSelected() || !this->modelSelected())
     {
@@ -405,4 +419,6 @@ bool MainWindow::checkCamAndModel() {
 
     return true;
 }
+
+MainWindow::~MainWindow() { delete ui; }
 

@@ -93,7 +93,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1345, 863);
+        MainWindow->resize(1345, 929);
         QPalette palette;
         QBrush brush(QColor(0, 0, 0, 255));
         brush.setStyle(Qt::SolidPattern);
@@ -503,7 +503,7 @@ public:
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         label_9 = new QLabel(frame_6);
         label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setFont(font);
+        label_9->setFont(font3);
         label_9->setAlignment(Qt::AlignCenter);
 
         horizontalLayout->addWidget(label_9);
@@ -511,6 +511,7 @@ public:
         curr_model_lbl = new QLabel(frame_6);
         curr_model_lbl->setObjectName(QString::fromUtf8("curr_model_lbl"));
         QFont font4;
+        font4.setPointSize(11);
         font4.setBold(true);
         font4.setWeight(75);
         curr_model_lbl->setFont(font4);
@@ -541,7 +542,7 @@ public:
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         label_8 = new QLabel(frame_5);
         label_8->setObjectName(QString::fromUtf8("label_8"));
-        label_8->setFont(font);
+        label_8->setFont(font3);
         label_8->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_2->addWidget(label_8);
@@ -625,10 +626,10 @@ public:
         label_7->setText(QApplication::translate("MainWindow", "Scene objects", nullptr));
         remove_object_btn->setText(QApplication::translate("MainWindow", "Remove", nullptr));
         clear_scene_btn->setText(QApplication::translate("MainWindow", "Clear scene", nullptr));
-        label_9->setText(QApplication::translate("MainWindow", "Current model (id):", nullptr));
+        label_9->setText(QApplication::translate("MainWindow", "Current model:", nullptr));
         curr_model_lbl->setText(QApplication::translate("MainWindow", "None", nullptr));
         change_model_btn->setText(QApplication::translate("MainWindow", "Change", nullptr));
-        label_8->setText(QApplication::translate("MainWindow", "Current camera (id):", nullptr));
+        label_8->setText(QApplication::translate("MainWindow", "Current camera:", nullptr));
         curr_camera_lbl->setText(QApplication::translate("MainWindow", "None", nullptr));
         change_camera_btn->setText(QApplication::translate("MainWindow", "Change", nullptr));
     } // retranslateUi
