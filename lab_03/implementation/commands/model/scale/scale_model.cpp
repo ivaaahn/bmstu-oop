@@ -19,7 +19,7 @@ void ScaleModel::execute() {
     auto scene_manager = SceneManagerCreator().getManager();
     auto transform_manager = TransformManagerCreator().getManager();
 
-    auto models_iter = scene_manager->getScene()->getComposite()->begin();
+    auto models_iter = scene_manager->getScene()->getModels()->begin();
     std::advance(models_iter, model_id);
 
     auto model = *models_iter;

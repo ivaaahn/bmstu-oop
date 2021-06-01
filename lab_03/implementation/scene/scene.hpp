@@ -22,10 +22,8 @@ public:
     void addCamera(const std::shared_ptr<Camera> &camera);
     void removeCamera(std::size_t camera_id);
 
-    std::shared_ptr<Composite> getComposite();
-
+    std::shared_ptr<Composite> getModels();
     std::vector<std::shared_ptr<Camera>> getCameras();
-//    std::vector<std::shared_ptr<Object>> getModels();
 
 private:
     std::shared_ptr<Composite> models;

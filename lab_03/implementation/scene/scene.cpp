@@ -26,19 +26,10 @@ void Scene::removeCamera(std::size_t camera_id) {
     this->cameras.erase(it);
 }
 
-//std::vector<std::shared_ptr<Object>> Scene::getModels() {
-//    return this->models->getObjects();
-//}
-
 std::vector<std::shared_ptr<Camera>> Scene::getCameras() {
     return this->cameras;
 }
 
-std::shared_ptr<Composite> Scene::getComposite() {
+std::shared_ptr<Composite> Scene::getModels() {
     return this->models;
 }
-
-//std::vector<std::shared_ptr<Object>> Scene::getModels() {
-//    return this->models;
-//    return std::vector<std::shared_ptr<Object>>();
-//}

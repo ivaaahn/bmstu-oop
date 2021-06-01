@@ -18,5 +18,5 @@ void RenderScene::execute() {
 
     this->drawer->clearScene();
 
-    draw_manager->draw(scene_manager->getScene()->getComposite());
+    draw_manager->draw(scene_manager->getScene()->getModels());
 }
