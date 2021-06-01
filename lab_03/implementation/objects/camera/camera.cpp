@@ -2,6 +2,7 @@
 // Created by ivaaahn on 24.05.2021.
 //
 
+#include <iostream>
 #include "camera.hpp"
 
 Camera::Camera(const Point &position) : position(position) {}

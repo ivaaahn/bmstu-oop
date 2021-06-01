@@ -38,6 +38,10 @@ private:
     std::vector<Point> points;
     std::vector<Edge> edges;
     Point center{}; // TODO: а надо ли?
+
+    void move(const Point &move_params);
+    void scale(const Point &scale_params);
+    void rotate(const Point &rotate_params);
 };
 
 

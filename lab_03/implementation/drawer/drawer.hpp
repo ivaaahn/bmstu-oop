@@ -22,7 +22,7 @@ public:
 
 class DrawerFactory {
 public:
-    virtual std::unique_ptr<Drawer> create() = 0;
+    virtual std::unique_ptr<Drawer> createDrawer() = 0;
 };
 
 #endif //__LAB_03_DRAWER_HPP__

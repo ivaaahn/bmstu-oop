@@ -9,7 +9,7 @@
 #include <memory>
 #include "../../source_loaders/source_loader_creator.hpp"
 
-#define MODEL_CFG_PATH "./data/model_load.cfg"
+#define MODEL_CFG_PATH "../data/configuration/model_load.cfg"
 
 class ModelLoadSolution {
 public:

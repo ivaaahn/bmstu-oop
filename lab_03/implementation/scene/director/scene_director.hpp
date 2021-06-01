@@ -6,14 +6,16 @@
 #define __LAB_03_SCENE_DIRECTOR_HPP__
 
 
-#include "../load_director.hpp"
+#include "load/directors/load_director.hpp"
 
-class SceneDirector : public LoadDirector {
+class SceneDirector {
 public:
     SceneDirector();
     ~SceneDirector() = default;
 
-    std::shared_ptr<Object> load(const std::string &src_name) override;
+    std::shared_ptr<Scene> load(const std::string &src_name);
+private:
+    std::shared_ptr<SceneLoader> loader;
 };
 
 

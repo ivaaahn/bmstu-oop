@@ -19,8 +19,7 @@ public:
 
 private:
     Solution solution;
-    std::shared_ptr<BaseRegistrationMaker> reg_maker;
 };
 
 
-#endif //__LAB_03_CONFIG_MANAGER_HPP__
+#endif //__LAB_03_CONFIG_MA NAGER_HPP__

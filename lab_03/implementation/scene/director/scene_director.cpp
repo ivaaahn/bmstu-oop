@@ -9,7 +9,7 @@ SceneDirector::SceneDirector() {
     this->loader = SceneLoadSolution().getCreator()->create();
 }
 
-std::shared_ptr<Object> SceneDirector::load(const std::string &src_name) {
+std::shared_ptr<Scene> SceneDirector::load(const std::string &src_name) {
     this->loader->open(src_name);
     auto scene = this->loader->load();
     this->loader->close();

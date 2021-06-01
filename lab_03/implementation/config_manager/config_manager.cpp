@@ -4,8 +4,9 @@
 
 #include "config_manager.hpp"
 
-ConfigManager::ConfigManager() : reg_maker(std::make_shared<RegistrationMaker>()) {
-    this->reg_maker->makeRegistration(this->solution);
+ConfigManager::ConfigManager() {
+    auto reg_maker = std::make_shared<RegistrationMaker>();
+    reg_maker->makeRegistration(this->solution);
 }
 
 std::shared_ptr<SourceLoaderCreator> ConfigManager::getSrcLoaderCreator(const size_t id) {
@@ -13,5 +14,5 @@ std::shared_ptr<SourceLoaderCreator> ConfigManager::getSrcLoaderCreator(const si
 }
 
 std::shared_ptr<SceneLoaderCreator> ConfigManager::getSceneLoaderCreator(size_t id) {
-    return this->solution.getSceneLoaderCreator(id)
+    return this->solution.getSceneLoaderCreator(id);
 }

@@ -13,7 +13,7 @@ class ScaleModel : public ModelCommand {
 public:
     ScaleModel() = delete;
 
-    ScaleModel(std::size_t model_id, double kx, double ky, const double kz);
+    ScaleModel(std::size_t model_id, double kx, double ky, double kz);
 
     ~ScaleModel() override = default;
 

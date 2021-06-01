@@ -3,6 +3,7 @@
 //
 
 #include <cmath>
+#include <iostream>
 #include "point.hpp"
 
 inline double toRad(const double angle) {
@@ -70,6 +71,10 @@ Point Point::operator+(const Point &other) {
     return res;
 }
 
+Point Point::operator-() const {
+    return Point(-this->x, -this->y, -this->z);
+}
+
 Point Point::operator-(const Point &other) {
     Point res(*this);
 
@@ -103,8 +108,8 @@ void Point::rotateX(double ax) {
     const double _sin = sin(toRad(ax));
     const double _y = this->y;
 
-    this->setY(this->y * _cos + this->z * _sin);
-    this->setZ(this->z * _cos - _y * _sin);
+    this->setY(this->y * _cos - this->z * _sin);
+    this->setZ(this->z * _cos + _y * _sin);
 }
 
 void Point::rotateY(double ay) {
@@ -112,8 +117,8 @@ void Point::rotateY(double ay) {
     const double _sin = sin(toRad(ay));
     const double _x = this->x;
 
-    setX(this->x * _cos + this->z * _sin);
-    setZ(this->z * _cos - _x * _sin);
+    setX(this->x * _cos - this->z * _sin);
+    setZ(this->z * _cos + _x * _sin);
 }
 
 void Point::rotateZ(double az) {
@@ -121,8 +126,8 @@ void Point::rotateZ(double az) {
     const double _sin = sin(toRad(az));
     const double _x = this->x;
 
-    setX(this->x * _cos + this->y * _sin);
-    setZ(this->y * _cos - _x * _sin);
+    setX(this->x * _cos - this->y * _sin);
+    setY(this->y * _cos + _x * _sin);
 }
 
 Point Point::relativeTo(const Point &point) {

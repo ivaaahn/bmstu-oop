@@ -13,13 +13,13 @@
 
 
 void RegistrationMaker::makeRegistration(Solution &solution) {
-    if (!solution.makeSrcLoaderRegistration(1, std::make_shared<ConSourceLoaderCreator<FileModelLoader>>()))
-        throw ConfigError(__FILE__, __LINE__, "failed to register source loader")
+    if (!solution.makeSrcLoaderRegistration(0, std::make_shared<ConSourceLoaderCreator<FileModelLoader>>()))
+        throw ConfigError(__FILE__, __LINE__, "failed to register source loader");
 
-    if (!solution.makeSrcLoaderRegistration(2, std::make_shared<ConSourceLoaderCreator<FileCameraLoader>>()))
+    if (!solution.makeSrcLoaderRegistration(1, std::make_shared<ConSourceLoaderCreator<FileCameraLoader>>()))
         throw ConfigError(__FILE__, __LINE__, "failed to register source loader");
 
     if (!solution.makeSceneLoaderRegistration(0, std::make_shared<FileSceneLoaderCreator>()))
-        throw ConfigError(__FILE__, __LINE__, "failed to register source scene loader")
+        throw ConfigError(__FILE__, __LINE__, "failed to register source director loader");
 
 }

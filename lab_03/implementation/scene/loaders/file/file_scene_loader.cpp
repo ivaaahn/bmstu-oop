@@ -17,13 +17,15 @@ FileSceneLoader::FileSceneLoader(std::shared_ptr<std::ifstream> &src_file) : Fil
 void FileSceneLoader::open(const std::string &src_name) {
     this->src_file = std::make_shared<std::ifstream>(src_name);
 
-    if (!*(this->src_file)) throw FileOpenError(__FILE__, __LINE__, "could not open file with scene");
+    if (!*(this->src_file)) throw FileOpenError(__FILE__, __LINE__, "could not open file with director");
 }
 
 std::shared_ptr<Scene> FileSceneLoader::load() {
     this->builder.reset();
     this->loadModels();
     this->loadCameras();
+
+    return this->builder->get();
 }
 
 void FileSceneLoader::close() {
@@ -33,7 +35,7 @@ void FileSceneLoader::close() {
 void FileSceneLoader::loadModels() {
     size_t models_count;
 
-    if (!(*this->src_file >> models_count)) throw FileFormatError(__FILE__, __LINE__, "invalid scene-file format");
+    if (!(*this->src_file >> models_count)) throw FileFormatError(__FILE__, __LINE__, "invalid director-file format");
 
     for (size_t i = 0; i < models_count; i++)
         this->builder->buildModel(FileModelLoader(this->src_file).load());
@@ -42,7 +44,7 @@ void FileSceneLoader::loadModels() {
 void FileSceneLoader::loadCameras() {
     size_t cameras_count;
 
-    if (!(*this->src_file >> cameras_count)) throw FileFormatError(__FILE__, __LINE__, "invalid scene-file format");
+    if (!(*this->src_file >> cameras_count)) throw FileFormatError(__FILE__, __LINE__, "invalid director-file format");
 
     for (size_t i = 0; i < cameras_count; i++)
         this->builder->buildCamera(std::dynamic_pointer_cast<Camera>(FileCameraLoader(this->src_file).load()));

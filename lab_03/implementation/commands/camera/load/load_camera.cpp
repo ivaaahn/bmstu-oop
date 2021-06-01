@@ -15,5 +15,7 @@ void LoadCamera::execute() {
     load_manager->setDirector(std::make_shared<CameraDirector>());
 
     auto camera = load_manager->load(filename);
-    SceneManagerCreator().getManager()->getScene()->addCamera(std::dynamic_pointer_cast<Camera>(camera));
+    auto scene_manager = SceneManagerCreator().getManager();
+
+    scene_manager->getScene()->addCamera(std::dynamic_pointer_cast<Camera>(camera));
 }

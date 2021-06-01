@@ -6,6 +6,8 @@
 #define __LAB_03_SOURCE_LOADER_HPP__
 
 
+#include <objects/object.hpp>
+
 class SourceLoader {
 public:
     SourceLoader() = default;

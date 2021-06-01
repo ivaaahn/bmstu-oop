@@ -6,16 +6,12 @@
 #define __LAB_03_OBJECT_HPP__
 
 #include <memory>
-
-#include <visitor.h>
-
-//#include <objects/model/model_details/point/point.h>
-
 #include <vector>
+
+#include <visitor/visitor.hpp>
 #include "model/model_details/point/point.hpp"
 
 class Object;
-class Visitor;
 
 using Iterator = std::vector<std::shared_ptr<Object>>::iterator;
 using ConstIterator = std::vector<std::shared_ptr<Object>>::const_iterator;
@@ -43,7 +39,7 @@ public:
 
     virtual bool is_visible() { return false; }
 
-    virtual bool is_composite() const { return false; };
+    [[nodiscard]] virtual bool is_composite() const { return false; };
 
     virtual void transform(const Point &move_params, const Point &scale_params, const Point &rotate_params) = 0;
 };

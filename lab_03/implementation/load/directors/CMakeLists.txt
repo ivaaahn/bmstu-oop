@@ -8,8 +8,8 @@ add_executable(${PROJECT_NAME}
         camera/camera_director.hpp
         model/model_director.cpp
         model/model_director.hpp
-        scene/scene_director.cpp
-        scene/scene_director.hpp
+        ../../scene/director/scene_director.cpp
+        ../../scene/director/scene_director.hpp
         )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ../../../implementation)

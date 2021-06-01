@@ -25,7 +25,7 @@ std::shared_ptr<SourceLoaderCreator> Solution::getLoaderCreator(size_t id) {
 std::shared_ptr<SceneLoaderCreator> Solution::getSceneLoaderCreator(size_t id) {
     auto it = this->callbacks_for_scene.find(id);
 
-    if (it == this->callbacks_for_scene.end()) throw ConfigError(__FILE__, __LINE__, "scene loader creator not not found");
+    if (it == this->callbacks_for_scene.end()) throw ConfigError(__FILE__, __LINE__, "director loader creator not not found");
 
     return it->second;
 }

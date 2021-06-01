@@ -18,6 +18,8 @@ public:
     Point(const Point &&other) noexcept;
     Point &operator=(Point &&other) noexcept;
 
+    Point operator-() const;
+
     bool operator==(const Point &other) const noexcept;
     [[nodiscard]] bool equ(const Point &other) const noexcept;
     bool operator!=(const Point &point) const noexcept;

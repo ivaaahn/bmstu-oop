@@ -11,7 +11,7 @@
 #include "objects/camera/camera.hpp"
 #include "objects/composite/composite.hpp"
 #include "drawer/drawer.hpp"
-#include "../visitor.hpp"
+#include "visitor/visitor.hpp"
 
 
 class DrawVisitor : public Visitor {

@@ -12,9 +12,9 @@ Composite::Composite(const std::vector<std::shared_ptr<Object>> &vector) {
     this->objects = vector;
 }
 
-std::size_t Composite::size() const {
-    return this->objects.size();
-}
+//std::size_t Composite::size() const {
+//    return this->objects.size();
+//}
 
 bool Composite::add(const std::shared_ptr<Object> &component) {
     this->objects.push_back(component);

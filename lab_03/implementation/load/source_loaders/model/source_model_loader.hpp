@@ -11,7 +11,7 @@
 #include "../source_loader.hpp"
 #include "../../../objects/object.hpp"
 
-class SourceModelLoader : SourceLoader {
+class SourceModelLoader : public SourceLoader {
 public:
     SourceModelLoader() = default;
 

@@ -3,8 +3,8 @@ project(scene_commands)
 
 add_executable(${PROJECT_NAME}
         ./scene_command.hpp
-        draw/render_scene.cpp
-        draw/render_scene.hpp
+        render/render_scene.cpp
+        render/render_scene.hpp
         ./load/load_scene.cpp
         ./load/load_scene.hpp
 )

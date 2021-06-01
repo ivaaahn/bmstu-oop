@@ -2,6 +2,7 @@
 // Created by ivaaahn on 23.05.2021.
 //
 
+#include <iostream>
 #include "model_details.hpp"
 
 ModelDetails::ModelDetails(std::vector<Point> &points, std::vector<Edge> &edges)
@@ -32,15 +33,33 @@ const std::vector<Edge> &ModelDetails::getEdges() const {
 }
 
 void ModelDetails::transform(const Point &move_params, const Point &scale_params, const Point &rotate_params) {
-    this->center.move(move_params.getX(), move_params.getY(), move_params.getZ());
+    this->move(-this->center);
 
     for (auto &point: points)
     {
-        point.scale(scale_params.getX(), scale_params.getY(), scale_params.getZ());
         point.rotate(rotate_params.getX(), rotate_params.getY(), rotate_params.getZ());
+        point.scale(scale_params.getX(), scale_params.getY(), scale_params.getZ());
     }
+
+    this->center.move(move_params.getX(), move_params.getY(), move_params.getZ());
+    this->move(this->center);
 }
 
 void ModelDetails::setCenter(const Point &point) {
     this->center = point;
+}
+
+void ModelDetails::move(const Point &move_params) {
+    for (auto &point: points)
+        point.move(move_params.getX(), move_params.getY(), move_params.getZ());
+}
+
+void ModelDetails::scale(const Point &scale_params) {
+    for (auto &point: points)
+        point.scale(scale_params.getX(), scale_params.getY(), scale_params.getZ());
+}
+
+void ModelDetails::rotate(const Point &rotate_params) {
+    for (auto &point: points)
+        point.rotate(rotate_params.getX(), rotate_params.getY(), rotate_params.getZ());
 }
