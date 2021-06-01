@@ -14,6 +14,14 @@ public:
     }
 };
 
+class NoModelError : public BaseException {
+public:
+    explicit NoModelError(const string &file, const int line, const string &msg) : BaseException(file, line, msg) {
+        this->error_msg = "NoModelError: " + this->error_msg;
+    }
+};
+
+
 class EdgeError : public BaseException {
 public:
     explicit EdgeError(const string &file, const int line, const string &msg) : BaseException(file, line, msg) {

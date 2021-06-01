@@ -24,28 +24,43 @@ Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
-
     ~MainWindow() override;
 
 protected:
-    void setup_scene();
+    [[nodiscard]] size_t getCamerasCount() const;
+
+    [[nodiscard]] size_t getModelsCount() const;
+
+    bool canRemoveCamera(size_t id);
+
+    bool canRemoveModel(size_t id);
+
+    bool modelSelected();
+
+    bool cameraSelected();
+
+    void setupScene();
 
     void updateScene();
 
-//    void clear_scene();
-//
-    void check_cam_exist();
-//
-//    void check_can_delete_cam();
-//
-//    void check_models_exist();
+    void resetModel();
+
+    void resetCamera();
+
+    size_t getCurrCameraID();
+
+    size_t getCurrModelID();
+
+    bool checkCamAndModel();
 
 protected:
     void resizeEvent(QResizeEvent *event) override;
 
 private slots:
 
-    void change_cam();
+    void on_change_camera_btn_clicked();
+
+    void on_change_model_btn_clicked();
 
     void on_move_btn_clicked();
 
@@ -55,13 +70,15 @@ private slots:
 
     void on_load_model_btn_clicked();
 
-    void on_remove_model_btn_clicked();
-
     void on_load_camera_btn_clicked();
 
     void on_add_camera_btn_clicked();
 
-    void on_remove_camera_btn_clicked();
+    void on_remove_object_btn_clicked();
+
+    void on_clear_scene_btn_clicked();
+
+    void on_left_btn_clicked();
 
     void on_right_btn_clicked();
 
@@ -69,14 +86,15 @@ private slots:
 
     void on_down_btn_clicked();
 
-    void on_left_btn_clicked();
-
 private:
 
     Ui::MainWindow *ui;
 
-    std::shared_ptr<Facade> facade; // Может сделать не указатель?
+    std::shared_ptr<Facade> facade;
 
     std::shared_ptr<QGraphicsScene> scene;
     std::shared_ptr<Drawer> drawer;
+
+    size_t last_cam_id = 0;
+    size_t last_mod_id = 0;
 };

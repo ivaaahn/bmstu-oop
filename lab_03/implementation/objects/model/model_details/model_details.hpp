@@ -37,7 +37,7 @@ public:
 private:
     std::vector<Point> points;
     std::vector<Edge> edges;
-    Point center{}; // TODO: а надо ли?
+    Point center{};
 
     void move(const Point &move_params);
     void scale(const Point &scale_params);

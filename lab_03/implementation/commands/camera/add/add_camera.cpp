@@ -13,9 +13,10 @@ void AddCamera::execute() {
     Point cam_pos(x_pos, y_pos, z_pos);
 
     auto camera = std::make_shared<Camera>();
-    camera->transform(cam_pos, cam_pos, cam_pos);
-
     auto scene_manager = SceneManagerCreator().getManager();
-    scene_manager->getScene()->addCamera(camera);
-    scene_manager->setCamera(scene_manager->getScene()->getCameras().size() - 1);
+    auto scene = scene_manager->getScene();
+
+    camera->transform(cam_pos, cam_pos, cam_pos);
+    scene->addObject(camera);
+    scene_manager->setMainCamera(scene->end() - 1);
 }

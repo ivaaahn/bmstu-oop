@@ -58,6 +58,7 @@ set(EXCEPTIONS
         exceptions/base_exception.hpp
         exceptions/load_exceptions.hpp
         exceptions/model_exceptions.hpp
+        exceptions/camera_exceptions.hpp
         exceptions/ui_exceptions.hpp
         )
 
@@ -139,7 +140,7 @@ set(VISITOR
         visitor/visitor.hpp
         visitor/draw_visitor/draw_visitor.cpp
         visitor/draw_visitor/draw_visitor.hpp
-        )
+        exceptions/camera_exceptions.hpp)
 
 
 add_library(${PROJECT_NAME}

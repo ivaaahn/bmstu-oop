@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "draw_manager.hpp"
-#include "objects/composite/composite.hpp"
+#include "scene/scene.hpp"
 #include "visitor/draw_visitor/draw_visitor.hpp"
 
 void DrawManager::setDrawer(std::shared_ptr<Drawer> drawer) {
@@ -17,9 +17,9 @@ void DrawManager::setCamera(std::shared_ptr<Camera> camera) {
     this->camera = std::move(camera);
 }
 
-void DrawManager::draw(const std::shared_ptr<Composite> &composite) {
+void DrawManager::draw(const std::shared_ptr<Scene> &scene) {
     auto visitor = std::make_shared<DrawVisitor>(this->drawer, this->camera);
-    composite->accept(visitor);
+    scene->accept(visitor);
 }
 
 void DrawManagerCreator::createManager() {

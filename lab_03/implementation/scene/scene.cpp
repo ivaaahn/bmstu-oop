@@ -4,32 +4,61 @@
 
 #include "scene.hpp"
 
-Scene::Scene() : models(std::make_shared<Composite>()) {} // TODO: в оригинале было через new
+#include <utility>
 
-void Scene::addModel(const std::shared_ptr<Object> &model) {
-    this->models->add(model);
+Scene::Scene() : objects(std::make_shared<Composite>()) {}
+
+void Scene::addObject(const std::shared_ptr<Object> &object) {
+    this->objects->add(object);
+
+    if (object->is_visible())
+        this->models_count++;
+    else
+        this->cameras_count++;
 }
 
-void Scene::removeModel(const size_t model_id) {
-    auto it = this->models->begin();
-    std::advance(it, model_id);
-    this->models->remove(it);
+void Scene::removeObject(const Iterator &it) {
+    if((*it)->is_visible())
+        this->models_count--;
+    else
+        this->cameras_count--;
+
+    this->objects->remove(it);
 }
 
-void Scene::addCamera(const std::shared_ptr<Camera> &camera) {
-    this->cameras.push_back(camera);
+size_t Scene::getCamerasCount() const {
+    return this->cameras_count;
 }
 
-void Scene::removeCamera(std::size_t camera_id) {
-    auto it = this->cameras.begin();
-    std::advance(it, camera_id);
-    this->cameras.erase(it);
+size_t Scene::getModelsCount() const {
+    return this->models_count;
 }
 
-std::vector<std::shared_ptr<Camera>> Scene::getCameras() {
-    return this->cameras;
+Iterator Scene::begin() {
+    return this->objects->begin();
 }
 
-std::shared_ptr<Composite> Scene::getModels() {
-    return this->models;
+Iterator Scene::end() {
+    return this->objects->end();
+}
+
+void Scene::accept(std::shared_ptr<Visitor> visitor) {
+    this->objects->accept(std::move(visitor));
+}
+
+ConstIterator Scene::cbegin() const {
+    return this->objects->cbegin();
+}
+
+ConstIterator Scene::cend() const {
+    return this->objects->cend();
+}
+
+
+ConstIterator Scene::begin() const {
+    return this->objects->cbegin();
+}
+
+ConstIterator Scene::end() const {
+    return this->objects->cend();
 }

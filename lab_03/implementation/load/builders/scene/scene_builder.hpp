@@ -21,7 +21,7 @@ public:
 
     void buildModel(const std::shared_ptr<Object> &model);
 
-    void buildCamera(const std::shared_ptr<Camera> &camera);
+    void buildCamera(const std::shared_ptr<Object> &camera);
 
     std::shared_ptr<Scene> get();
 

@@ -6,7 +6,7 @@
 #include "add_model.hpp"
 
 void AddModel::execute() {
-    SceneManagerCreator().getManager()->getScene()->addModel(model);
+    SceneManagerCreator().getManager()->getScene()->addObject(model);
 
 }
 

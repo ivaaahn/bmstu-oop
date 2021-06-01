@@ -15,11 +15,11 @@ void SceneBuilder::reset() {
 }
 
 void SceneBuilder::buildModel(const std::shared_ptr<Object> &model) {
-    this->scene->addModel(model);
+    this->scene->addObject(model);
 }
 
-void SceneBuilder::buildCamera(const std::shared_ptr<Camera> &camera) {
-    this->scene->addCamera(camera);
+void SceneBuilder::buildCamera(const std::shared_ptr<Object> &camera) {
+    this->scene->addObject(camera);
 }
 
 std::shared_ptr<Scene> SceneBuilder::get() {

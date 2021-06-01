@@ -10,13 +10,13 @@
 
 #include <commands/camera/camera_command.hpp>
 
-class CameraCount : public CameraCommand {
+class CountCameras : public CameraCommand {
 public:
-    CameraCount() = delete;
+    CountCameras() = delete;
 
-    explicit CameraCount(std::shared_ptr<std::size_t> &count);
+    explicit CountCameras(std::shared_ptr<std::size_t> &count);
 
-    ~CameraCount() override = default;
+    ~CountCameras() override = default;
 
     void execute() override;
 

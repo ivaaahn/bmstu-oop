@@ -15,5 +15,5 @@ void LoadModel::execute() {
     load_manager->setDirector(std::make_shared<ModelDirector>());
 
     auto model = load_manager->load(filename);
-    SceneManagerCreator().getManager()->getScene()->addModel(model);
+    SceneManagerCreator().getManager()->getScene()->addObject(model);
 }

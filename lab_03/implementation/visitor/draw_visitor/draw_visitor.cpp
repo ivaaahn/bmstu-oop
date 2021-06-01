@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <scene/scene.hpp>
 
 #include "draw_visitor.hpp"
 #include "drawer/drawer.hpp"
@@ -35,6 +36,8 @@ Point DrawVisitor::projectPoint(const Point &point) {
 
 
 void DrawVisitor::visit(const Camera &camera) {}
+
+void DrawVisitor::visit(const Scene &scene) {}
 
 void DrawVisitor::visit(const Composite &composite) {}
 

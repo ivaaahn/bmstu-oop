@@ -1,4 +1,4 @@
-    //
+//
 // Created by ivaaahn on 23.05.2021.
 //
 
@@ -31,11 +31,15 @@ public:
 
     virtual Iterator begin() { return Iterator(); };
 
-    virtual ConstIterator cbegin() { return Iterator(); };
-
     virtual Iterator end() { return Iterator(); };
 
-    virtual ConstIterator cend() { return ConstIterator(); };
+    virtual ConstIterator begin() const { return ConstIterator(); };
+
+    virtual ConstIterator end() const { return ConstIterator(); };
+
+    virtual ConstIterator cbegin() const { return ConstIterator(); };
+
+    virtual ConstIterator cend() const { return ConstIterator(); };
 
     virtual bool is_visible() { return false; }
 

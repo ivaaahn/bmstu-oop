@@ -10,6 +10,9 @@
 #include "../manager.hpp"
 #include "../../scene/scene.hpp"
 
+using Iterator = std::vector<std::shared_ptr<Object>>::iterator;
+
+
 class SceneManager : public Manager {
 public:
     SceneManager();
@@ -22,15 +25,16 @@ public:
 
     [[nodiscard]] std::shared_ptr<Scene> getScene() const;
 
-    [[nodiscard]] std::shared_ptr<Camera> getCurrentCamera() const;
+    [[nodiscard]] std::shared_ptr<Camera> getMainCamera() const;
 
     void setScene(std::shared_ptr<Scene> scene);
 
-    void setCamera(std::size_t camera_id);
+    void setMainCamera(const Iterator &it);
 
 private:
     std::shared_ptr<Scene> scene;
-    std::weak_ptr<Camera> current_camera;
+    std::weak_ptr<Camera> main_camera;
+//    Iterator main_camera;
 };
 
 class SceneManagerCreator {

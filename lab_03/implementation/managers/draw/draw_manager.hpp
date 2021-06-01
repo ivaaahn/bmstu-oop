@@ -24,7 +24,7 @@ public:
 
     ~DrawManager() override = default;
 
-    void draw(const std::shared_ptr<Composite> &composite);
+    void draw(const std::shared_ptr<Scene> &scene);
 
     void setDrawer(std::shared_ptr<Drawer> drawer);
 

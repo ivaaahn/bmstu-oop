@@ -13,7 +13,7 @@ class SetCamera : public CameraCommand {
 public:
     SetCamera() = delete;
 
-    explicit SetCamera(std::size_t camera_id);
+    explicit SetCamera(size_t camera_id);
 
     ~SetCamera() override = default;
 

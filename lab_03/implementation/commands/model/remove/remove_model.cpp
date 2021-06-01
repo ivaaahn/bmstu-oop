@@ -8,5 +8,8 @@
 RemoveModel::RemoveModel(size_t model_id) : model_id(model_id) {}
 
 void RemoveModel::execute() {
-    SceneManagerCreator().getManager()->getScene()->removeModel(model_id);
+    auto scene = SceneManagerCreator().getManager()->getScene();
+    auto it = scene->begin();
+    std::advance(it, model_id);
+    scene->removeObject(it);
 }

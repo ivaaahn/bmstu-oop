@@ -15,7 +15,9 @@ void MoveCamera::execute() {
     auto scene_manager = SceneManagerCreator().getManager();
     auto transform_manager = TransformManagerCreator().getManager();
 
-    auto camera = scene_manager->getScene()->getCameras().at(camera_id);
-    transform_manager->transform(camera, shift, shift, shift);
+    auto it = scene_manager->getScene()->begin();
+    std::advance(it, camera_id);
+
+    transform_manager->transform(*it, shift, shift, shift);
 }
 

@@ -7,27 +7,43 @@
 
 
 #include <memory>
-#include "../objects/composite/composite.hpp"
-#include "../objects/camera/camera.hpp"
-#include "../objects/model/model.hpp"
+#include "objects/composite/composite.hpp"
+
 
 class Scene {
 public:
     Scene();
+
     ~Scene() = default;
 
-    void addModel(const std::shared_ptr<Object> &model);
-    void removeModel(std::size_t model_id);
+    void addObject(const std::shared_ptr<Object> &object);
 
-    void addCamera(const std::shared_ptr<Camera> &camera);
-    void removeCamera(std::size_t camera_id);
+    void removeObject(const Iterator &it);
 
-    std::shared_ptr<Composite> getModels();
-    std::vector<std::shared_ptr<Camera>> getCameras();
+    void accept(std::shared_ptr<Visitor> visitor);
+
+
+    [[nodiscard]] size_t getCamerasCount() const;
+
+    [[nodiscard]] size_t getModelsCount() const;
+
+    Iterator begin();
+
+    Iterator end();
+
+    [[nodiscard]] ConstIterator begin() const;
+
+    [[nodiscard]] ConstIterator end() const;
+
+    [[nodiscard]] ConstIterator cbegin() const;
+
+    [[nodiscard]] ConstIterator cend() const;
 
 private:
-    std::shared_ptr<Composite> models;
-    std::vector<std::shared_ptr<Camera>> cameras; // TODO может камеры тоже запихнуть в модели?
+    std::shared_ptr<Composite> objects;
+
+    size_t models_count = 0;
+    size_t cameras_count = 0;
 };
 
 

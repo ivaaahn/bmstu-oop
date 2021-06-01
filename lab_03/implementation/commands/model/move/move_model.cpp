@@ -17,14 +17,13 @@ void MoveModel::execute() {
     Point scale(1, 1, 1);
     Point rotate(0, 0, 0);
 
-    auto scene_manager = SceneManagerCreator().getManager();
     auto transform_manager = TransformManagerCreator().getManager();
 
-    auto models_iter = scene_manager->getScene()->getModels()->begin();
+    auto models_iter = SceneManagerCreator().getManager()->getScene()->begin();
     std::advance(models_iter, model_id);
 
     auto model = *models_iter;
 
-//    std::shared_ptr<Object> model = scene_manager->getScene()->getModels().at(model_id);
+//    std::shared_ptr<Object> model = scene_manager->getScene()->getObjects().at(model_id);
     transform_manager->transform(model, move, scale, rotate);
 }

@@ -8,9 +8,8 @@
 
 #include <memory>
 #include <visitor/draw_visitor/draw_visitor.hpp>
-#include "../object.hpp"
 #include "model_details/model_details.hpp"
-
+#include "objects/object.hpp"
 
 class Model : public VisibleObject {
 public:

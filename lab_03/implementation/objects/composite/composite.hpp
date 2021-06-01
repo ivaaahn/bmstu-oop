@@ -6,7 +6,7 @@
 #define __LAB_03_COMPOSITE_HPP__
 
 
-#include "../object.hpp"
+#include "objects/object.hpp"
 
 class Visitor;
 
@@ -14,7 +14,7 @@ class Composite : public Object {
 public:
     Composite() = default;
 
-    explicit Composite(const std::shared_ptr<Object>& component);
+    explicit Composite(const std::shared_ptr<Object> &component);
 
     explicit Composite(const std::vector<std::shared_ptr<Object>> &vector);
 
@@ -23,8 +23,13 @@ public:
     bool remove(const Iterator &iterator) override;
 
     Iterator begin() override;
-
     Iterator end() override;
+
+    [[nodiscard]] ConstIterator begin() const override;
+    [[nodiscard]] ConstIterator end() const override;
+
+    [[nodiscard]] ConstIterator cbegin() const override;
+    [[nodiscard]] ConstIterator cend() const override;
 
     bool is_visible() override;
 

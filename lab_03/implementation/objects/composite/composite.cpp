@@ -12,10 +12,6 @@ Composite::Composite(const std::vector<std::shared_ptr<Object>> &vector) {
     this->objects = vector;
 }
 
-//std::size_t Composite::size() const {
-//    return this->objects.size();
-//}
-
 bool Composite::add(const std::shared_ptr<Object> &component) {
     this->objects.push_back(component);
     return true;
@@ -52,8 +48,18 @@ void Composite::accept(std::shared_ptr<Visitor> visitor) {
         elem->accept(visitor);
 }
 
-//// TODO: Нужно ли?
-//std::vector<std::shared_ptr<Object>> &Composite::getObjects() {
-//    return this->objects;
-//}
+ConstIterator Composite::cbegin() const {
+    return this->objects.cbegin();
+}
 
+ConstIterator Composite::cend() const {
+    return this->objects.cend();
+}
+
+ConstIterator Composite::begin() const {
+    return this->objects.begin();
+}
+
+ConstIterator Composite::end() const {
+    return this->objects.end();
+}
