@@ -7,7 +7,7 @@
 
 
 #include <memory>
-#include "../../source_loaders/source_loader_creator.hpp"
+#include "load/loaders/object_loader_creator.hpp"
 
 #define CAMERA_CFG_PATH "../data/configuration/camera_load.cfg"
 
@@ -16,7 +16,7 @@ class CameraLoadSolution {
 public:
     CameraLoadSolution() = default;
 
-    static std::shared_ptr<SourceLoaderCreator> getCreator();
+    static std::shared_ptr<ObjectLoaderCreator> getCreator();
 };
 
 

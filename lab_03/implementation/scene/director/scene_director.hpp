@@ -11,9 +11,11 @@
 class SceneDirector {
 public:
     SceneDirector();
+
     ~SceneDirector() = default;
 
     std::shared_ptr<Scene> load(const std::string &src_name);
+
 private:
     std::shared_ptr<SceneLoader> loader;
 };

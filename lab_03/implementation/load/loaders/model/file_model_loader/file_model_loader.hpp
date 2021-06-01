@@ -7,9 +7,9 @@
 
 
 #include <load/builders/model/model_builder.hpp>
-#include "../source_model_loader.hpp"
+#include "../model_loader.hpp"
 
-class FileModelLoader : public SourceModelLoader {
+class FileModelLoader : public ModelLoader {
 public:
     FileModelLoader();
 

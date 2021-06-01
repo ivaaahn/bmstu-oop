@@ -7,8 +7,8 @@
 
 
 #include <memory>
-#include "../manager.hpp"
-#include "../../scene/scene.hpp"
+#include "managers/manager.hpp"
+#include "scene/scene.hpp"
 
 using Iterator = std::vector<std::shared_ptr<Object>>::iterator;
 

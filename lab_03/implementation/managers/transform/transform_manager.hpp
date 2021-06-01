@@ -6,9 +6,9 @@
 #define __LAB_03_TRANSFORM_MANAGER_HPP__
 
 
-#include "../../objects/model/model_details/point/point.hpp"
-#include "../../objects/object.hpp"
-#include "../manager.hpp"
+#include "objects/model/model_details/point/point.hpp"
+#include "objects/object.hpp"
+#include "managers/manager.hpp"
 
 class TransformManager : public Manager {
 public:

@@ -9,8 +9,8 @@
 #include <memory>
 #include <utility>
 
-#include "../../objects/object.hpp"
-#include "../source_loaders/source_loader.hpp"
+#include "load/loaders/object_loader.hpp"
+#include "objects/object.hpp"
 
 
 class LoadDirector {
@@ -22,7 +22,7 @@ public:
     virtual std::shared_ptr<Object> load(const std::string &name) = 0;
 
 protected:
-    std::shared_ptr<SourceLoader> loader;
+    std::shared_ptr<ObjectLoader> loader;
 };
 
 #endif //__LAB_03_LOAD_DIRECTOR_HPP__

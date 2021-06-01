@@ -7,7 +7,7 @@
 #include <config_manager/creator/config_manager_creator.hpp>
 #include "camera_load_solution.hpp"
 
-std::shared_ptr<SourceLoaderCreator> CameraLoadSolution::getCreator() {
+std::shared_ptr<ObjectLoaderCreator> CameraLoadSolution::getCreator() {
     std::ifstream cfg_file(CAMERA_CFG_PATH);
 
     if (!cfg_file) throw FileOpenError(__FILE__, __LINE__, "could not open config-file");

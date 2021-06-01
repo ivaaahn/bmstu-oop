@@ -2,17 +2,17 @@
 // Created by ivaaahn on 24.05.2021.
 //
 
-#ifndef __LAB_03_SOURCE_LOADER_HPP__
-#define __LAB_03_SOURCE_LOADER_HPP__
+#ifndef __LAB_03_OBJECT_LOADER_HPP__
+#define __LAB_03_OBJECT_LOADER_HPP__
 
 
 #include <objects/object.hpp>
 
-class SourceLoader {
+class ObjectLoader {
 public:
-    SourceLoader() = default;
+    ObjectLoader() = default;
 
-    virtual ~SourceLoader() = default;
+    virtual ~ObjectLoader() = default;
 
     virtual void open(const std::string &src_name) = 0;
 
@@ -22,4 +22,4 @@ public:
 };
 
 
-#endif //__LAB_03_SOURCE_LOADER_HPP__
+#endif //__LAB_03_OBJECT_LOADER_HPP__

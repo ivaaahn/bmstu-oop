@@ -4,8 +4,8 @@
 #include <fstream>
 #include <exceptions/load_exceptions.hpp>
 
-#include "load/source_loaders/camera/file_camera_loader/file_camera_loader.hpp"
-#include "load/source_loaders/model/file_model_loader/file_model_loader.hpp"
+#include "load/loaders/camera/file_camera_loader/file_camera_loader.hpp"
+#include "load/loaders/model/file_model_loader/file_model_loader.hpp"
 #include "file_scene_loader.hpp"
 
 FileSceneLoader::FileSceneLoader() : builder(std::make_shared<SceneBuilder>()) {}

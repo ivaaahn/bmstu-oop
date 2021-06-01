@@ -83,15 +83,15 @@ set(LOAD
         load/solutions/camera/camera_load_solution.hpp
         load/solutions/model/model_load_solution.cpp
         load/solutions/model/model_load_solution.hpp
-        load/source_loaders/source_loader.hpp
-        load/source_loaders/source_loader_creator.hpp
-        load/source_loaders/camera/source_camera_loader.hpp
-        load/source_loaders/camera/file_camera_loader/file_camera_loader.cpp
-        load/source_loaders/camera/file_camera_loader/file_camera_loader.hpp
-        load/source_loaders/model/source_model_loader.hpp
-        load/source_loaders/model/file_model_loader/file_model_loader.cpp
-        load/source_loaders/model/file_model_loader/file_model_loader.hpp
-        load/source_loaders/camera/file_camera_loader/file_camera_loader.hpp
+        load/loaders/object_loader.hpp
+        load/loaders/object_loader_creator.hpp
+        load/loaders/camera/source_camera_loader.hpp
+        load/loaders/camera/file_camera_loader/file_camera_loader.cpp
+        load/loaders/camera/file_camera_loader/file_camera_loader.hpp
+        load/loaders/model/model_loader.hpp
+        load/loaders/model/file_model_loader/file_model_loader.cpp
+        load/loaders/model/file_model_loader/file_model_loader.hpp
+        load/loaders/camera/file_camera_loader/file_camera_loader.hpp
         )
 
 set(MANAGERS

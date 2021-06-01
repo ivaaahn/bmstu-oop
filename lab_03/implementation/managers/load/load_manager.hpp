@@ -8,8 +8,8 @@
 
 #include <memory>
 #include <load/directors/load_director.hpp>
-#include "../manager.hpp"
-#include "../../objects/object.hpp"
+#include "managers/manager.hpp"
+#include "objects/object.hpp"
 
 class LoadManager : public Manager {
 public:
@@ -36,6 +36,7 @@ public:
 
 private:
     void createManager();
+
     std::shared_ptr<LoadManager> manager;
 };
 

@@ -211,14 +211,18 @@ void MainWindow::on_add_camera_btn_clicked() {
 }
 
 void MainWindow::on_change_model_btn_clicked() {
-    auto obj_list = this->ui->objects_list;
-    if (obj_list->currentRow() < 0)
+    if (this->ui->objects_list->currentRow() < 0)
     {
         QMessageBox::critical(nullptr, "Ошибка", "Выберите модель, которую хотите сделать текущей");
         return;
     }
 
-    this->ui->curr_model_lbl->setText(obj_list->currentItem()->text());
+    auto curr_item = this->ui->objects_list->currentItem();
+
+    if (curr_item->text().contains("model"))
+        this->ui->curr_model_lbl->setText(curr_item->text());
+    else
+        QMessageBox::critical(nullptr, "Ошибка", "Выберите корректную модель");
 }
 
 
@@ -229,13 +233,20 @@ void MainWindow::on_change_camera_btn_clicked() {
         return;
     }
 
+    auto curr_item = this->ui->objects_list->currentItem();
+    if (!curr_item->text().contains("camera"))
+    {
+        QMessageBox::critical(nullptr, "Ошибка", "Выберите корректную камеру");
+        return;
+    }
+
     auto camera_set_cmd = std::make_shared<SetCamera>(this->ui->objects_list->currentRow());
 
     try
     {
         this->facade->execute(camera_set_cmd);
         this->updateScene();
-        this->ui->curr_camera_lbl->setText(this->ui->objects_list->currentItem()->text());
+        this->ui->curr_camera_lbl->setText(curr_item->text());
     } catch (BaseException &ex)
     {
         QMessageBox::warning(this, "Error", QString(ex.what()));

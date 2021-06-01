@@ -7,7 +7,7 @@
 
 
 #include <memory>
-#include "../../source_loaders/source_loader_creator.hpp"
+#include "load/loaders/object_loader_creator.hpp"
 
 #define MODEL_CFG_PATH "../data/configuration/model_load.cfg"
 
@@ -15,7 +15,7 @@ class ModelLoadSolution {
 public:
     ModelLoadSolution() = default;
 
-    static std::shared_ptr<SourceLoaderCreator> getCreator();
+    static std::shared_ptr<ObjectLoaderCreator> getCreator();
 };
 
 

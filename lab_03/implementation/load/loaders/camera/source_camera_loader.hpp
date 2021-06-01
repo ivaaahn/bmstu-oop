@@ -7,13 +7,13 @@
 
 
 #include "../../../objects/object.hpp"
-#include "../source_loader.hpp"
+#include "../object_loader.hpp"
 
-class SourceCameraLoader : public SourceLoader {
+class CameraLoader : public ObjectLoader {
 public:
-    SourceCameraLoader() = default;
+    CameraLoader() = default;
 
-    virtual ~SourceCameraLoader() = default;
+    virtual ~CameraLoader() = default;
 
     virtual void open(const std::string &src_name) = 0;
 

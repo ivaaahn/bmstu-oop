@@ -10,7 +10,7 @@
 #include <load/builders/camera/camera_builder.hpp>
 #include "../source_camera_loader.hpp"
 
-class FileCameraLoader : public SourceCameraLoader {
+class FileCameraLoader : public CameraLoader {
 public:
     FileCameraLoader();
     explicit FileCameraLoader(std::shared_ptr<std::ifstream> &src_file);

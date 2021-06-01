@@ -7,7 +7,7 @@
 
 
 #include <memory>
-#include "load/source_loaders/source_loader_creator.hpp"
+#include "load/loaders/object_loader_creator.hpp"
 #include "scene/loaders/scene_loader_creator.hpp"
 
 #define SCENE_CFG_PATH "./data/scene_load.cfg"

@@ -14,7 +14,7 @@ class ConfigManager {
 public:
     ConfigManager();
 
-    std::shared_ptr<SourceLoaderCreator> getSrcLoaderCreator(size_t id);
+    std::shared_ptr<ObjectLoaderCreator> getSrcLoaderCreator(size_t id);
     std::shared_ptr<SceneLoaderCreator> getSceneLoaderCreator(size_t id);
 
 private:

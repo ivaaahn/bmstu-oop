@@ -15,14 +15,17 @@
 class ModelBuilder {
 public:
     ModelBuilder();
+
     ~ModelBuilder() = default;
 
     bool isBuild();
+
     void reset();
 
-
     void buildCenter(const Point &point);
+
     void buildPoint(const Point &point);
+
     void buildEdge(const Edge &edge);
 
     std::shared_ptr<Model> get();
