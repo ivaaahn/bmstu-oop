@@ -4,8 +4,8 @@
 
 #include <fstream>
 #include <exceptions/load_exceptions.hpp>
+#include <config_manager/creator/config_manager_creator.hpp>
 #include "camera_load_solution.hpp"
-#include "../../../config_manager/creator/config_manager_creator.hpp"
 
 std::shared_ptr<SourceLoaderCreator> CameraLoadSolution::getCreator() {
     std::ifstream cfg_file(CAMERA_CFG_PATH);
