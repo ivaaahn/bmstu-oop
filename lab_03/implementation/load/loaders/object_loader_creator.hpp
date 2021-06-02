@@ -17,7 +17,7 @@ public:
     virtual std::shared_ptr<ObjectLoader> create() = 0;
 };
 
-template<typename SourceLoaderType>
+template<typename ObjectLoaderType>
 class ConObjectLoaderCreator : public ObjectLoaderCreator {
 public:
     ConObjectLoaderCreator() = default;
@@ -25,7 +25,7 @@ public:
     ~ConObjectLoaderCreator() override = default;
 
     std::shared_ptr<ObjectLoader> create() override {
-        return std::make_shared<SourceLoaderType>();
+        return std::make_shared<ObjectLoaderType>();
     }
 };
 

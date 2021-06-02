@@ -9,11 +9,9 @@
 #include <cstddef>
 #include <memory>
 #include "load/loaders/object_loader_creator.hpp"
-#include "scene/loaders/scene_loader_creator.hpp"
 
 
 using CallbackMapObject = std::map<size_t, std::shared_ptr<ObjectLoaderCreator>>;
-using CallbackMapScene = std::map<size_t, std::shared_ptr<SceneLoaderCreator>>;
 
 class Solution {
 public:
@@ -21,17 +19,12 @@ public:
 
     ~Solution() = default;
 
-    bool registerObjectLoader(size_t id, const std::shared_ptr<ObjectLoaderCreator> &object_loader_creator);
+    bool registerLoaderCreator(size_t id, const std::shared_ptr<ObjectLoaderCreator> &object_loader_creator);
 
-    bool registerSceneLoader(size_t id, const std::shared_ptr<SceneLoaderCreator> &scene_loader_creator);
-
-    std::shared_ptr<ObjectLoaderCreator> getObjectLoaderCreator(size_t id);
-
-    std::shared_ptr<SceneLoaderCreator> getSceneLoaderCreator(size_t id);
+    std::shared_ptr<ObjectLoaderCreator> getLoaderCreator(size_t id);
 
 private:
-    CallbackMapObject objects_callbacks;
-    CallbackMapScene scene_callbacks;
+    CallbackMapObject callbacks;
 };
 
 

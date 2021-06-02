@@ -23,7 +23,7 @@ public:
     void visit(const Model &model) override;
     void visit(const Scene &scene) override;
 
-protected:
+private:
     std::shared_ptr<Drawer> drawer;
     std::shared_ptr<Camera> camera;
 

@@ -9,10 +9,6 @@ ConfigManager::ConfigManager() {
     reg_maker->makeRegistration(this->solution);
 }
 
-std::shared_ptr<ObjectLoaderCreator> ConfigManager::getSrcLoaderCreator(const size_t id) {
-    return this->solution.getObjectLoaderCreator(id);
-}
-
-std::shared_ptr<SceneLoaderCreator> ConfigManager::getSceneLoaderCreator(size_t id) {
-    return this->solution.getSceneLoaderCreator(id);
+std::shared_ptr<ObjectLoaderCreator> ConfigManager::getLoaderCreator(size_t id) {
+    return this->solution.getLoaderCreator(id);
 }

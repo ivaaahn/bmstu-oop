@@ -35,8 +35,8 @@ set(COMMANDS
         commands/scene/scene_command.hpp
         commands/scene/render/render_scene.cpp
         commands/scene/render/render_scene.hpp
-        commands/scene/load/load_scene.cpp
-        commands/scene/load/load_scene.hpp
+#        commands/scene/load/load_scene.cpp
+#        commands/scene/load/load_scene.hpp
         )
 
 
@@ -72,8 +72,8 @@ set(LOAD
         load/builders/camera/camera_builder.hpp
         load/builders/model/model_builder.cpp
         load/builders/model/model_builder.hpp
-        load/builders/scene/scene_builder.hpp
-        load/builders/scene/scene_builder.cpp
+#        load/builders/scene/scene_builder.hpp
+#        load/builders/scene/scene_builder.cpp
         load/directors/load_director.hpp
         load/directors/camera/camera_director.cpp
         load/directors/camera/camera_director.hpp
@@ -85,7 +85,7 @@ set(LOAD
         load/solutions/model/model_load_solution.hpp
         load/loaders/object_loader.hpp
         load/loaders/object_loader_creator.hpp
-        load/loaders/camera/source_camera_loader.hpp
+        load/loaders/camera/camera_loader.hpp
         load/loaders/camera/file_camera_loader/file_camera_loader.cpp
         load/loaders/camera/file_camera_loader/file_camera_loader.hpp
         load/loaders/model/model_loader.hpp
@@ -125,15 +125,15 @@ set(OBJECTS
 set(SCENE
         scene/scene.cpp
         scene/scene.hpp
-        scene/director/scene_director.cpp
-        scene/director/scene_director.hpp
-        scene/loaders/scene_loader.hpp
-        scene/loaders/scene_loader_creator.hpp
-        scene/loaders/file/file_scene_loader.cpp
-        scene/loaders/file/file_scene_loader.hpp
-        scene/loaders/file/file_scene_loader_creator.hpp
-        scene/solution/scene_load_solution.hpp
-        scene/solution/scene_load_solution.cpp
+#        scene/director/scene_director.cpp
+#        scene/director/scene_director.hpp
+#        scene/loaders/scene_loader.hpp
+#        scene/loaders/scene_loader_creator.hpp
+#        scene/loaders/file/file_scene_loader.cpp
+#        scene/loaders/file/file_scene_loader.hpp
+#        scene/loaders/file/file_scene_loader_creator.hpp
+#        scene/solution/scene_load_solution.hpp
+#        scene/solution/scene_load_solution.cpp
         )
 
 set(VISITOR

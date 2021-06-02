@@ -8,7 +8,7 @@
 
 #include <load/builders/model/model_builder.hpp>
 #include <load/builders/camera/camera_builder.hpp>
-#include "../source_camera_loader.hpp"
+#include "../camera_loader.hpp"
 
 class FileCameraLoader : public CameraLoader {
 public:

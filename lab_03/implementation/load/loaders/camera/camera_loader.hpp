@@ -2,8 +2,8 @@
 // Created by ivaaahn on 24.05.2021.
 //
 
-#ifndef __LAB_03_SOURCE_CAMERA_LOADER_HPP__
-#define __LAB_03_SOURCE_CAMERA_LOADER_HPP__
+#ifndef __LAB_03_CAMERA_LOADER_HPP__
+#define __LAB_03_CAMERA_LOADER_HPP__
 
 
 #include "../../../objects/object.hpp"
@@ -23,4 +23,4 @@ public:
 };
 
 
-#endif //__LAB_03_SOURCE_CAMERA_LOADER_HPP__
+#endif //__LAB_03_CAMERA_LOADER_HPP__

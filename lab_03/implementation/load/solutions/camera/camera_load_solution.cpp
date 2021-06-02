@@ -17,5 +17,5 @@ std::shared_ptr<ObjectLoaderCreator> CameraLoadSolution::getCreator() {
     if (!(cfg_file >> id)) throw FileFormatError(__FILE__, __LINE__, "invalid сonfig-file format");
 
 
-    return ConfigManagerCreator().getManager()->getSrcLoaderCreator(id);
+    return ConfigManagerCreator().getManager()->getLoaderCreator(id);
 }

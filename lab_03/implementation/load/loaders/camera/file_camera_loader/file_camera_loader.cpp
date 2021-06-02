@@ -23,8 +23,6 @@ void FileCameraLoader::open(const std::string &src_name) {
 std::shared_ptr<Object> FileCameraLoader::load() {
     this->builder->reset();
 
-//    if (!*(this->src_file)) throw FileOpenException();
-
     double x, y, z;
     if (!(*(this->src_file) >> x >> y >> z)) throw FileFormatError(__FILE__, __LINE__, "bad format of camera-file");
     this->builder->buildPosition(x, y, z);
