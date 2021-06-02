@@ -72,7 +72,8 @@ Thumbs.db
 *.exe
 
 translations/
-build/
+*build/
 .vscode
 .idea/
-cmake-build*/
+cmake-build-debug/
+cmake-build-default/

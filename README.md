@@ -1,2 +1,1 @@
 # bmstu-oop
-
