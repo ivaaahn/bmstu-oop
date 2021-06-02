@@ -25,7 +25,7 @@ std::shared_ptr<Object> FileModelLoader::load() {
     this->loadCenter();
     this->loadEdges();
 
-    return std::dynamic_pointer_cast<Object>(this->builder->get());
+    return this->builder->get();
 }
 
 void FileModelLoader::close() {

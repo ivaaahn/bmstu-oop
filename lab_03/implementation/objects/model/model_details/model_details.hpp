@@ -9,9 +9,12 @@
 #include <vector>
 #include "point/point.hpp"
 #include "edge/edge.hpp"
+#include "visitor/draw_visitor/draw_visitor.hpp"
 
 class ModelDetails {
 public:
+    friend class DrawVisitor;
+
     ModelDetails() = default;
 
     ModelDetails(std::vector<Point> &points, std::vector<Edge> &edges);
@@ -28,10 +31,6 @@ public:
 
     [[nodiscard]] const Point &getCenter() const;
 
-    [[nodiscard]] const std::vector<Point> &getPoints() const;
-
-    [[nodiscard]] const std::vector<Edge> &getEdges() const;
-
     void transform(const Point &move_params, const Point &scale_params, const Point &rotate_params);
 
 private:
@@ -42,6 +41,9 @@ private:
     void move(const Point &move_params);
     void scale(const Point &scale_params);
     void rotate(const Point &rotate_params);
+
+    [[nodiscard]] const std::vector<Point> &getPoints() const;
+    [[nodiscard]] const std::vector<Edge> &getEdges() const;
 };
 
 
